@@ -1,9 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.quiz.up.GamePlay">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="10dp"
+        android:id="@+id/upperLayout">
+
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+             />
+
+        <Button
+            android:id="@+id/pause"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="" />
+
+        <Button
+            android:id="@+id/perks"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/pause"
+            android:layout_toStartOf="@+id/pause"
+            android:text=""
+            android:layout_marginRight="10dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/upperLayout"
+        android:id="@+id/questionLayout"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/questionNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="1/7"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/questionNumber"
+            android:layout_toRightOf="@+id/questionNumber"
+            android:text="TextView"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="20dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/optionsLayout"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/optionA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text=""
+            android:background="@drawable/option_background"
+            android:layout_margin="5dp" />
+
+        <Button
+            android:id="@+id/optionB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/optionA"
+            android:text=""
+            android:background="@drawable/option_background"
+            android:layout_margin="5dp"/>
+
+        <Button
+            android:id="@+id/optionC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/optionB"
+            android:text=""
+            android:background="@drawable/option_background"
+            android:layout_margin="5dp"/>
+
+        <Button
+            android:id="@+id/optionD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/optionC"
+            android:text=""
+            android:textSize="20dp"
+            android:background="@drawable/option_background"
+            android:layout_margin="5dp"/>
+    </RelativeLayout>
+</RelativeLayout>

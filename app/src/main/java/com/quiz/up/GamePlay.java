@@ -55,34 +55,41 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
         Button tv=(Button)view;
 
-        switch (tv.getId()) {
-            case R.id.optionA:
-                i++;
-                set_Q_and_a_view(i);
-                break;
-            case R.id.optionB:
-                i++;
-                set_Q_and_a_view(i);
-                break;
-            case R.id.optionC:
-                i++;
-                set_Q_and_a_view(i);
-                break;
-            case R.id.optionD:
-                i++;
-                set_Q_and_a_view(i);
-                break;
+            switch (tv.getId()) {
+                case R.id.optionA:
+                    i++;
+                    set_Q_and_a_view(i);
+                    break;
+                case R.id.optionB:
+                    i++;
+                    set_Q_and_a_view(i);
+                    break;
+                case R.id.optionC:
+                    i++;
+                    set_Q_and_a_view(i);
+                    break;
+                case R.id.optionD:
+                    i++;
+                    set_Q_and_a_view(i);
+                    break;
         }
+
 
     }
 
     public void set_Q_and_a_view(int k)
     {
-        question_notv.setText(k+1+"/7");
-        questiontv.setText(q_and_a.get(k).getQuestion());
-        optionAtv.setText(q_and_a.get(k).getA());
-        optionBtv.setText(q_and_a.get(k).getB());
-        optionCtv.setText(q_and_a.get(k).getC());
-        optionDtv.setText(q_and_a.get(k).getD());
+        if(k<7) {
+            question_notv.setText(k + 1 + "/7");
+            questiontv.setText(q_and_a.get(k).getQuestion());
+            optionAtv.setText(q_and_a.get(k).getA());
+            optionBtv.setText(q_and_a.get(k).getB());
+            optionCtv.setText(q_and_a.get(k).getC());
+            optionDtv.setText(q_and_a.get(k).getD());
+        }
+        else{
+            Toast.makeText(this, "Questions khatam ho gaye BC", Toast.LENGTH_LONG).show();
+        }
+
     }
 }

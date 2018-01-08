@@ -3,7 +3,6 @@ package com.quiz.up;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.Gson;
@@ -20,24 +19,36 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     int score=0;
     List<Questionlist> q_and_a=new ArrayList<>();
     int i=0;
-    Button optionAtv,optionBtv,optionCtv,optionDtv;
+    TextView optionAtv,optionBtv,optionCtv,optionDtv;
     TextView questiontv,question_notv;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onResume() {
+        super.onResume();
+
         View dv=getWindow().getDecorView();
         int ui=View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
         dv.setSystemUiVisibility(ui);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        View dv=getWindow().getDecorView();
+        int ui=View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+        dv.setSystemUiVisibility(ui);
+
         setContentView(R.layout.activity_game_play);
         questiontv = (TextView)findViewById(R.id.question);
         question_notv=(TextView)findViewById(R.id.questionNumber);
-        optionAtv =(Button)findViewById(R.id.optionA);
+        optionAtv =(TextView)findViewById(R.id.optionA);
         optionAtv.setOnClickListener(this);
-        optionBtv =(Button)findViewById(R.id.optionB);
+        optionBtv =(TextView)findViewById(R.id.optionB);
         optionBtv.setOnClickListener(this);
-        optionCtv =(Button)findViewById(R.id.optionC);
+        optionCtv =(TextView)findViewById(R.id.optionC);
         optionCtv.setOnClickListener(this);
-        optionDtv =(Button)findViewById(R.id.optionD);
+        optionDtv =(TextView)findViewById(R.id.optionD);
         optionDtv.setOnClickListener(this);
 
         jsonString = getIntent().getStringExtra("jsonobj");
@@ -45,38 +56,38 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         q_and_a= obj.getQuestionlist();
 
         //setting the first question and options beforehand
-        set_questions_and_options(0);
+        setQuestionsAndOptions(0);
 
     }
 
     @Override
     public void onClick(View view) {
 
-        Button tv=(Button)view;
+        TextView tv=(TextView)view;
 
             switch (tv.getId()) {
                 case R.id.optionA:
                     set_answer_anim_and_score("A",i);
-                    set_questions_and_options(++i);
+                    setQuestionsAndOptions(++i);
                     break;
                 case R.id.optionB:
                     set_answer_anim_and_score("B",i);
-                    set_questions_and_options(++i);
+                    setQuestionsAndOptions(++i);
                     break;
                 case R.id.optionC:
                     set_answer_anim_and_score("C",i);
-                    set_questions_and_options(++i);
+                    setQuestionsAndOptions(++i);
                     break;
                 case R.id.optionD:
                     set_answer_anim_and_score("D",i);
-                    set_questions_and_options(++i);
+                    setQuestionsAndOptions(++i);
                     break;
         }
 
 
     }
 
-    public void set_questions_and_options(int k)
+    public void setQuestionsAndOptions (int k)
     {
         if(k<7) {
             // logic for setting the question and options relative to the index passed
@@ -110,4 +121,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             Toast.makeText(this, "wrong answer", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }

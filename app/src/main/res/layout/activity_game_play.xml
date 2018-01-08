@@ -55,7 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
             android:text="1/7"
             android:textColor="@color/textColorSecondary"
             android:textSize="15dp"/>
@@ -64,13 +63,13 @@
             android:id="@+id/question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/questionNumber"
-            android:layout_toRightOf="@+id/questionNumber"
+            android:layout_toRightOf="@id/questionNumber"
+            android:layout_alignTop="@+id/questionNumber"
+            android:layout_marginLeft="7dp"
             android:text="TextView"
-            android:layout_marginLeft="10dp"
             android:textColor="@color/textColorPrimary"
-            android:textSize="20dp"/>
+            android:textSize="20dp" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -82,46 +81,50 @@
         android:id="@+id/optionsLayout"
         android:padding="10dp">
 
-        <Button
+        <TextView
             android:id="@+id/optionA"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:textAlignment="center"
             android:text=""
             android:background="@drawable/option_background"
             android:layout_margin="5dp" />
 
-        <Button
+        <TextView
             android:id="@+id/optionB"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/optionA"
             android:text=""
+            android:textAlignment="center"
             android:background="@drawable/option_background"
             android:layout_margin="5dp"/>
 
-        <Button
+        <TextView
             android:id="@+id/optionC"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/optionB"
             android:text=""
+            android:textAlignment="center"
             android:background="@drawable/option_background"
             android:layout_margin="5dp"/>
 
-        <Button
+        <TextView
             android:id="@+id/optionD"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/optionC"
             android:text=""
+            android:textAlignment="center"
             android:textSize="20dp"
             android:background="@drawable/option_background"
             android:layout_margin="5dp"/>

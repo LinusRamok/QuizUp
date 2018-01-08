@@ -20,12 +20,9 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     int score=0;
     List<Questionlist> q_and_a=new ArrayList<>();
     int i=0;
-<<<<<<< HEAD
+
     TextView optionAtv,optionBtv,optionCtv,optionDtv;
-=======
     Boolean perk_one_isclicked=false,perk_two_isclicked=false,view_changed=false;
-    Button optionAtv,optionBtv,optionCtv,optionDtv;
->>>>>>> 7e269c71d7215c0729d0674a36af0a22b6263bbd
     TextView questiontv,question_notv;
 
     @Override
@@ -138,10 +135,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             Toast.makeText(this, "wrong answer", Toast.LENGTH_SHORT).show();
         }
     }
-<<<<<<< HEAD
 
-
-=======
     public void perk_one(int k)
     {
         //logic for perk one, i.e. perk 50-50
@@ -179,5 +173,4 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
         perk_two_isclicked=true;
     }
->>>>>>> 7e269c71d7215c0729d0674a36af0a22b6263bbd
 }

@@ -4,11 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -20,6 +17,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     JSONObject jsonObject=null;
     QuestionsApi obj;
     BufferedReader reader;
+    int score=0;
     List<Questionlist> q_and_a=new ArrayList<>();
     int i=0;
     Button optionAtv,optionBtv,optionCtv,optionDtv;
@@ -41,12 +39,13 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         optionCtv.setOnClickListener(this);
         optionDtv =(Button)findViewById(R.id.optionD);
         optionDtv.setOnClickListener(this);
+
         jsonString = getIntent().getStringExtra("jsonobj");
-
         obj=new Gson().fromJson(jsonString , QuestionsApi.class);
-
         q_and_a= obj.getQuestionlist();
-        set_Q_and_a_view(0);
+
+        //setting the first question and options beforehand
+        set_questions_and_options(0);
 
     }
 
@@ -57,29 +56,30 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
             switch (tv.getId()) {
                 case R.id.optionA:
-                    i++;
-                    set_Q_and_a_view(i);
+                    set_answer_anim_and_score("A",i);
+                    set_questions_and_options(++i);
                     break;
                 case R.id.optionB:
-                    i++;
-                    set_Q_and_a_view(i);
+                    set_answer_anim_and_score("B",i);
+                    set_questions_and_options(++i);
                     break;
                 case R.id.optionC:
-                    i++;
-                    set_Q_and_a_view(i);
+                    set_answer_anim_and_score("C",i);
+                    set_questions_and_options(++i);
                     break;
                 case R.id.optionD:
-                    i++;
-                    set_Q_and_a_view(i);
+                    set_answer_anim_and_score("D",i);
+                    set_questions_and_options(++i);
                     break;
         }
 
 
     }
 
-    public void set_Q_and_a_view(int k)
+    public void set_questions_and_options(int k)
     {
         if(k<7) {
+            // logic for setting the question and options relative to the index passed
             question_notv.setText(k + 1 + "/7");
             questiontv.setText(q_and_a.get(k).getQuestion());
             optionAtv.setText(q_and_a.get(k).getA());
@@ -88,8 +88,26 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             optionDtv.setText(q_and_a.get(k).getD());
         }
         else{
+            // logic to be applied after seven questions, i.e., passing score to the next activity, calling the next activity
+
             Toast.makeText(this, "Questions khatam ho gaye BC", Toast.LENGTH_LONG).show();
         }
 
+    }
+    public void set_answer_anim_and_score(String ans,int k)
+    {
+        if(k<7)
+        if (ans.equals(q_and_a.get(k).getAnswer()))
+        {
+            //whatever animation to be applied if answer is correct
+
+            Toast.makeText(this, "correct answer", Toast.LENGTH_SHORT).show();
+            score++;
+        }
+        else{
+            //whatever animation to be applied if animation is wrong
+
+            Toast.makeText(this, "wrong answer", Toast.LENGTH_SHORT).show();
+        }
     }
 }

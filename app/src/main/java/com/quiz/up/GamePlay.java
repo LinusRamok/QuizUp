@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GamePlay extends AppCompatActivity implements View.OnClickListener {
     String jsonString;
@@ -20,6 +21,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     int score=0;
     List<Questionlist> q_and_a=new ArrayList<>();
     int i=0;
+    Boolean perk_one_isclicked=false,perk_two_isclicked=false,view_changed=false;
     Button optionAtv,optionBtv,optionCtv,optionDtv;
     TextView questiontv,question_notv;
     @Override
@@ -78,8 +80,19 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
     public void set_questions_and_options(int k)
     {
+        if(perk_one_isclicked==true && view_changed==false)
+        {
+            // making the textviews of options VISIBLE again which were set to gone in perk one
+            view_changed=true;
+
+            optionAtv.setVisibility(View.VISIBLE);
+            optionBtv.setVisibility(View.VISIBLE);
+            optionCtv.setVisibility(View.VISIBLE);
+            optionDtv.setVisibility(View.VISIBLE);
+        }
         if(k<7) {
             // logic for setting the question and options relative to the index passed
+
             question_notv.setText(k + 1 + "/7");
             questiontv.setText(q_and_a.get(k).getQuestion());
             optionAtv.setText(q_and_a.get(k).getA());
@@ -109,5 +122,42 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
             Toast.makeText(this, "wrong answer", Toast.LENGTH_SHORT).show();
         }
+    }
+    public void perk_one(int k)
+    {
+        //logic for perk one, i.e. perk 50-50
+        perk_one_isclicked=true;
+        int p=2,a;
+        String s;
+        while (p>0)
+        {
+            Random R= new Random();
+            a=65+R.nextInt(4);
+            s=Integer.toString(a);
+            if (!s.equals(q_and_a.get(k).getAnswer()))
+            {
+                    if(s.equals("A"))
+                        optionAtv.setVisibility(View.GONE);
+                    else if (s.equals("B"))
+                        optionBtv.setVisibility(View.GONE);
+                    else if (s.equals("C"))
+                        optionCtv.setVisibility(View.GONE);
+                    else if (s.equals("D"))
+                        optionDtv.setVisibility(View.GONE);
+                    p--;
+            }
+        }
+    }
+    public void perk_two()
+    {
+        //logic for perk two,i.e. change question
+
+        questiontv.setText(q_and_a.get(8).getQuestion());
+        optionAtv.setText(q_and_a.get(8).getA());
+        optionBtv.setText(q_and_a.get(8).getB());
+        optionCtv.setText(q_and_a.get(8).getC());
+        optionDtv.setText(q_and_a.get(8).getD());
+
+        perk_two_isclicked=true;
     }
 }

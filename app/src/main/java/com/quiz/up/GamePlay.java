@@ -1,8 +1,12 @@
 package com.quiz.up;
 
+import android.graphics.Typeface;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.Gson;
@@ -21,9 +25,9 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     List<Questionlist> q_and_a=new ArrayList<>();
     int i=0;
 
-    TextView optionAtv,optionBtv,optionCtv,optionDtv;
+    TextView optionA, optionB, optionC, optionD, perk1, perk2;
     Boolean perk_one_isclicked=false,perk_two_isclicked=false,view_changed=false;
-    TextView questiontv,question_notv;
+    TextView question, questionNumber;
 
     @Override
     protected void onResume() {
@@ -43,16 +47,32 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         dv.setSystemUiVisibility(ui);
 
         setContentView(R.layout.activity_game_play);
-        questiontv = (TextView)findViewById(R.id.question);
-        question_notv=(TextView)findViewById(R.id.questionNumber);
-        optionAtv =(TextView)findViewById(R.id.optionA);
-        optionAtv.setOnClickListener(this);
-        optionBtv =(TextView)findViewById(R.id.optionB);
-        optionBtv.setOnClickListener(this);
-        optionCtv =(TextView)findViewById(R.id.optionC);
-        optionCtv.setOnClickListener(this);
-        optionDtv =(TextView)findViewById(R.id.optionD);
-        optionDtv.setOnClickListener(this);
+        question = (TextView)findViewById(R.id.question);
+        questionNumber =(TextView)findViewById(R.id.questionNumber);
+        optionA =(TextView)findViewById(R.id.optionA);
+        optionA.setOnClickListener(this);
+        optionB =(TextView)findViewById(R.id.optionB);
+        optionB.setOnClickListener(this);
+        optionC =(TextView)findViewById(R.id.optionC);
+        optionC.setOnClickListener(this);
+        optionD =(TextView)findViewById(R.id.optionD);
+        optionD.setOnClickListener(this);
+        perk1 =(TextView)findViewById(R.id.perk1);
+        perk1.setOnClickListener(this);
+        perk2 =(TextView)findViewById(R.id.perk2);
+        perk2.setOnClickListener(this);
+
+        Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
+        Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
+
+        question.setTypeface(ourBoldFont);
+        questionNumber.setTypeface(ourLightFont);
+        optionA.setTypeface(ourLightFont);
+        optionB.setTypeface(ourLightFont);
+        optionC.setTypeface(ourLightFont);
+        optionD.setTypeface(ourLightFont);
+        perk1.setTypeface(ourBoldFont);
+        perk2.setTypeface(ourBoldFont);
 
         jsonString = getIntent().getStringExtra("jsonobj");
         obj=new Gson().fromJson(jsonString , QuestionsApi.class);
@@ -71,19 +91,19 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             switch (tv.getId()) {
                 case R.id.optionA:
                     set_answer_anim_and_score("A",i);
-                    setQuestionsAndOptions(++i);
+
                     break;
                 case R.id.optionB:
                     set_answer_anim_and_score("B",i);
-                    setQuestionsAndOptions(++i);
+
                     break;
                 case R.id.optionC:
                     set_answer_anim_and_score("C",i);
-                    setQuestionsAndOptions(++i);
+
                     break;
                 case R.id.optionD:
                     set_answer_anim_and_score("D",i);
-                    setQuestionsAndOptions(++i);
+
                     break;
         }
 
@@ -97,42 +117,113 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             // making the textviews of options VISIBLE again which were set to gone in perk one
             view_changed=true;
 
-            optionAtv.setVisibility(View.VISIBLE);
-            optionBtv.setVisibility(View.VISIBLE);
-            optionCtv.setVisibility(View.VISIBLE);
-            optionDtv.setVisibility(View.VISIBLE);
+            optionA.setVisibility(View.VISIBLE);
+            optionB.setVisibility(View.VISIBLE);
+            optionC.setVisibility(View.VISIBLE);
+            optionD.setVisibility(View.VISIBLE);
         }
         if(k<7) {
             // logic for setting the question and options relative to the index passed
 
-            question_notv.setText(k + 1 + "/7");
-            questiontv.setText(q_and_a.get(k).getQuestion());
-            optionAtv.setText(q_and_a.get(k).getA());
-            optionBtv.setText(q_and_a.get(k).getB());
-            optionCtv.setText(q_and_a.get(k).getC());
-            optionDtv.setText(q_and_a.get(k).getD());
+            questionNumber.setText(k + 1 + "/7");
+            question.setText(q_and_a.get(k).getQuestion());
+            optionA.setText(q_and_a.get(k).getA());
+            optionB.setText(q_and_a.get(k).getB());
+            optionC.setText(q_and_a.get(k).getC());
+            optionD.setText(q_and_a.get(k).getD());
         }
         else{
             // logic to be applied after seven questions, i.e., passing score to the next activity, calling the next activity
 
-            Toast.makeText(this, "Questions khatam ho gaye BC", Toast.LENGTH_LONG).show();
         }
 
     }
-    public void set_answer_anim_and_score(String ans,int k)
+    public void set_answer_anim_and_score(final String ans, final int k)
     {
         if(k<7)
         if (ans.equals(q_and_a.get(k).getAnswer()))
         {
             //whatever animation to be applied if answer is correct
-
-            Toast.makeText(this, "correct answer", Toast.LENGTH_SHORT).show();
             score++;
+            if(ans=="A")
+            {
+                optionA.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+            }
+            else if(ans=="B")
+            {
+                optionB.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+            }
+            else if(ans=="C")
+            {
+                optionC.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+            }
+            else if(ans=="D")
+            {
+                optionD.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+            }
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    int i=k;
+                    setQuestionsAndOptions(++i);
+                    optionA.setBackground(getResources().getDrawable(R.drawable.option_background));
+                    optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
+                    optionC.setBackground(getResources().getDrawable(R.drawable.option_background));
+                    optionD.setBackground(getResources().getDrawable(R.drawable.option_background));
+                }
+            },1000);
         }
         else{
             //whatever animation to be applied if animation is wrong
+            if(ans=="A")
+            {
+                optionA.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
+            }
+            else if(ans=="B")
+            {
+                optionB.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
+            }
+            else if(ans=="C")
+            {
+                optionC.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
+            }
+            else if(ans=="D")
+            {
+                optionD.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
+            }
 
-            Toast.makeText(this, "wrong answer", Toast.LENGTH_SHORT).show();
+            if(q_and_a.get(k).getAnswer().equals("A"))
+            {
+                optionA.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+            }
+            else if(q_and_a.get(k).getAnswer().equals("B"))
+            {
+                optionB.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+            }
+            else if(q_and_a.get(k).getAnswer().equals("C"))
+            {
+                optionC.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+            }
+            else if(q_and_a.get(k).getAnswer().equals("D"))
+            {
+                optionD.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+            }
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    int i=k;
+                    setQuestionsAndOptions(++i);
+                    optionA.setBackground(getResources().getDrawable(R.drawable.option_background));
+                    optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
+                    optionC.setBackground(getResources().getDrawable(R.drawable.option_background));
+                    optionD.setBackground(getResources().getDrawable(R.drawable.option_background));
+                }
+            },2000);
+
         }
     }
 
@@ -150,13 +241,13 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             if (!s.equals(q_and_a.get(k).getAnswer()))
             {
                     if(s.equals("A"))
-                        optionAtv.setVisibility(View.GONE);
+                        optionA.setVisibility(View.GONE);
                     else if (s.equals("B"))
-                        optionBtv.setVisibility(View.GONE);
+                        optionB.setVisibility(View.GONE);
                     else if (s.equals("C"))
-                        optionCtv.setVisibility(View.GONE);
+                        optionC.setVisibility(View.GONE);
                     else if (s.equals("D"))
-                        optionDtv.setVisibility(View.GONE);
+                        optionD.setVisibility(View.GONE);
                     p--;
             }
         }
@@ -165,12 +256,29 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     {
         //logic for perk two,i.e. change question
 
-        questiontv.setText(q_and_a.get(8).getQuestion());
-        optionAtv.setText(q_and_a.get(8).getA());
-        optionBtv.setText(q_and_a.get(8).getB());
-        optionCtv.setText(q_and_a.get(8).getC());
-        optionDtv.setText(q_and_a.get(8).getD());
+        question.setText(q_and_a.get(8).getQuestion());
+        optionA.setText(q_and_a.get(8).getA());
+        optionB.setText(q_and_a.get(8).getB());
+        optionC.setText(q_and_a.get(8).getC());
+        optionD.setText(q_and_a.get(8).getD());
 
         perk_two_isclicked=true;
     }
+
+   /* public void shrinkAnimation(TextView textView, int miliSec, float from, float to)
+    {
+        ScaleAnimation shrink =  new ScaleAnimation(from, to, from, to, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        shrink.setDuration(miliSec);
+        shrink.setFillAfter(true);
+        textView.startAnimation(shrink);
+    }
+
+    public void expandAnimation(TextView textView, int miliSec, float from, float to)
+    {
+        ScaleAnimation expand =  new ScaleAnimation(from, to, from, to, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        expand.setDuration(miliSec);
+        expand.setFillAfter(true);
+        textView.startAnimation(expand);
+    }*/
+
 }

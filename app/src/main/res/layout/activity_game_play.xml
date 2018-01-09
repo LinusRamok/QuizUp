@@ -14,7 +14,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:padding="10dp"
-        android:id="@+id/upperLayout">
+        android:id="@+id/upperLayout"
+        android:background="@color/colorPrimary">
 
         <TextView
             android:id="@+id/timer"
@@ -68,7 +69,7 @@
             android:layout_marginLeft="7dp"
             android:text="TextView"
             android:textColor="@color/textColorPrimary"
-            android:textSize="20dp" />
+            android:textSize="20dp"/>
 
     </RelativeLayout>
 
@@ -128,5 +129,36 @@
             android:textSize="20dp"
             android:background="@drawable/option_background"
             android:layout_margin="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/optionD"
+            android:layout_below="@+id/optionD"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/perk1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="use 50-50"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/perk_left_background"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:id="@+id/perk2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="skip this question"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/perk_right_background"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

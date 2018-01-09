@@ -91,28 +91,30 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             switch (tv.getId()) {
                 case R.id.optionA:
                     set_answer_anim_and_score("A",i);
-
                     break;
                 case R.id.optionB:
                     set_answer_anim_and_score("B",i);
-
                     break;
                 case R.id.optionC:
                     set_answer_anim_and_score("C",i);
-
                     break;
                 case R.id.optionD:
                     set_answer_anim_and_score("D",i);
-
+                    break;
+                case R.id.perk1:
+                    if(!perk_one_isclicked)
+                    perk_one(i);
+                    break;
+                case R.id.perk2:
+                    if(!perk_two_isclicked)
+                    perk_two();
                     break;
         }
-
-
     }
 
     public void setQuestionsAndOptions (int k)
     {
-        if(perk_one_isclicked==true && view_changed==false)
+        if(perk_one_isclicked && !view_changed)
         {
             // making the textviews of options VISIBLE again which were set to gone in perk one
             view_changed=true;
@@ -166,7 +168,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    int i=k;
                     setQuestionsAndOptions(++i);
                     optionA.setBackground(getResources().getDrawable(R.drawable.option_background));
                     optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
@@ -215,7 +216,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    int i=k;
                     setQuestionsAndOptions(++i);
                     optionA.setBackground(getResources().getDrawable(R.drawable.option_background));
                     optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
@@ -231,23 +231,28 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     {
         //logic for perk one, i.e. perk 50-50
         perk_one_isclicked=true;
+        char check='o';
         int p=2,a;
         String s;
         while (p>0)
         {
             Random R= new Random();
             a=65+R.nextInt(4);
-            s=Integer.toString(a);
+            s=Character.toString((char)a);
             if (!s.equals(q_and_a.get(k).getAnswer()))
             {
-                    if(s.equals("A"))
-                        optionA.setVisibility(View.GONE);
-                    else if (s.equals("B"))
-                        optionB.setVisibility(View.GONE);
-                    else if (s.equals("C"))
-                        optionC.setVisibility(View.GONE);
-                    else if (s.equals("D"))
-                        optionD.setVisibility(View.GONE);
+                    if(s.equals("A") && check!='A')
+                    {optionA.setVisibility(View.GONE);
+                        check='A';}
+                    else if (s.equals("B") && check!='B')
+                    {optionB.setVisibility(View.GONE);
+                        check='B';}
+                    else if (s.equals("C") && check!='C')
+                    {   optionC.setVisibility(View.GONE);
+                        check='C';}
+                    else if (s.equals("D") && check!='D')
+                    {   optionD.setVisibility(View.GONE);
+                        check='D';}
                     p--;
             }
         }
@@ -256,11 +261,11 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     {
         //logic for perk two,i.e. change question
 
-        question.setText(q_and_a.get(8).getQuestion());
-        optionA.setText(q_and_a.get(8).getA());
-        optionB.setText(q_and_a.get(8).getB());
-        optionC.setText(q_and_a.get(8).getC());
-        optionD.setText(q_and_a.get(8).getD());
+        question.setText(q_and_a.get(7).getQuestion());
+        optionA.setText(q_and_a.get(7).getA());
+        optionB.setText(q_and_a.get(7).getB());
+        optionC.setText(q_and_a.get(7).getC());
+        optionD.setText(q_and_a.get(7).getD());
 
         perk_two_isclicked=true;
     }

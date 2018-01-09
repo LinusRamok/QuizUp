@@ -26,7 +26,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     int i=0;
 
     TextView optionA, optionB, optionC, optionD, perk1, perk2;
-    Boolean perk_one_isclicked=false,perk_two_isclicked=false,view_changed=false;
+    Boolean perk_one_isclickable=true,perk_one_isCliked=false,perk_two_isClickedd=false,perk_two_isclickable=true;
+    Boolean optionA_isClickable=true,optionB_isClickable=true,optionC_isClickable=true,optionD_isClickable=true;
     TextView question, questionNumber;
 
     @Override
@@ -90,40 +91,65 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
             switch (tv.getId()) {
                 case R.id.optionA:
+                    if (optionA_isClickable)
                     set_answer_anim_and_score("A",i);
                     break;
                 case R.id.optionB:
+                    if (optionB_isClickable)
                     set_answer_anim_and_score("B",i);
                     break;
                 case R.id.optionC:
+                    if (optionC_isClickable)
                     set_answer_anim_and_score("C",i);
                     break;
                 case R.id.optionD:
+                    if (optionD_isClickable)
                     set_answer_anim_and_score("D",i);
                     break;
                 case R.id.perk1:
-                    if(!perk_one_isclicked)
+                    if(perk_one_isclickable)
                     perk_one(i);
                     break;
                 case R.id.perk2:
-                    if(!perk_two_isclicked)
+                    if(perk_two_isclickable)
                     perk_two();
                     break;
         }
     }
 
+    public void set_visibility_after_perk_one()
+    {
+            // making the textviews of options VISIBLE again which were set to gone in perk one
+
+        if(!optionA_isClickable)
+        {optionA.setVisibility(View.VISIBLE);
+            expandAnimation(optionA,250,0,1f);}
+        if(!optionB_isClickable)
+        {optionB.setVisibility(View.VISIBLE);
+            expandAnimation(optionB,250,0,1f);}
+        if(!optionC_isClickable)
+        {optionC.setVisibility(View.VISIBLE);
+            expandAnimation(optionC,250,0,1f);}
+        if(!optionD_isClickable)
+        {optionD.setVisibility(View.VISIBLE);
+            expandAnimation(optionD,250,0,1f);}
+
+
+            All_Options_IsClickable(true);
+
+    }
+    public void All_Options_IsClickable(Boolean q)
+    {
+        optionA_isClickable=q;
+        optionB_isClickable=q;
+        optionC_isClickable=q;
+        optionD_isClickable=q;
+    }
+
     public void setQuestionsAndOptions (int k)
     {
-        if(perk_one_isclicked && !view_changed)
-        {
-            // making the textviews of options VISIBLE again which were set to gone in perk one
-            view_changed=true;
+        set_visibility_after_perk_one();
 
-            optionA.setVisibility(View.VISIBLE);
-            optionB.setVisibility(View.VISIBLE);
-            optionC.setVisibility(View.VISIBLE);
-            optionD.setVisibility(View.VISIBLE);
-        }
         if(k<7) {
             // logic for setting the question and options relative to the index passed
 
@@ -163,7 +189,15 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             {
                 optionD.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
             }
-
+            All_Options_IsClickable(false);
+            if(!perk_one_isCliked)
+            {
+                perk_one_isclickable=false;
+            }
+            if(!perk_two_isClickedd)
+            {
+                perk_two_isclickable=false;
+            }
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -173,6 +207,15 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
                     optionC.setBackground(getResources().getDrawable(R.drawable.option_background));
                     optionD.setBackground(getResources().getDrawable(R.drawable.option_background));
+                    All_Options_IsClickable(true);
+                    if(!perk_one_isCliked)
+                    {
+                        perk_one_isclickable=true;
+                    }
+                    if(!perk_two_isClickedd)
+                    {
+                        perk_two_isclickable=true;
+                    }
                 }
             },1000);
         }
@@ -211,7 +254,15 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             {
                 optionD.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
             }
-
+            All_Options_IsClickable(false);
+            if(!perk_one_isCliked)
+            {
+                perk_one_isclickable=false;
+            }
+            if(!perk_two_isClickedd)
+            {
+                perk_two_isclickable=false;
+            }
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -221,6 +272,15 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
                     optionC.setBackground(getResources().getDrawable(R.drawable.option_background));
                     optionD.setBackground(getResources().getDrawable(R.drawable.option_background));
+                    All_Options_IsClickable(true);
+                    if(!perk_one_isCliked)
+                    {
+                        perk_one_isclickable=true;
+                    }
+                    if(!perk_two_isClickedd)
+                    {
+                        perk_two_isclickable=true;
+                    }
                 }
             },2000);
 
@@ -230,7 +290,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     public void perk_one(int k)
     {
         //logic for perk one, i.e. perk 50-50
-        perk_one_isclicked=true;
+        perk_one_isclickable=false;
+        perk_one_isCliked=true;
         char check='o';
         int p=2,a;
         String s;
@@ -241,36 +302,57 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             s=Character.toString((char)a);
             if (!s.equals(q_and_a.get(k).getAnswer()))
             {
-                    if(s.equals("A") && check!='A')
-                    {optionA.setVisibility(View.GONE);
-                        check='A';}
+                    if (s.equals("A") && check!='A')
+                    {   shrinkAnimation(optionA,250,1f,0);
+                        optionD_isClickable=false;
+                        optionA.setVisibility(View.INVISIBLE);
+                        check='A';
+                        p--;}
                     else if (s.equals("B") && check!='B')
-                    {optionB.setVisibility(View.GONE);
-                        check='B';}
+                    {   shrinkAnimation(optionB,250,1f,0);
+                        optionB.setVisibility(View.INVISIBLE);
+                        optionB_isClickable=false;
+                        check='B';
+                        p--;}
                     else if (s.equals("C") && check!='C')
-                    {   optionC.setVisibility(View.GONE);
-                        check='C';}
+                    {   shrinkAnimation(optionC,250,1f,0);
+                        optionC.setVisibility(View.INVISIBLE);
+                        optionC_isClickable=false;
+                        check='C';
+                        p--;}
                     else if (s.equals("D") && check!='D')
-                    {   optionD.setVisibility(View.GONE);
-                        check='D';}
-                    p--;
+                    {   shrinkAnimation(optionD,250,1f,0);
+                        optionD.setVisibility(View.INVISIBLE);
+                        optionD_isClickable=false;
+                        check='D';
+                        p--;}
+
             }
         }
+    }
+    public void shrinkAllOptions()
+    {
+        shrinkAnimation(optionA,250,1f,0);
+        shrinkAnimation(optionB,250,1f,0);
+        shrinkAnimation(optionC,250,1f,0);
+        shrinkAnimation(optionD,250,1f,0);
     }
     public void perk_two()
     {
         //logic for perk two,i.e. change question
+
+        set_visibility_after_perk_one();
 
         question.setText(q_and_a.get(7).getQuestion());
         optionA.setText(q_and_a.get(7).getA());
         optionB.setText(q_and_a.get(7).getB());
         optionC.setText(q_and_a.get(7).getC());
         optionD.setText(q_and_a.get(7).getD());
-
-        perk_two_isclicked=true;
+        perk_two_isClickedd=true;
+        perk_two_isclickable=false;
     }
 
-   /* public void shrinkAnimation(TextView textView, int miliSec, float from, float to)
+    public void shrinkAnimation(TextView textView, int miliSec, float from, float to)
     {
         ScaleAnimation shrink =  new ScaleAnimation(from, to, from, to, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         shrink.setDuration(miliSec);
@@ -284,6 +366,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         expand.setDuration(miliSec);
         expand.setFillAfter(true);
         textView.startAnimation(expand);
-    }*/
+    }
 
 }

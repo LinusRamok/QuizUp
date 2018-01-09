@@ -5,7 +5,7 @@
     <color name="colorAccent">#FFC400</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="textColorPrimary">#000000</color>
-    <color name="textColorSecondary">#59000000</color>
+    <color name="textColorSecondary">#77000000</color>
     <color name="wrongAnswer">#99F44336</color>
     <color name="correctAnswer">#99009668</color>
 

@@ -32,15 +32,6 @@
             android:layout_centerVertical="true"
             android:text="" />
 
-        <Button
-            android:id="@+id/perks"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/pause"
-            android:layout_toStartOf="@+id/pause"
-            android:text=""
-            android:layout_marginRight="10dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -58,7 +49,8 @@
             android:layout_alignParentStart="true"
             android:text="1/7"
             android:textColor="@color/textColorSecondary"
-            android:textSize="15dp"/>
+            android:textSize="15dp"
+            android:layout_marginTop="5dp"/>
 
         <TextView
             android:id="@+id/question"
@@ -67,7 +59,7 @@
             android:layout_toRightOf="@id/questionNumber"
             android:layout_alignTop="@+id/questionNumber"
             android:layout_marginLeft="7dp"
-            android:text="TextView"
+            android:text=""
             android:textColor="@color/textColorPrimary"
             android:textSize="20dp"/>
 
@@ -133,7 +125,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/optionD"
             android:layout_below="@+id/optionD"
             android:orientation="horizontal"
             android:layout_margin="5dp">

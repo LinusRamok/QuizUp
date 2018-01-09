@@ -72,8 +72,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         optionB.setTypeface(ourLightFont);
         optionC.setTypeface(ourLightFont);
         optionD.setTypeface(ourLightFont);
-        perk1.setTypeface(ourBoldFont);
-        perk2.setTypeface(ourBoldFont);
+        perk1.setTypeface(ourLightFont);
+        perk2.setTypeface(ourLightFont);
 
         jsonString = getIntent().getStringExtra("jsonobj");
         obj=new Gson().fromJson(jsonString , QuestionsApi.class);

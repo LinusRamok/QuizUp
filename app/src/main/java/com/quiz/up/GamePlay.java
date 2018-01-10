@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.google.gson.Gson;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,9 +29,12 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     int i=0;
 
     TextView optionA, optionB, optionC, optionD, perk1, perk2;
-    Boolean perk_one_isclickable=true,perk_one_isCliked=false,perk_two_isClickedd=false,perk_two_isclickable=true;
-    Boolean optionA_isClickable=true,optionB_isClickable=true,optionC_isClickable=true,optionD_isClickable=true;
-    TextView question, questionNumber;
+    boolean perk_one_isclickable=true, perk_one_isCliked=false, perk_two_isClicked =false, perk_two_isclickable=true;
+    boolean optionA_isClickable=true, optionB_isClickable=true, optionC_isClickable=true, optionD_isClickable=true;
+    TextView question, questionNumber, timerTextView;
+    Handler timer = new Handler();
+    boolean isTimerStarted=false;
+    double secondsPassed = 0.0;
 
     @Override
     protected void onResume() {
@@ -62,6 +68,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         perk1.setOnClickListener(this);
         perk2 =(TextView)findViewById(R.id.perk2);
         perk2.setOnClickListener(this);
+        timerTextView =(TextView)findViewById(R.id.timer);
 
         Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
         Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
@@ -74,6 +81,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         optionD.setTypeface(ourLightFont);
         perk1.setTypeface(ourLightFont);
         perk2.setTypeface(ourLightFont);
+        timerTextView.setTypeface(ourBoldFont);
 
         jsonString = getIntent().getStringExtra("jsonobj");
         obj=new Gson().fromJson(jsonString , QuestionsApi.class);
@@ -81,6 +89,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
         //setting the first question and options beforehand
         setQuestionsAndOptions(0);
+        startTimer();
 
     }
 
@@ -92,19 +101,19 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             switch (tv.getId()) {
                 case R.id.optionA:
                     if (optionA_isClickable)
-                    set_answer_anim_and_score("A",i);
+                    optionsAfterClickedMethod("A",i);
                     break;
                 case R.id.optionB:
                     if (optionB_isClickable)
-                    set_answer_anim_and_score("B",i);
+                    optionsAfterClickedMethod("B",i);
                     break;
                 case R.id.optionC:
                     if (optionC_isClickable)
-                    set_answer_anim_and_score("C",i);
+                    optionsAfterClickedMethod("C",i);
                     break;
                 case R.id.optionD:
                     if (optionD_isClickable)
-                    set_answer_anim_and_score("D",i);
+                    optionsAfterClickedMethod("D",i);
                     break;
                 case R.id.perk1:
                     if(perk_one_isclickable)
@@ -134,11 +143,10 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         {optionD.setVisibility(View.VISIBLE);
             expandAnimation(optionD,250,0,1f);}
 
-
-            All_Options_IsClickable(true);
+            setAllOptionsClickable(true);
 
     }
-    public void All_Options_IsClickable(Boolean q)
+    public void setAllOptionsClickable(Boolean q)    //to set all options clickable true or false
     {
         optionA_isClickable=q;
         optionB_isClickable=q;
@@ -162,11 +170,11 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         }
         else{
             // logic to be applied after seven questions, i.e., passing score to the next activity, calling the next activity
-
+            stopTimer();
         }
 
     }
-    public void set_answer_anim_and_score(final String ans, final int k)
+    public void optionsAfterClickedMethod(final String ans, final int k)
     {
         if(k<7)
         if (ans.equals(q_and_a.get(k).getAnswer()))
@@ -189,36 +197,39 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             {
                 optionD.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
             }
-            All_Options_IsClickable(false);
+            setAllOptionsClickable(false);
+
             if(!perk_one_isCliked)
             {
                 perk_one_isclickable=false;
             }
-            if(!perk_two_isClickedd)
+            if(!perk_two_isClicked)
             {
                 perk_two_isclickable=false;
             }
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setQuestionsAndOptions(++i);
-                    optionA.setBackground(getResources().getDrawable(R.drawable.option_background));
-                    optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
-                    optionC.setBackground(getResources().getDrawable(R.drawable.option_background));
-                    optionD.setBackground(getResources().getDrawable(R.drawable.option_background));
-                    All_Options_IsClickable(true);
-                    if(!perk_one_isCliked)
-                    {
-                        perk_one_isclickable=true;
+
+            if(k<7) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setQuestionsAndOptions(++i);
+                        optionA.setBackground(getResources().getDrawable(R.drawable.option_background));
+                        optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
+                        optionC.setBackground(getResources().getDrawable(R.drawable.option_background));
+                        optionD.setBackground(getResources().getDrawable(R.drawable.option_background));
+                        setAllOptionsClickable(true);
+                        if (!perk_one_isCliked) {
+                            perk_one_isclickable = true;
+                        }
+                        if (!perk_two_isClicked) {
+                            perk_two_isclickable = true;
+                        }
                     }
-                    if(!perk_two_isClickedd)
-                    {
-                        perk_two_isclickable=true;
-                    }
-                }
-            },1000);
+                }, 1500);
+            }
         }
+
         else{
             //whatever animation to be applied if animation is wrong
             if(ans=="A")
@@ -238,51 +249,53 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                 optionD.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
             }
 
-            if(q_and_a.get(k).getAnswer().equals("A"))
+
+            if(q_and_a.get(k).getAnswer().contains("A"))
             {
                 optionA.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
             }
-            else if(q_and_a.get(k).getAnswer().equals("B"))
+            else if(q_and_a.get(k).getAnswer().contains("B"))
             {
                 optionB.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
             }
-            else if(q_and_a.get(k).getAnswer().equals("C"))
+            else if(q_and_a.get(k).getAnswer().contains("C"))
             {
                 optionC.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
             }
-            else if(q_and_a.get(k).getAnswer().equals("D"))
+            else if(q_and_a.get(k).getAnswer().contains("D"))
             {
                 optionD.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
             }
-            All_Options_IsClickable(false);
+            setAllOptionsClickable(false);
             if(!perk_one_isCliked)
             {
                 perk_one_isclickable=false;
             }
-            if(!perk_two_isClickedd)
+            if(!perk_two_isClicked)
             {
                 perk_two_isclickable=false;
             }
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setQuestionsAndOptions(++i);
-                    optionA.setBackground(getResources().getDrawable(R.drawable.option_background));
-                    optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
-                    optionC.setBackground(getResources().getDrawable(R.drawable.option_background));
-                    optionD.setBackground(getResources().getDrawable(R.drawable.option_background));
-                    All_Options_IsClickable(true);
-                    if(!perk_one_isCliked)
-                    {
-                        perk_one_isclickable=true;
+
+            if(k<7) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setQuestionsAndOptions(++i);
+                        optionA.setBackground(getResources().getDrawable(R.drawable.option_background));
+                        optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
+                        optionC.setBackground(getResources().getDrawable(R.drawable.option_background));
+                        optionD.setBackground(getResources().getDrawable(R.drawable.option_background));
+                        setAllOptionsClickable(true);
+                        if (!perk_one_isCliked) {
+                            perk_one_isclickable = true;
+                        }
+                        if (!perk_two_isClicked) {
+                            perk_two_isclickable = true;
+                        }
                     }
-                    if(!perk_two_isClickedd)
-                    {
-                        perk_two_isclickable=true;
-                    }
-                }
-            },2000);
+                }, 1500);
+            }
 
         }
     }
@@ -292,6 +305,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         //logic for perk one, i.e. perk 50-50
         perk_one_isclickable=false;
         perk_one_isCliked=true;
+        setDisabledBackground(perk1);
         char check='o';
         int p=2,a;
         String s;
@@ -300,27 +314,27 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             Random R= new Random();
             a=65+R.nextInt(4);
             s=Character.toString((char)a);
-            if (!s.equals(q_and_a.get(k).getAnswer()))
+            if (!s.contains(q_and_a.get(k).getAnswer()))
             {
-                    if (s.equals("A") && check!='A')
+                    if (s.contains("A") && check!='A')
                     {   shrinkAnimation(optionA,250,1f,0);
-                        optionD_isClickable=false;
+                        optionA_isClickable=false;
                         optionA.setVisibility(View.INVISIBLE);
                         check='A';
                         p--;}
-                    else if (s.equals("B") && check!='B')
+                    else if (s.contains("B") && check!='B')
                     {   shrinkAnimation(optionB,250,1f,0);
                         optionB.setVisibility(View.INVISIBLE);
                         optionB_isClickable=false;
                         check='B';
                         p--;}
-                    else if (s.equals("C") && check!='C')
+                    else if (s.contains("C") && check!='C')
                     {   shrinkAnimation(optionC,250,1f,0);
                         optionC.setVisibility(View.INVISIBLE);
                         optionC_isClickable=false;
                         check='C';
                         p--;}
-                    else if (s.equals("D") && check!='D')
+                    else if (s.contains("D") && check!='D')
                     {   shrinkAnimation(optionD,250,1f,0);
                         optionD.setVisibility(View.INVISIBLE);
                         optionD_isClickable=false;
@@ -348,12 +362,16 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         optionB.setText(q_and_a.get(7).getB());
         optionC.setText(q_and_a.get(7).getC());
         optionD.setText(q_and_a.get(7).getD());
-        perk_two_isClickedd=true;
+        perk_two_isClicked =true;
         perk_two_isclickable=false;
+        setDisabledBackground(perk2);
     }
 
     public void shrinkAnimation(TextView textView, int miliSec, float from, float to)
     {
+        //a method to shrink textView in first parameter
+        //miliSec parameter is the time in mili seconds for the animation to complete
+        //from and to parameters are starting and ending zoomed states of textView
         ScaleAnimation shrink =  new ScaleAnimation(from, to, from, to, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         shrink.setDuration(miliSec);
         shrink.setFillAfter(true);
@@ -362,10 +380,104 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
     public void expandAnimation(TextView textView, int miliSec, float from, float to)
     {
+        //a method to shrink textView in first parameter
+        //miliSec parameter is the time in mili seconds for the animation to complete
+        //from and to parameters are starting and ending zoomed states of textView
         ScaleAnimation expand =  new ScaleAnimation(from, to, from, to, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         expand.setDuration(miliSec);
         expand.setFillAfter(true);
         textView.startAnimation(expand);
+    }
+
+    public void setDisabledBackground(TextView textView)
+    {
+        //this method is used to give the parameter textView a background without any focus, to show that the textView is not clickable any further
+
+        if (textView == optionA || textView == optionB ||textView == optionC ||textView == optionD)
+        {
+            textView.setBackground(getResources().getDrawable(R.drawable.option_background_disabled));
+        }
+
+        else if (textView == perk1)
+        {
+            textView.setBackground(getResources().getDrawable(R.drawable.perk_left_background_disabled));
+            textView.setAlpha(0.4f);
+        }
+
+        else if (textView == perk2)
+        {
+            textView.setBackground(getResources().getDrawable(R.drawable.perk_right_background_disabled));
+            textView.setAlpha(0.4f);
+        }
+
+    }
+
+    public void setEnabledBackground(TextView textView)
+    {
+        //this method is used to give the parameter textView a background with focus effects, to show that the textView is clickable now.
+        //this should be used on a TextView only when setDisabledBackground had been applied to the same TextView
+
+        if (textView == optionA || textView == optionB ||textView == optionC ||textView == optionD)
+        {
+
+            if (textView == optionA || textView == optionB ||textView == optionC ||textView == optionD)
+            {
+                textView.setBackground(getResources().getDrawable(R.drawable.option_background));
+            }
+
+            else if (textView == perk1)
+            {
+                textView.setBackground(getResources().getDrawable(R.drawable.perk_left_background));
+                textView.setAlpha(1f);
+            }
+
+            else if (textView == perk2)
+            {
+                textView.setBackground(getResources().getDrawable(R.drawable.perk_right_background_disabled));
+                textView.setAlpha(1f);
+            }
+
+        }
+    }
+
+    public Runnable ute=new Runnable() {                //This runnable is used to run a timer and display it in TextView named timerTextView
+        @Override
+        public void run() {
+            long currentMilliseconds = System.currentTimeMillis();
+            secondsPassed=secondsPassed+0.1;
+            double temp=roundingOfDouble(secondsPassed,1);
+
+            timerTextView.setText(Double.toString(temp));
+            timer.postAtTime(this, currentMilliseconds);
+            timer.postDelayed(ute, 100);
+        }
+    };
+
+    public void startTimer() {
+        //a method to start timer
+        if (isTimerStarted==false)
+        {
+            timer.removeCallbacks(ute);
+            timer.postDelayed(ute, 100);
+            isTimerStarted=true;
+        }
+
+    }
+
+    public void stopTimer() {
+        //a method to stop timer
+        timer.removeCallbacks(ute);
+        isTimerStarted=false;
+    }
+
+    public static double roundingOfDouble(double value, int places) {
+        //this method is used to round of a double 'value'(parameter one) to some specified decimal 'places'(parameter two)
+        //without the use of this method, the double value will have many numbers after the decimal point
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
 }

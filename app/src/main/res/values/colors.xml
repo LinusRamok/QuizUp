@@ -8,5 +8,6 @@
     <color name="textColorSecondary">#77000000</color>
     <color name="wrongAnswer">#99F44336</color>
     <color name="correctAnswer">#99009668</color>
+    <color name="iconDark">#075089</color>
 
 </resources>

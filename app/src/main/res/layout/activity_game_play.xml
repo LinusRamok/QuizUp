@@ -17,11 +17,6 @@
         android:id="@+id/upperLayout"
         android:background="@color/colorPrimary">
 
-        <TextView
-            android:id="@+id/timer"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-             />
 
         <Button
             android:id="@+id/pause"
@@ -30,7 +25,20 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="" />
+            android:text=""
+            android:background="@drawable/ic_pause"
+            android:backgroundTint="@color/iconDark"/>
+
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="0.0"
+            android:textSize="22dp"
+            android:textColor="@color/iconDark"/>
 
     </RelativeLayout>
 

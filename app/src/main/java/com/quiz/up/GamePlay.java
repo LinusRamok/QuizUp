@@ -168,10 +168,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             optionC.setText(q_and_a.get(k).getC());
             optionD.setText(q_and_a.get(k).getD());
         }
-        else{
-            // logic to be applied after seven questions, i.e., passing score to the next activity, calling the next activity
-            stopTimer();
-        }
 
     }
     public void optionsAfterClickedMethod(final String ans, final int k)
@@ -207,13 +203,12 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             {
                 perk_two_isclickable=false;
             }
-
-            if(k<7) {
+            if ((++i)<7) {
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        setQuestionsAndOptions(++i);
+                        setQuestionsAndOptions(i);
                         optionA.setBackground(getResources().getDrawable(R.drawable.option_background));
                         optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
                         optionC.setBackground(getResources().getDrawable(R.drawable.option_background));
@@ -228,60 +223,45 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     }
                 }, 1500);
             }
+            else
+            stopTimer();
         }
 
-        else{
+        else {
             //whatever animation to be applied if animation is wrong
-            if(ans=="A")
-            {
+            if (ans == "A") {
                 optionA.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
-            }
-            else if(ans=="B")
-            {
+            } else if (ans == "B") {
                 optionB.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
-            }
-            else if(ans=="C")
-            {
+            } else if (ans == "C") {
                 optionC.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
-            }
-            else if(ans=="D")
-            {
+            } else if (ans == "D") {
                 optionD.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
             }
 
 
-            if(q_and_a.get(k).getAnswer().contains("A"))
-            {
+            if (q_and_a.get(k).getAnswer().contains("A")) {
                 optionA.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
-            }
-            else if(q_and_a.get(k).getAnswer().contains("B"))
-            {
+            } else if (q_and_a.get(k).getAnswer().contains("B")) {
                 optionB.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
-            }
-            else if(q_and_a.get(k).getAnswer().contains("C"))
-            {
+            } else if (q_and_a.get(k).getAnswer().contains("C")) {
                 optionC.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
-            }
-            else if(q_and_a.get(k).getAnswer().contains("D"))
-            {
+            } else if (q_and_a.get(k).getAnswer().contains("D")) {
                 optionD.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
             }
             setAllOptionsClickable(false);
-            if(!perk_one_isCliked)
-            {
-                perk_one_isclickable=false;
+            if (!perk_one_isCliked) {
+                perk_one_isclickable = false;
             }
-            if(!perk_two_isClicked)
-            {
-                perk_two_isclickable=false;
+            if (!perk_two_isClicked) {
+                perk_two_isclickable = false;
             }
-
-            if(k<7) {
+            if ((++i) < 7) {
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        setQuestionsAndOptions(++i);
+                        setQuestionsAndOptions(i);
                         optionA.setBackground(getResources().getDrawable(R.drawable.option_background));
                         optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
                         optionC.setBackground(getResources().getDrawable(R.drawable.option_background));
@@ -295,8 +275,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                         }
                     }
                 }, 1500);
-            }
-
+            } else
+                stopTimer();
         }
     }
 

@@ -1,5 +1,6 @@
 package com.quiz.up;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -21,12 +22,15 @@ import java.util.Random;
 
 public class GamePlay extends AppCompatActivity implements View.OnClickListener {
     String jsonString;
-    JSONObject jsonObject=null;
     QuestionsApi obj;
     BufferedReader reader;
-    int score=0;
     List<Questionlist> q_and_a=new ArrayList<>();
     int i=0;
+    int qadetails[]=new int[8],changedqno=10;
+    //qa details is an array which passes the details of attempted questions and their answers given by user to the next activity via intent
+    //0 is for wrong answer
+    //1 is for right answer
+    //2 is for unattempted question or question chnged by using perk two
 
     TextView optionA, optionB, optionC, optionD, perk1, perk2;
     boolean perk_one_isclickable=true, perk_one_isCliked=false, perk_two_isClicked =false, perk_two_isclickable=true;
@@ -70,6 +74,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         perk2.setOnClickListener(this);
         timerTextView =(TextView)findViewById(R.id.timer);
 
+
         Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
         Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
 
@@ -87,6 +92,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         obj=new Gson().fromJson(jsonString , QuestionsApi.class);
         q_and_a= obj.getQuestionlist();
 
+        qadetails[7]=9;
         //setting the first question and options beforehand
         setQuestionsAndOptions(0);
         startTimer();
@@ -121,7 +127,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     break;
                 case R.id.perk2:
                     if(perk_two_isclickable)
-                    perk_two();
+                    perk_two(i);
                     break;
         }
     }
@@ -176,7 +182,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         if (ans.equals(q_and_a.get(k).getAnswer()))
         {
             //whatever animation to be applied if answer is correct
-            score++;
+            qadetails[k]=1;
             if(ans=="A")
             {
                 optionA.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
@@ -223,12 +229,29 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     }
                 }, 1500);
             }
-            else
+            else{
             stopTimer();
-        }
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(changedqno!=10)
+                    {
+                        int temp=qadetails[changedqno];
+                        qadetails[changedqno]=qadetails[7];
+                        qadetails[7]=temp;
+                    }
+                    Intent i=new Intent(GamePlay.this,ScoreBoard.class);
+                    i.putExtra("QuestionAndAnswers",jsonString);
+                    i.putExtra("userAnswers",qadetails);
+                    startActivity(i);
+                }
+            }, 1500);
+        }}
 
         else {
             //whatever animation to be applied if animation is wrong
+            qadetails[k]=0;
             if (ans == "A") {
                 optionA.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
             } else if (ans == "B") {
@@ -275,10 +298,26 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                         }
                     }
                 }, 1500);
-            } else
+            } else{
                 stopTimer();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(changedqno!=10)
+                    {
+                        int temp=qadetails[changedqno];
+                        qadetails[changedqno]=qadetails[7];
+                        qadetails[7]=temp;
+                    }
+                    Intent i=new Intent(GamePlay.this,ScoreBoard.class);
+                    i.putExtra("QuestionAndAnswers",jsonString);
+                    i.putExtra("userAnswers",qadetails);
+                    startActivity(i);
+                }
+            }, 1500);
         }
-    }
+    }}
 
     public void perk_one(int k)
     {
@@ -331,10 +370,10 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         shrinkAnimation(optionC,250,1f,0);
         shrinkAnimation(optionD,250,1f,0);
     }
-    public void perk_two()
+    public void perk_two(int k)
     {
         //logic for perk two,i.e. change question
-
+            changedqno=k;
         set_visibility_after_perk_one();
 
         question.setText(q_and_a.get(7).getQuestion());

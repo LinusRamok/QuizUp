@@ -1,4 +1,4 @@
-package com.quiz.up;
+package com.example.kamlesh.frd;
 
 /**
  * Created by linus on 06-01-2018.

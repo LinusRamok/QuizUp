@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Quiz Up</string>
+    <string name="app_name">frd</string>
+    <string name="facebook_app_id">383259588784872</string>
+    <string name="fb_login_protocol_scheme">fb383259588784872</string>
 </resources>

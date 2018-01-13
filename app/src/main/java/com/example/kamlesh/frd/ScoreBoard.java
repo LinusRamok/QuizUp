@@ -1,7 +1,7 @@
-package com.quiz.up;
+package com.example.kamlesh.frd;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 public class ScoreBoard extends AppCompatActivity {

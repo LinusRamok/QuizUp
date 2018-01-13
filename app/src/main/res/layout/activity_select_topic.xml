@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f4f4f4"
+    >
+
+    <SearchView
+        android:layout_margin="2dp"
+        android:elevation="14dp"
+        android:id="@+id/search"
+        android:padding="3dp"
+        android:labelFor="@id/search"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    </SearchView>
+
+    <GridView
+        android:numColumns="3"
+        android:divider="#dadada"
+        android:dividerHeight="0.5dp"
+        android:id="@+id/listview"
+        android:padding="3dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:visibility="visible"
+        />
+</RelativeLayout>

@@ -26,12 +26,12 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     BufferedReader reader;
     List<Questionlist> q_and_a=new ArrayList<>();
     int i=0;
-    int qadetails[]=new int[8],changedqno=10;
+    int qadetails[]=new int[9],changedqno=10;
     //qa details is an array which passes the details of attempted questions and their answers given by user to the next activity via intent
     //0 is for wrong answer
     //1 is for right answer
-    //2 is for unattempted question or question chnged by using perk two
-
+    //9 is for unattempted question or question changed by using perk two
+    //3 is for that 50-50perk is used
     TextView optionA, optionB, optionC, optionD, perk1, perk2;
     boolean perk_one_isclickable=true, perk_one_isCliked=false, perk_two_isClicked =false, perk_two_isclickable=true;
     boolean optionA_isClickable=true, optionB_isClickable=true, optionC_isClickable=true, optionD_isClickable=true;
@@ -93,6 +93,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         q_and_a= obj.getQuestionlist();
 
         qadetails[7]=9;
+        qadetails[8]=4;
         //setting the first question and options beforehand
         setQuestionsAndOptions(0);
         startTimer();
@@ -324,6 +325,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         //logic for perk one, i.e. perk 50-50
         perk_one_isclickable=false;
         perk_one_isCliked=true;
+        qadetails[8]=3;
         setDisabledBackground(perk1);
         char check='o';
         int p=2,a;

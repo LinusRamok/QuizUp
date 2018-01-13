@@ -5,15 +5,33 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 public class ScoreBoard extends AppCompatActivity {
-int qadetails[]=new int[10];
+int a[]=new int[10];
+int score=0;
 String questionsAndAnswers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_board);
-        qadetails=getIntent().getIntArrayExtra("userAnswers");
+        a=getIntent().getIntArrayExtra("userAnswers");
         questionsAndAnswers=getIntent().getStringExtra("QuestionAndAnswers");
+        
+        for(int i=0;i<7;i++)
+        {
+            if (a[i]==0)
+                score-=4;
+            else if (a[i]==1)
+                score+=10;
+            else if(a[i]==9)
+                score-=2;
+        }
+        if(a[7]==1)
+            score+=12;
+        else if (a[7]==0)
+            score-=4;
+        if (a[8]==3)
+            score-=2;
+        System.out.println("Score is :"+score);
 
-        Toast.makeText(this, qadetails[0]+""+qadetails[1]+""+qadetails[2]+""+qadetails[3]+""+qadetails[4]+""+qadetails[5]+""+qadetails[6]+""+qadetails[7], Toast.LENGTH_LONG).show();
+        Toast.makeText(this, a[0]+""+a[1]+""+a[2]+""+a[3]+""+a[4]+""+a[5]+""+a[6]+""+a[7]+""+a[8]+score, Toast.LENGTH_LONG).show();
     }
 }

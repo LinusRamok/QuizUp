@@ -241,7 +241,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                         qadetails[changedqno]=qadetails[7];
                         qadetails[7]=temp;
                     }
-                    Intent i=new Intent(GamePlay.this,ScoreBoard.class);
+                    Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
                     i.putExtra("QuestionAndAnswers",jsonString);
                     i.putExtra("userAnswers",qadetails);
                     startActivity(i);
@@ -310,7 +310,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                         qadetails[changedqno]=qadetails[7];
                         qadetails[7]=temp;
                     }
-                    Intent i=new Intent(GamePlay.this,ScoreBoard.class);
+                    Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
                     i.putExtra("QuestionAndAnswers",jsonString);
                     i.putExtra("userAnswers",qadetails);
                     startActivity(i);

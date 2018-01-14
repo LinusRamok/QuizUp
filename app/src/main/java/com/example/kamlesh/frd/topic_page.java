@@ -28,6 +28,7 @@ public class topic_page extends AppCompatActivity {
     FirebaseStorage storage =FirebaseStorage.getInstance();
     Button b;
     ProgressBar p;
+    String Topic_name;
     JSONObject respass=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class topic_page extends AppCompatActivity {
             System.out.println(topic.name);
             System.out.println(topic.description);
             topic_name.setText(topic.name);
+            Topic_name=topic.name;
             StorageReference storageRef = storage.getReference(topic.url);
             Glide.with(this)
                     .load(storageRef)
@@ -84,7 +86,7 @@ public class topic_page extends AppCompatActivity {
         protected String doInBackground(Integer... params) {
 
             try {
-                JSONObject response = getJSONObjectFromURL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID=kamlesh&Topic=astrology"); // calls method to get JSON object
+                JSONObject response = getJSONObjectFromURL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID=kamlesh&Topic="+Topic_name); // calls method to get JSON object
                 respass=response;
             } catch (IOException e) {
                 e.printStackTrace();

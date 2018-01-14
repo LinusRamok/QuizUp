@@ -19,11 +19,35 @@ import java.io.InputStreamReader;
 public class ScorePageActivity extends AppCompatActivity {
     TextView a1,a2,a3,a4,a5,a6,a7,a8,a9,a10;
     StringBuffer response;
+    int ans[]=new int[10],score=0;
+    String questionsAndAnswers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.score_page);
 
+        ans=getIntent().getIntArrayExtra("userAnswers");
+        questionsAndAnswers=getIntent().getStringExtra("QuestionAndAnswers");
+
+        for(int i=0;i<7;i++)
+        {
+            if (ans[i]==0)
+                score-=4;
+            else if (ans[i]==1)
+                score+=10;
+            else if(ans[i]==9)
+                score-=2;
+        }
+        if(ans[7]==1)
+            score+=12;
+        else if (ans[7]==0)
+            score-=4;
+        if (ans[8]==3)
+            score-=2;
+        System.out.println("Score is :"+score);
+
+        //Toast.makeText(this, ans[0]+""+ans[1]+""+ans[2]+""+ans[3]+""+ans[4]+""+ans[5]+""+ans[6]+""+ans[7]+""+ans[8]+score, Toast.LENGTH_LONG).show();
 
         //adding BufferedReader
         try {

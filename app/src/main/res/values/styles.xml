@@ -11,7 +11,21 @@
         <item name="android:windowBackground">@color/windowBackground</item>
         <item name="android:textColor">@color/textColorPrimary</item>
     </style>
+    <style name="Widget"/>
 
+    <style name="Widget.ProgressBar.CircularProgressBar" parent="Widget">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="cpb_progressColor">@color/colorAccent</item>
+        <item name="cpb_hasShadow">true</item>
+        <item name="cpb_strokeWidth">7</item>
+        <item name="cpb_titleColor">@color/colorAccent</item>
+        <item name="cpb_subtitleColor">@color/colorAccent</item>
+    </style>
+    <style name="Widget.ProgressBar.lo.CircularProgressBar" parent="Widget.ProgressBar.CircularProgressBar">
+        <item name="cpb_hasShadow">false</item>
+        <item name="cpb_strokeWidth">10</item>
+    </style>
 
 
 </resources>

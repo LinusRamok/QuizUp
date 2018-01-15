@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Random;
 
 public class GamePlay extends AppCompatActivity implements View.OnClickListener {
+    String top,url;
     String jsonString;
     QuestionsApi obj;
     BufferedReader reader;
@@ -55,6 +56,11 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         View dv=getWindow().getDecorView();
         int ui= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
         dv.setSystemUiVisibility(ui);
+
+
+        //getintent Topic name and url
+        top=getIntent().getExtras().getString("topic_name");
+        url=getIntent().getExtras().getString("topic_url");
 
         setContentView(R.layout.activity_game_play);
         question = (TextView)findViewById(R.id.question);
@@ -244,6 +250,9 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
                     i.putExtra("QuestionAndAnswers",jsonString);
                     i.putExtra("userAnswers",qadetails);
+                    //intent Topic name
+                    i.putExtra("topic_name",top);
+                    i.putExtra("topic_name",url);
                     startActivity(i);
                 }
             }, 1500);
@@ -313,6 +322,9 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
                     i.putExtra("QuestionAndAnswers",jsonString);
                     i.putExtra("userAnswers",qadetails);
+                    //Intent Topic name
+                    i.putExtra("topic_name",top);
+                    i.putExtra("topic_url",url);
                     startActivity(i);
                 }
             }, 1500);

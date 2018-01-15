@@ -4,7 +4,7 @@
     android:layout_margin="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@drawable/ranking_page_background">
+    android:background="@color/windowBackground">
 
 
 <LinearLayout

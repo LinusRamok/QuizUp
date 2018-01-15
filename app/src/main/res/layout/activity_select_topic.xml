@@ -1,19 +1,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#f4f4f4"
-    >
+    android:background="@color/windowBackground">
 
     <SearchView
-        android:layout_margin="2dp"
-        android:elevation="14dp"
         android:id="@+id/search"
-        android:padding="3dp"
         android:labelFor="@id/search"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:background="@drawable/search_background"
+        android:clickable="true"
+        android:queryHint="Search a Topic"
+        android:iconifiedByDefault="false"
+        android:padding="0dp">
     </SearchView>
 
     <GridView
@@ -26,7 +26,6 @@
         android:layout_below="@id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:visibility="visible"
         />
 </RelativeLayout>

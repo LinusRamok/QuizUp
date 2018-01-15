@@ -43,7 +43,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.1'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
+    compile 'de.hdodenhof:circleimageview:2.2.0' //circular image view, link: https://github.com/hdodenhof/CircleImageView
 
 }
 

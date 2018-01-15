@@ -7,46 +7,68 @@
     tools:context="com.example.kamlesh.frd.topic_page">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/topic_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/colorAccent"/>
 
     <TextView
         android:id="@+id/topic_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/topic_image"
-        android:layout_marginTop="37dp"
-        android:gravity="center"
-        android:text="topic name"
-        android:textSize="30sp" />
-
-    <Button
-        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/topic_image"
-        android:layout_alignRight="@+id/topic_image"
-        android:layout_below="@+id/topic_name"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="38dp"
-        android:text="Button" />
+        android:layout_alignTop="@+id/topic_image"
+        android:layout_toEndOf="@+id/topic_image"
+        android:gravity="center"
+        android:text="topic name"
+        android:textAllCaps="true"
+        android:textSize="22dp" />
 
     <ProgressBar
         android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button"
         android:visibility="invisible"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="49dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/playButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text="Play"
+            android:gravity="center"
+            android:background="@drawable/perk_left_background"
+            android:layout_marginRight="5dp"/>
+
+        <TextView
+            android:id="@+id/challengeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text="Challenge a Friend"
+            android:gravity="center"
+            android:background="@drawable/perk_right_background"
+            android:layout_marginLeft="5dp"/>
+    </LinearLayout>
 
 </RelativeLayout>

@@ -25,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class topic_page extends AppCompatActivity {
+    Topic topic;
     FirebaseStorage storage =FirebaseStorage.getInstance();
     Button b;
     ProgressBar p;
@@ -39,7 +40,7 @@ public class topic_page extends AppCompatActivity {
 
 
         if(getIntent()!=null){
-          Topic topic =new Gson().fromJson(getIntent().getStringExtra("topic_details"),Topic.class);
+            topic =new Gson().fromJson(getIntent().getStringExtra("topic_details"),Topic.class);
             System.out.println(topic.url);
             System.out.println(topic.name);
             System.out.println(topic.description);
@@ -51,6 +52,7 @@ public class topic_page extends AppCompatActivity {
                     .into(topic_image);
 
         }
+
         b = (Button)findViewById(R.id.button);
         p = (ProgressBar)findViewById(R.id.progressBar2);
         b.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +62,6 @@ public class topic_page extends AppCompatActivity {
                 g.execute();
             }
         });
-
     }
     public class getcontentfornextactivity extends AsyncTask<Integer ,Integer,String> {
 
@@ -73,6 +74,9 @@ public class topic_page extends AppCompatActivity {
         protected void onPostExecute(String s) {
             p.setVisibility(View.GONE);
             Intent i=new Intent(topic_page.this,GamePlay.class);
+            //intent topic name
+            i.putExtra("topic_name", Topic_name);
+            i.putExtra("topic_url", topic.url);
             i.putExtra("jsonobj",respass.toString());
             startActivity(i);
         }

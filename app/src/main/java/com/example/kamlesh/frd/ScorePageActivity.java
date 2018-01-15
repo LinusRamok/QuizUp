@@ -1,26 +1,38 @@
 package com.example.kamlesh.frd;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.kamlesh.frd.CircularProgressBar.CircularProgressBar;
 import com.example.kamlesh.frd.ScorePagePOJO.PlayerScore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ScorePageActivity extends AppCompatActivity {
-    TextView a1,a2,a3,a4,a5,a6,a7,a8,a9,a10;
+
     StringBuffer response;
     int ans[]=new int[10],score=0;
     String questionsAndAnswers;
+    FirebaseStorage storage =FirebaseStorage.getInstance();
+    String Topic_name;
+    JSONObject respass=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +41,19 @@ public class ScorePageActivity extends AppCompatActivity {
 
         ans=getIntent().getIntArrayExtra("userAnswers");
         questionsAndAnswers=getIntent().getStringExtra("QuestionAndAnswers");
+        ImageView topic_logo =findViewById(R.id.topic_logo);
+
+        //setting topic name in textview
+        String topic_name=getIntent().getExtras().getString("topic_name");
+        String topic_url=getIntent().getExtras().getString("topic_url");
+
+        TextView t=findViewById(R.id.test2);
+        t.setText(topic_name);
+
+        StorageReference storageRef = storage.getReference(topic_url);
+        Glide.with(this)
+                .load(storageRef)
+                .into(topic_logo);
 
         for(int i=0;i<7;i++)
         {
@@ -45,8 +70,9 @@ public class ScorePageActivity extends AppCompatActivity {
             score-=4;
         if (ans[8]==3)
             score-=2;
-        System.out.println("Score is :"+score);
 
+
+        System.out.println("Score isssssssssssssssssssssssssssssss :"+score);
         //Toast.makeText(this, ans[0]+""+ans[1]+""+ans[2]+""+ans[3]+""+ans[4]+""+ans[5]+""+ans[6]+""+ans[7]+""+ans[8]+score, Toast.LENGTH_LONG).show();
 
         //adding BufferedReader
@@ -63,27 +89,24 @@ public class ScorePageActivity extends AppCompatActivity {
 //data is in string form:json format assingned in responsed
         String responsed=response.toString();
         System.out.println(responsed);
-           PlayerScore data = new Gson().fromJson(responsed, PlayerScore.class);
-           System.out.println(data.getMessage().getAccuracy());
+        PlayerScore data = new Gson().fromJson(responsed, PlayerScore.class);
+        System.out.println(data.getMessage().getAccuracy());
 
-//        "topic": "sports",
-//                "totalScore": 235,
-//                "accuracy": "171.43",
-//                "q_Total": 200,
-//                "q_Solved": 7,
-//                "correct": 12,
+//Score setting on textview
+        TextView main_score;
+        main_score=findViewById(R.id.score);
+        main_score.setText(String.valueOf(score));
+        //  accuracy= (TextView) findViewById(R.id.accuracy);
 
 
-        TextView topic,accuracy,q_solved,correct;
-        topic= (TextView) findViewById(R.id.topic);
-      //  accuracy= (TextView) findViewById(R.id.accuracy);
-        topic.setText(data.getMessage().getTopic());
-
-    //Accuracy
+        //Accuracy
         String a=  data.getMessage().getAccuracy();
+        float result = Float.parseFloat(a);
+        int intresult=(int)result;
 
         final CircularProgressBar c1= (CircularProgressBar) findViewById(R.id.accuracy);
-        c1.animateProgressTo(0, 100, new CircularProgressBar.ProgressAnimationListener() {
+        c1.setMax(500);
+        c1.animateProgressTo(0, intresult, new CircularProgressBar.ProgressAnimationListener() {
             @Override
             public void onAnimationStart() {
             }
@@ -124,6 +147,38 @@ public class ScorePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(ScorePageActivity.this, "Ranking Button clicked", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getApplicationContext(),RankingPageActivity.class);
+                startActivity(intent);
+            }
+        });
+//replay button
+        LinearLayout replay=(LinearLayout)findViewById(R.id.play_game);
+        replay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ScorePageActivity.this, "replay", Toast.LENGTH_SHORT).show();
+//                Intent intent1=new Intent(getApplicationContext(),topic_page.class);
+//                startActivity(intent1);
+            }
+        });
+//change topic
+        LinearLayout change_topic=(LinearLayout)findViewById(R.id.change_topic);
+        change_topic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ScorePageActivity.this, "change topic", Toast.LENGTH_SHORT).show();
+//                Intent intent=new Intent(getApplicationContext(),Select_Topic.class);
+//                startActivity(intent);
+            }
+        });
+        //change topic
+        LinearLayout quit=(LinearLayout)findViewById(R.id.quit);
+        change_topic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ScorePageActivity.this, "quit game", Toast.LENGTH_SHORT).show();
+//                Intent intent=new Intent(getApplicationContext(),Select_Topic.class);
+//                startActivity(intent);
             }
         });
 
@@ -149,29 +204,11 @@ public class ScorePageActivity extends AppCompatActivity {
 //        queue.add(request);
 
 
-//adding font
-//        Typeface custom_font = Typeface.createFromAsset(getAssets(),  "rishabh.ttf");
-//        a1 = (TextView)findViewById(R.id.ranking);
-//        a2 = (TextView)findViewById(R.id.topic);
-//        a3 = (TextView)findViewById(R.id.score);
-//        a4 = (TextView)findViewById(R.id.score_text);
-//        a5 = (TextView)findViewById(R.id.accuracy);
-//        a6 = (TextView)findViewById(R.id.slash);
-//        a7 = (TextView)findViewById(R.id.total_accuracy);
-//        a8 = (TextView)findViewById(R.id.solved_question);
-//        a9 = (TextView)findViewById(R.id.slash1);
-//        a10 = (TextView)findViewById(R.id.total_question);
-//        a1.setTypeface(custom_font);
-//        a2.setTypeface(custom_font);
-//        a3.setTypeface(custom_font);
-//        a4.setTypeface(custom_font);
-//        a5.setTypeface(custom_font);
-//        a6.setTypeface(custom_font);
-//        a7.setTypeface(custom_font);
-//        a8.setTypeface(custom_font);
-//        a9.setTypeface(custom_font);
-//        a10.setTypeface(custom_font);
+        //     StartSmartAnimation.startAnimation( findViewById(R.id.test) , AnimationType.ZoomIn,1000, 0 , true );
 
-   //     StartSmartAnimation.startAnimation( findViewById(R.id.test) , AnimationType.ZoomIn,1000, 0 , true );
+
+
+
+
     }
 }

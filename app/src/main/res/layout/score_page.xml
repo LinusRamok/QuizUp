@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--layout 1...............................................       -->
+        <!--layout 1...............................................       -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -43,7 +43,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-<!--Layout 2...................................................            -->
+            <!--Layout 2...................................................            -->
             <LinearLayout
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
@@ -51,18 +51,18 @@
                 android:layout_centerHorizontal="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-              <LinearLayout
-                  android:background="@drawable/option_background"
-                  android:layout_width="100dp"
-                  android:layout_height="100dp">
-                  <ImageView
-                      android:background="@mipmap/ic_launcher"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent" />
+                <LinearLayout
+                    android:background="@drawable/option_background"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp">
+                    <ImageView
+                        android:id="@+id/topic_logo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
-              </LinearLayout>
+                </LinearLayout>
                 <TextView
-                    android:id="@+id/topic"
+                    android:id="@+id/test2"
                     android:text="TOPIC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -70,7 +70,7 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="50sp"
                     android:id="@+id/score"
-                    android:text="250"
+                    android:text=""
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
@@ -90,26 +90,26 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
                             <!--<TextView-->
-                                <!--android:id="@+id/accuracy"-->
-                                <!--android:textSize="25sp"-->
-                                <!--android:layout_gravity="center_vertical"-->
-                                <!--android:text="20"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content" />-->
+                            <!--android:id="@+id/accuracy"-->
+                            <!--android:textSize="25sp"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:text="20"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content" />-->
                             <!--<TextView-->
-                                <!--android:id="@+id/slash"-->
-                                <!--android:textSize="25sp"-->
-                                <!--android:layout_gravity="center_vertical"-->
-                                <!--android:text="/"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content" />-->
+                            <!--android:id="@+id/slash"-->
+                            <!--android:textSize="25sp"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:text="/"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content" />-->
                             <!--<TextView-->
-                                <!--android:id="@+id/total_accuracy"-->
-                                <!--android:textSize="25sp"-->
-                                <!--android:layout_gravity="center_vertical"-->
-                                <!--android:text="20"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content" />-->
+                            <!--android:id="@+id/total_accuracy"-->
+                            <!--android:textSize="25sp"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:text="20"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content" />-->
                             <com.example.kamlesh.frd.CircularProgressBar.CircularProgressBar
                                 android:id="@+id/accuracy"
                                 style="@style/Widget.ProgressBar.lo.CircularProgressBar"
@@ -122,43 +122,43 @@
                     <LinearLayout
                         android:layout_width="100dp"
                         android:layout_height="100dp">
-                       <LinearLayout
-                           android:gravity="center_horizontal"
-                           android:layout_width="match_parent"
-                           android:layout_height="match_parent">
-                        <!--<TextView-->
+                        <LinearLayout
+                            android:gravity="center_horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <!--<TextView-->
                             <!--android:id="@+id/solved_question"-->
                             <!--android:textSize="25sp"-->
                             <!--android:layout_gravity="center_vertical"-->
                             <!--android:text="20"-->
                             <!--android:layout_width="wrap_content"-->
                             <!--android:layout_height="wrap_content" />-->
-                        <!--<TextView-->
+                            <!--<TextView-->
                             <!--android:id="@+id/slash1"-->
                             <!--android:textSize="25sp"-->
                             <!--android:layout_gravity="center_vertical"-->
                             <!--android:text="/"-->
                             <!--android:layout_width="wrap_content"-->
                             <!--android:layout_height="wrap_content" />-->
-                        <!--<TextView-->
+                            <!--<TextView-->
                             <!--android:id="@+id/total_question"-->
                             <!--android:textSize="25sp"-->
                             <!--android:layout_gravity="center_vertical"-->
                             <!--android:text="20"-->
                             <!--android:layout_width="wrap_content"-->
                             <!--android:layout_height="wrap_content" />-->
-                           <com.example.kamlesh.frd.CircularProgressBar.CircularProgressBar
-                               android:id="@+id/question_completed"
-                               style="@style/Widget.ProgressBar.lo.CircularProgressBar"
-                               android:layout_width="70dp"
-                               android:layout_height="wrap_content"
+                            <com.example.kamlesh.frd.CircularProgressBar.CircularProgressBar
+                                android:id="@+id/question_completed"
+                                style="@style/Widget.ProgressBar.lo.CircularProgressBar"
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
                                 />
-                       </LinearLayout>
+                        </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-<!--Layout 3....................................................            -->
+            <!--Layout 3....................................................            -->
             <LinearLayout
                 android:layout_marginBottom="15dp"
                 android:orientation="horizontal"
@@ -172,12 +172,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
                     <LinearLayout
+                        android:id="@+id/change_topic"
                         android:gravity="center_horizontal"
                         android:background="@drawable/option_background"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:id="@+id/change_topic"
                             android:text="Topic"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -189,14 +189,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
                     <LinearLayout
-
+                        android:id="@+id/play_game"
                         android:background="@drawable/option_background"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
                             android:textSize="25sp"
                             android:gravity="center_horizontal"
-                            android:id="@+id/play_game"
                             android:text="Play Game"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -209,15 +208,16 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
                     <LinearLayout
+                        android:id="@+id/quit"
                         android:gravity="center_horizontal"
                         android:background="@drawable/option_background"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content">
-                         <TextView
-                             android:id="@+id/quit"
-                             android:text="Quit"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content" />
+                        <TextView
+
+                            android:text="Quit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

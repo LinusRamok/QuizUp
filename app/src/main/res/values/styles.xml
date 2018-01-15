@@ -24,7 +24,7 @@
     </style>
     <style name="Widget.ProgressBar.lo.CircularProgressBar" parent="Widget.ProgressBar.CircularProgressBar">
         <item name="cpb_hasShadow">false</item>
-        <item name="cpb_strokeWidth">10</item>
+        <item name="cpb_strokeWidth">3</item>
     </style>
 
 

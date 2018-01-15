@@ -11,6 +11,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.kamlesh.frd.CircularProgressBar.CircularProgressBar;
 import com.example.kamlesh.frd.ScorePagePOJO.PlayerScore;
@@ -26,7 +31,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ScorePageActivity extends AppCompatActivity {
-
+    int a,b,c,d,e1,f,g,h,i;
     StringBuffer response;
     int ans[]=new int[10],score=0;
     String questionsAndAnswers;
@@ -50,10 +55,17 @@ public class ScorePageActivity extends AppCompatActivity {
         TextView t=findViewById(R.id.test2);
         t.setText(topic_name);
 
-        StorageReference storageRef = storage.getReference(topic_url);
-        Glide.with(this)
-                .load(storageRef)
-                .into(topic_logo);
+
+try {
+    StorageReference storageRef = storage.getReference(topic_url);
+
+    Glide.with(this)
+            .load(storageRef)
+            .into(topic_logo);
+}catch (Exception e){
+    System.out.println(e.getMessage());
+}
+
 
         for(int i=0;i<7;i++)
         {
@@ -72,74 +84,14 @@ public class ScorePageActivity extends AppCompatActivity {
             score-=2;
 
 
-        System.out.println("Score isssssssssssssssssssssssssssssss :"+score);
-        //Toast.makeText(this, ans[0]+""+ans[1]+""+ans[2]+""+ans[3]+""+ans[4]+""+ans[5]+""+ans[6]+""+ans[7]+""+ans[8]+score, Toast.LENGTH_LONG).show();
-
-        //adding BufferedReader
-        try {
-            BufferedReader buffer = new BufferedReader(new InputStreamReader(getApplicationContext().getAssets().open("Score.json")));
-            response=new StringBuffer();
-            String line;
-            while ((line=buffer.readLine())!=null){
-                response.append(line);
-                response.append("\n");
-            }
-        } catch (IOException e) {
-        }
-//data is in string form:json format assingned in responsed
-        String responsed=response.toString();
-        System.out.println(responsed);
-        PlayerScore data = new Gson().fromJson(responsed, PlayerScore.class);
-        System.out.println(data.getMessage().getAccuracy());
+        System.out.println("Score issssssssssssssssssssssssssssss :"+score);
+        int q=ans[0]+ans[1]+ans[2]+ans[3]+ans[4]+ans[5]+ans[6]+ans[7]+ans[8];
+        int s=q-13;
 
 //Score setting on textview
         TextView main_score;
         main_score=findViewById(R.id.score);
         main_score.setText(String.valueOf(score));
-        //  accuracy= (TextView) findViewById(R.id.accuracy);
-
-
-        //Accuracy
-        String a=  data.getMessage().getAccuracy();
-        float result = Float.parseFloat(a);
-        int intresult=(int)result;
-
-        final CircularProgressBar c1= (CircularProgressBar) findViewById(R.id.accuracy);
-        c1.setMax(500);
-        c1.animateProgressTo(0, intresult, new CircularProgressBar.ProgressAnimationListener() {
-            @Override
-            public void onAnimationStart() {
-            }
-
-            @Override
-            public void onAnimationFinish() {
-
-            }
-
-            @Override
-            public void onAnimationProgress(int progress) {
-                c1.setTitle(String.valueOf(progress));
-            }
-        });
-
-
-        final CircularProgressBar c2= (CircularProgressBar) findViewById(R.id.question_completed);
-        c2.setMax(data.getMessage().getQTotal());
-        c2.animateProgressTo(0, data.getMessage().getQSolved(), new CircularProgressBar.ProgressAnimationListener() {
-            @Override
-            public void onAnimationStart() {
-            }
-
-            @Override
-            public void onAnimationFinish() {
-
-            }
-
-            @Override
-            public void onAnimationProgress(int progress) {
-                c2.setTitle(String.valueOf(progress));
-            }
-        });
 
 //ranking Button
         LinearLayout rankingButton= (LinearLayout) findViewById(R.id.ranking_click);
@@ -183,25 +135,75 @@ public class ScorePageActivity extends AppCompatActivity {
         });
 
 //volley.......................................................
-////putting entered value into URL
-//        String URL = "https://";
-////Data Downloader-Volley
-//        final StringRequest request = new StringRequest(URL, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String data) {
-//                PlayerData data1 = new Gson().fromJson(data, PlayerData.class);
-//                }
-//        },
-////Error listener:Server error
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Toast.makeText(ScorePageActivity.this, "Server error Please retry", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-////Adding request Queue
-//        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-//        queue.add(request);
+//putting entered value into URL
+        String URL = "https://quizgame-backend.appspot.com/_ah/api/myapi/v1/updateStats?PID=milind%40gmail.com&Q_Correct="+s+"&Score="+score+"&Topic="+topic_name;
+//Data Downloader-Volley
+        final StringRequest request = new StringRequest(URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String data1) {
+                System.out.println(data1);
+                PlayerScore data = new Gson().fromJson(data1, PlayerScore.class);
+                System.out.println(data.getMessage().getAccuracy());
+
+//Accuracy
+                String a1=  data.getMessage().getAccuracy();
+                float result = Float.parseFloat(a1);
+                int intresult=(int)result;
+
+                final CircularProgressBar c1= (CircularProgressBar) findViewById(R.id.accuracy);
+                c1.setMax(100);
+                c1.animateProgressTo(0, intresult, new CircularProgressBar.ProgressAnimationListener() {
+                    @Override
+                    public void onAnimationStart() {
+                    }
+
+                    @Override
+                    public void onAnimationFinish() {
+
+                    }
+
+                    @Override
+                    public void onAnimationProgress(int progress) {
+                        c1.setTitle(String.valueOf(progress)+"%");
+                    }
+                });
+
+//question completed
+                final CircularProgressBar c2= (CircularProgressBar) findViewById(R.id.question_completed);
+                c2.setMax(100);
+                float a=data.getMessage().getCorrect();
+                float b=data.getMessage().getQTotal();
+                System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaa"+a+"bbbbbbbbbbbbbbbb"+b);
+                float c=(a/b)*100;
+                System.out.println(c);
+                c2.animateProgressTo(0, (int) c, new CircularProgressBar.ProgressAnimationListener() {
+                    @Override
+                    public void onAnimationStart() {
+                    }
+
+                    @Override
+                    public void onAnimationFinish() {
+
+                    }
+
+                    @Override
+                    public void onAnimationProgress(int progress) {
+                        c2.setTitle(String.valueOf(progress)+"%");
+                    }
+                });
+
+                }
+        },
+//Error listener:Server error
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(ScorePageActivity.this, "Server error Please retry", Toast.LENGTH_SHORT).show();
+                    }
+                });
+//Adding request Queue
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
 
 
         //     StartSmartAnimation.startAnimation( findViewById(R.id.test) , AnimationType.ZoomIn,1000, 0 , true );

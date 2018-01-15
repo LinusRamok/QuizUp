@@ -145,11 +145,12 @@ public class CircularProgressBar extends ProgressBar {
 		mTitlePaint.setAntiAlias(true);
 		mTitlePaint.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
 		//mTitlePaint.setShadowLayer(0.1f, 0, 1, Color.GRAY);
-
-		mSubtitlePaint.setTextSize(0);
-		mSubtitlePaint.setStyle(Style.FILL);
-		mSubtitlePaint.setAntiAlias(true);
-		mSubtitlePaint.setTypeface(Typeface.create("Roboto-Thin", Typeface.BOLD));
+//		float spsubTextSize =30;
+//		float textSize1 = spsubTextSize*getResources().getDisplayMetrics().scaledDensity;
+//		mSubtitlePaint.setTextSize(textSize1);
+//		mSubtitlePaint.setStyle(Style.FILL);
+//		mSubtitlePaint.setAntiAlias(true);
+//		mSubtitlePaint.setTypeface(Typeface.create("Roboto-Thin", Typeface.BOLD));
 		//		mSubtitlePaint.setShadowLayer(0.1f, 0, 1, Color.GRAY);
 	}
 
@@ -167,7 +168,7 @@ public class CircularProgressBar extends ProgressBar {
 
 		if(!TextUtils.isEmpty(mTitle)){
 			int xPos =  (int)(getMeasuredWidth()/2 - mTitlePaint.measureText(mTitle) / 2);
-			int yPos = (int) (getMeasuredHeight()/1.75);
+			int yPos = (int) (getMeasuredHeight()/1.65);
 
 			float titleHeight = Math.abs(mTitlePaint.descent() + mTitlePaint.ascent());
 			canvas.drawText(mTitle, xPos, yPos, mTitlePaint);

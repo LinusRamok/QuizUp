@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <LinearLayout
-                    android:layout_margin="5dp"
+                    android:layout_margin="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <LinearLayout
@@ -36,7 +36,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <ImageView
-                            android:background="@mipmap/ic_launcher_round"
+                            android:background="@drawable/crown"
                             android:layout_gravity="center_vertical"
                             android:layout_width="20dp"
                             android:layout_height="20dp" />
@@ -86,6 +86,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp">
                         <LinearLayout
+                            android:orientation="vertical"
                             android:gravity="center_horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
@@ -115,7 +116,12 @@
                                 style="@style/Widget.ProgressBar.lo.CircularProgressBar"
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
-                                app:cpb_title="0%" />
+                                />
+                            <TextView
+                                android:textAllCaps="true"
+                                android:text="Accuracy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -123,6 +129,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp">
                         <LinearLayout
+                            android:orientation="vertical"
                             android:gravity="center_horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
@@ -152,6 +159,13 @@
                                 style="@style/Widget.ProgressBar.lo.CircularProgressBar"
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
+
+                                />
+                            <TextView
+                                android:text="solved"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAllCaps="true"
                                 />
                         </LinearLayout>
 
@@ -160,7 +174,7 @@
             </LinearLayout>
             <!--Layout 3....................................................            -->
             <LinearLayout
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"

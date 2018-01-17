@@ -45,10 +45,10 @@ public class RankinglistAdapter extends RecyclerView.Adapter<RankinglistAdapter.
         holder.name.setText(top5.getName());
 //      holder.country.setText(top5.getCountry());
         holder.rank.setText(String.valueOf(top5.getRank()));
-//        holder.accuracy.setText(top5.getAccuracy()+"%");
-        holder.testing.setProgressText(String.valueOf(top5.getAccuracy())+"%");
-        holder.testing.setMax(100);
-        holder.testing.setProgress(Float.parseFloat(top5.getAccuracy()));
+        holder.accuracy.setText(top5.getAccuracy()+"%");
+//        holder.testing.setProgressText(String.valueOf(top5.getAccuracy())+"%");
+//        holder.testing.setMax(100);
+//        holder.testing.setProgress(Float.parseFloat(top5.getAccuracy()));
 
 //      holder.email.setText(top5.getEmail());
 //
@@ -125,11 +125,11 @@ public class RankinglistAdapter extends RecyclerView.Adapter<RankinglistAdapter.
             rank = (TextView) itemView.findViewById(R.id.rank);
 //          email = (TextView) itemView.findViewById(R.id.email);
 //          country = (TextView) itemView.findViewById(R.id.country);
-//            accuracy = (TextView) itemView.findViewById(R.id.accuracy1);
+            accuracy = (TextView) itemView.findViewById(R.id.accuracy1);
             linearLayout=(LinearLayout) itemView.findViewById(R.id.ranking_onclick);
             all=(LinearLayout) itemView.findViewById(R.id.all);
 //            crown=(LinearLayout) itemView.findViewById(R.id.crown);
-            testing=itemView.findViewById(R.id.pro);
+//            testing=itemView.findViewById(R.id.pro);
 //            StartSmartAnimation.startAnimation(itemView.findViewById(R.id.ranking_onclick) , AnimationType.SlideInUp , 2000 , 0 , true );
         }
     }

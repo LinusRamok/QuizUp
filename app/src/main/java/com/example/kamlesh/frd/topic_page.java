@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.kamlesh.frd.CircularProgressBar.CircularProgressBar;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
@@ -27,7 +28,7 @@ import java.net.URL;
 public class topic_page extends AppCompatActivity {
     Topic topic;
     FirebaseStorage storage =FirebaseStorage.getInstance();
-    TextView playButton, challengeButton;
+    TextView playButton, txt, txt1, txt2, accuracy, quesCompleted, totalQues;
     ProgressBar p;
     String Topic_name;
     JSONObject respass=null;
@@ -85,17 +86,26 @@ public class topic_page extends AppCompatActivity {
         }
 
         playButton = (TextView)findViewById(R.id.playButton);
-        challengeButton = (TextView)findViewById(R.id.challengeButton);
+        txt = (TextView)findViewById(R.id.txt);
+        txt1 = (TextView)findViewById(R.id.txt1);
+        txt2 = (TextView)findViewById(R.id.txt2);
+        accuracy = (TextView)findViewById(R.id.accuracy);
+        quesCompleted = (TextView)findViewById(R.id.quesCompleted);
+        totalQues = (TextView)findViewById(R.id.totalQues);
 
         Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
         Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
         topic_name.setTypeface(ourBoldFont);
-        playButton.setTypeface(ourLightFont);
-        challengeButton.setTypeface(ourLightFont);
-
-
+        playButton.setTypeface(ourBoldFont);
+        txt.setTypeface(ourBoldFont);
+        txt1.setTypeface(ourBoldFont);
+        txt2.setTypeface(ourLightFont);
+        accuracy.setTypeface(ourLightFont);
+        quesCompleted.setTypeface(ourLightFont);
+        totalQues.setTypeface(ourLightFont);
 
         p = (ProgressBar)findViewById(R.id.progressBar2);
+
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +113,8 @@ public class topic_page extends AppCompatActivity {
                 g.execute();
             }
         });
+
+
     }
     public class getcontentfornextactivity extends AsyncTask<Integer ,Integer,String> {
 

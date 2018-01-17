@@ -12,8 +12,7 @@
         android:background="@drawable/search_background"
         android:clickable="true"
         android:queryHint="Search a Topic"
-        android:iconifiedByDefault="false"
-        android:padding="0dp">
+        android:iconifiedByDefault="false">
     </SearchView>
 
     <GridView

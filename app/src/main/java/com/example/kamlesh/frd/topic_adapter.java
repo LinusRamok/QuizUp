@@ -3,6 +3,7 @@ package com.example.kamlesh.frd;
 
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,13 +38,12 @@ class topic_adapter extends BaseAdapter {
        this.arraylist = new ArrayList<Topic>();
        this.arraylist.addAll(topiclist);
 
-
    }
 
     public class ViewHolder {
         TextView name;
-
         ImageView img;
+
     }
 
    @Override
@@ -118,8 +118,6 @@ class topic_adapter extends BaseAdapter {
 
        notifyDataSetChanged();
    }
-
-
 
 }
 

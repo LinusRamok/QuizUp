@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ScorePageActivity extends AppCompatActivity {
-    int a,b,c,d,e1,f,g,h,i;
     StringBuffer response;
     int ans[]=new int[10],score=0;
     String questionsAndAnswers;
@@ -49,7 +48,7 @@ public class ScorePageActivity extends AppCompatActivity {
         ImageView topic_logo =findViewById(R.id.topic_logo);
 
         //setting topic name in textview
-        String topic_name=getIntent().getExtras().getString("topic_name");
+        final String topic_name=getIntent().getExtras().getString("topic_name");
         String topic_url=getIntent().getExtras().getString("topic_url");
 
         TextView t=findViewById(R.id.test2);
@@ -100,6 +99,7 @@ try {
             public void onClick(View view) {
                 Toast.makeText(ScorePageActivity.this, "Ranking Button clicked", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(getApplicationContext(),RankingPageActivity.class);
+                intent.putExtra("topicName",topic_name);
                 startActivity(intent);
             }
         });

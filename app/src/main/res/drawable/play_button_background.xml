@@ -5,11 +5,11 @@
         android:state_enabled="true"
         android:state_pressed="true">
         <shape android:shape="rectangle">
-            <padding android:left="5dp"
-                android:top="5dp"
-                android:right="5dp"
-                android:bottom="5dp" />
-            <corners android:radius="200dp" />
+            <padding android:left="@dimen/playButtonBackgroundPadding"
+                android:top="@dimen/playButtonBackgroundPadding"
+                android:right="@dimen/playButtonBackgroundPadding"
+                android:bottom="@dimen/playButtonBackgroundPadding" />
+            <corners android:radius="@dimen/playButtonBackgroundRadius" />
             <solid android:color="@color/colorPrimary" />
         </shape>
     </item>
@@ -18,11 +18,11 @@
         android:state_enabled="true"
         android:state_focused="true">
         <shape android:shape="rectangle">
-            <padding android:left="5dp"
-                android:top="5dp"
-                android:right="5dp"
-                android:bottom="5dp" />
-            <corners android:radius="200dp" />
+            <padding android:left="@dimen/playButtonBackgroundPadding"
+                android:top="@dimen/playButtonBackgroundPadding"
+                android:right="@dimen/playButtonBackgroundPadding"
+                android:bottom="@dimen/playButtonBackgroundPadding" />
+            <corners android:radius="@dimen/playButtonBackgroundRadius" />
             <solid android:color="@color/colorPrimary" />
         </shape>
     </item>
@@ -30,13 +30,13 @@
     <item
         android:state_enabled="true">
         <shape android:shape="rectangle">
-            <padding android:left="5dp"
-                android:top="5dp"
-                android:right="5dp"
-                android:bottom="5dp" />
-            <corners android:radius="200dp" />
+            <padding android:left="@dimen/playButtonBackgroundPadding"
+                android:top="@dimen/playButtonBackgroundPadding"
+                android:right="@dimen/playButtonBackgroundPadding"
+                android:bottom="@dimen/playButtonBackgroundPadding" />
+            <corners android:radius="@dimen/playButtonBackgroundRadius" />
             <stroke
-                android:width="2dp"
+                android:width="@dimen/playButtonBackgroundStroke"
                 android:color="@color/colorPrimary" />
             <solid android:color="@color/windowBackground" />
         </shape>

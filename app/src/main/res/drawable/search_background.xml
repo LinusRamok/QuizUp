@@ -3,15 +3,15 @@
 
     <item android:state_enabled="true">
         <shape android:shape="rectangle">
-            <padding android:left="5dp"
-                android:top="5dp"
-                android:right="5dp"
-                android:bottom="5dp" />
+            <padding android:left="@dimen/searchButtonBackgroundPadding"
+                android:top="@dimen/searchButtonBackgroundPadding"
+                android:right="@dimen/searchButtonBackgroundPadding"
+                android:bottom="@dimen/searchButtonBackgroundPadding" />
 
-            <corners android:radius="100dp" />
+            <corners android:radius="@dimen/searchButtonBackgroundRadius" />
 
             <stroke
-                android:width="2dp"
+                android:width="@dimen/searchButtonBackgroundStroke"
                 android:color="@color/colorPrimary" />
             <!--<solid android:color="@color/windowBackground" />-->
         </shape>

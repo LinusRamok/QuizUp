@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="generalLayoutPadding">10dp</dimen>
+    <dimen name="smallTextSize">17dp</dimen>
+    <dimen name="mediumTextSize">20dp</dimen>
+    <dimen name="largeTextSize">24dp</dimen>
+    <dimen name="generalSmallMargin">5dp</dimen>
+    <dimen name="gameButtonBackgroundPadding">5dp</dimen>
+    <dimen name="gameButtonBackgroundRadius">20dp</dimen>
+    <dimen name="gameButtonBackgroundStroke">1dp</dimen>
+    <dimen name="playButtonBackgroundPadding">5dp</dimen>
+    <dimen name="playButtonBackgroundRadius">200dp</dimen>
+    <dimen name="playButtonBackgroundStroke">2dp</dimen>
+    <dimen name="searchButtonBackgroundPadding">5dp</dimen>
+    <dimen name="searchButtonBackgroundRadius">100dp</dimen>
+    <dimen name="searchButtonBackgroundStroke">2dp</dimen>
+</resources>

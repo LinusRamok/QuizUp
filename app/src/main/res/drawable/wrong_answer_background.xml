@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <padding android:left="5dp"
-        android:top="5dp"
-        android:right="5dp"
-        android:bottom="5dp" />
+    <padding android:left="@dimen/gameButtonBackgroundPadding"
+        android:top="@dimen/gameButtonBackgroundPadding"
+        android:right="@dimen/gameButtonBackgroundPadding"
+        android:bottom="@dimen/gameButtonBackgroundPadding" />
 
-    <corners android:radius="20dp" />
+    <corners android:radius="@dimen/gameButtonBackgroundRadius" />
 
     <solid android:color="@color/wrongAnswer" />
 

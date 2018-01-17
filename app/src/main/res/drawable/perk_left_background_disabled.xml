@@ -3,14 +3,14 @@
     <item
         android:state_enabled="true">
         <shape android:shape="rectangle">
-            <padding android:left="5dp"
-                android:top="5dp"
-                android:right="5dp"
-                android:bottom="5dp" />
-            <corners android:bottomLeftRadius="20dp"
-                android:topLeftRadius="20dp"/>
+            <padding android:left="@dimen/gameButtonBackgroundPadding"
+                android:top="@dimen/gameButtonBackgroundPadding"
+                android:right="@dimen/gameButtonBackgroundPadding"
+                android:bottom="@dimen/gameButtonBackgroundPadding" />
+            <corners android:bottomLeftRadius="@dimen/gameButtonBackgroundRadius"
+                android:topLeftRadius="@dimen/gameButtonBackgroundRadius"/>
             <stroke
-                android:width="1dp"
+                android:width="@dimen/gameButtonBackgroundStroke"
                 android:color="@color/colorPrimary" />
             <solid android:color="@color/windowBackground" />
         </shape>

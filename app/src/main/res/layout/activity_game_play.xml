@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:padding="10dp"
+        android:padding="@dimen/generalLayoutPadding"
         android:id="@+id/upperLayout"
         android:background="@color/colorPrimary">
 
@@ -37,7 +37,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:text="0.0"
-            android:textSize="22dp"
+            android:textSize="@dimen/largeTextSize"
             android:textColor="@color/iconDark"/>
 
     </RelativeLayout>
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/upperLayout"
         android:id="@+id/questionLayout"
-        android:padding="10dp">
+        android:padding="@dimen/generalLayoutPadding">
 
         <TextView
             android:id="@+id/questionNumber"
@@ -57,7 +57,7 @@
             android:layout_alignParentStart="true"
             android:text="1/7"
             android:textColor="@color/textColorSecondary"
-            android:textSize="15dp"
+            android:textSize="@dimen/smallTextSize"
             android:layout_marginTop="5dp"/>
 
         <TextView
@@ -69,7 +69,7 @@
             android:layout_marginLeft="7dp"
             android:text=""
             android:textColor="@color/textColorPrimary"
-            android:textSize="20dp"/>
+            android:textSize="@dimen/mediumTextSize"/>
 
     </RelativeLayout>
 
@@ -80,43 +80,43 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/optionsLayout"
-        android:padding="10dp">
+        android:padding="@dimen/generalLayoutPadding">
 
         <TextView
             android:id="@+id/optionA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="@dimen/mediumTextSize"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:textAlignment="center"
             android:text=""
             android:background="@drawable/option_background"
-            android:layout_margin="5dp" />
+            android:layout_margin="@dimen/generalSmallMargin" />
 
         <TextView
             android:id="@+id/optionB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="@dimen/mediumTextSize"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/optionA"
             android:text=""
             android:textAlignment="center"
             android:background="@drawable/option_background"
-            android:layout_margin="5dp"/>
+            android:layout_margin="@dimen/generalSmallMargin"/>
 
         <TextView
             android:id="@+id/optionC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="@dimen/mediumTextSize"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/optionB"
             android:text=""
             android:textAlignment="center"
             android:background="@drawable/option_background"
-            android:layout_margin="5dp"/>
+            android:layout_margin="@dimen/generalSmallMargin"/>
 
         <TextView
             android:id="@+id/optionD"
@@ -126,16 +126,16 @@
             android:layout_below="@+id/optionC"
             android:text=""
             android:textAlignment="center"
-            android:textSize="20dp"
+            android:textSize="@dimen/mediumTextSize"
             android:background="@drawable/option_background"
-            android:layout_margin="5dp"/>
+            android:layout_margin="@dimen/generalSmallMargin"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/optionD"
             android:orientation="horizontal"
-            android:layout_margin="5dp">
+            android:layout_margin="@dimen/generalSmallMargin">
 
             <TextView
                 android:id="@+id/perk1"
@@ -143,10 +143,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="use 50-50"
-                android:textSize="20dp"
+                android:textSize="@dimen/mediumTextSize"
                 android:textAlignment="center"
                 android:background="@drawable/perk_left_background"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginRight="@dimen/generalSmallMargin"/>
 
             <TextView
                 android:id="@+id/perk2"
@@ -154,10 +154,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="skip this question"
-                android:textSize="20dp"
+                android:textSize="@dimen/mediumTextSize"
                 android:textAlignment="center"
                 android:background="@drawable/perk_right_background"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginLeft="@dimen/generalSmallMargin"/>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

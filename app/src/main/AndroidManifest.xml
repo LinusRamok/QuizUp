@@ -44,7 +44,9 @@
         <activity android:name=".topic_page"
             android:label="Topic page"></activity>
         <activity android:name=".GamePlay" />
-        <activity android:name=".RankingPageActivity"></activity>
+        <activity android:name=".RankingPageActivity">
+
+        </activity>
         <activity android:name=".ScorePageActivity"></activity>
     </application>
 

@@ -220,4 +220,11 @@ try {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent  =new Intent(ScorePageActivity.this,Select_Topic.class);
+        startActivity(intent);
+        finish();
+    }
 }

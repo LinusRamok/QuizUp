@@ -3,23 +3,22 @@
     package="com.example.kamlesh.frd">
 
     <application
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="quiz app"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login_activity" />
-        <activity android:name=".Select_Topic"
+        <activity android:name=".Select_Topic" />
+        <activity android:name=".login_activity"
             android:label="Select Any Topic">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".logout_page" />
-        <activity android:name=".facebook_login"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

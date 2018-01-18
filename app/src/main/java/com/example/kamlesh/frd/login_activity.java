@@ -29,6 +29,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -52,6 +53,7 @@ public class login_activity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         mAuth = FirebaseAuth.getInstance();
@@ -84,7 +86,8 @@ public class login_activity extends AppCompatActivity  {
               public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                         if(firebaseAuth.getCurrentUser() !=null){
 
-                           startActivity(new Intent(login_activity.this,logout_page.class));
+                           startActivity(new Intent(login_activity.this,Select_Topic.class));
+                           finish();
 
                         }
 
@@ -225,6 +228,12 @@ public class login_activity extends AppCompatActivity  {
                 });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+    }
 
 }

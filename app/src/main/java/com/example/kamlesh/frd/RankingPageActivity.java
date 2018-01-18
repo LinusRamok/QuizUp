@@ -102,5 +102,9 @@ else {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        finish();
     }
+}
 

@@ -9,9 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 
 
+import com.example.kamlesh.frd.Models.Topic;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +28,7 @@ import java.util.Iterator;
 public class Select_Topic extends AppCompatActivity {
 
     topic_adapter Adapter;
-
+    FirebaseDatabase database;
     GridView listView1;
     SQLiteDatabase db;
     DatabaseReference myRef;
@@ -66,14 +68,15 @@ public class Select_Topic extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        database = FirebaseDatabase.getInstance();
+
         View dv=getWindow().getDecorView();
         int ui= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
         dv.setSystemUiVisibility(ui);
 
         setContentView(R.layout.activity_select_topic);
-        //pref=getSharedPreferences("com.example.kamlesh.frd",MODE_PRIVATE);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        database.setPersistenceEnabled(true);
+        Button settings = findViewById(R.id.settings);
+
         listView1 = (GridView) findViewById(R.id.listview);
         searchView= findViewById(R.id.search);
 
@@ -97,32 +100,33 @@ public class Select_Topic extends AppCompatActivity {
             }
         });
 
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Select_Topic.this,logout_page.class));
+              //  finish();
+            }
+        });
 
-    }
-
-    @Override
-    protected void onStart() {
-        // Read from the database
-        super.onStart();
         myRef.addChildEventListener(new ChildEventListener() {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();
                 Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
-               db=openOrCreateDatabase("trainlist",MODE_PRIVATE,null);
-               topics.clear();
+                db=openOrCreateDatabase("trainlist",MODE_PRIVATE,null);
+                topics.clear();
 
                 while (iterator.hasNext()){
-             Topic t = iterator.next().getValue(Topic.class);
+                    Topic t = iterator.next().getValue(Topic.class);
 
                     System.out.println("here are values :");
                     System.out.println(t.name);
                     System.out.println(t.description);
                     System.out.println(t.url);
-                 //   if (topics.contains(t)) {
-                        topics.add(t);
-                 //   }
+                    //   if (topics.contains(t)) {
+                    topics.add(t);
+                    //   }
                 }
 
 
@@ -153,6 +157,18 @@ public class Select_Topic extends AppCompatActivity {
         });
 
 
+
+    }
+
+
+
+    @Override
+    protected void onStart() {
+        // Read from the database
+        super.onStart();
+
+
+
  //               searchView.setIconified(false);
         searchView.setQueryHint("Search Topic....");
         searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
@@ -170,6 +186,13 @@ public class Select_Topic extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
 
 

@@ -36,7 +36,13 @@ public class logout_page extends AppCompatActivity {
                 mAuth.signOut();
                 LoginManager.getInstance().logOut();
                 startActivity(new Intent(logout_page.this,login_activity.class));
+                finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

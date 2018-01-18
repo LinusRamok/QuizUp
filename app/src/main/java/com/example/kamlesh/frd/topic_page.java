@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.kamlesh.frd.CircularProgressBar.CircularProgressBar;
+import com.example.kamlesh.frd.Models.Topic;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
@@ -204,5 +204,10 @@ public class topic_page extends AppCompatActivity {
         urlConnection.disconnect();
 
         return new JSONObject(jsonString);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

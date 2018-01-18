@@ -86,6 +86,13 @@ try {
         System.out.println("Score issssssssssssssssssssssssssssss :"+score);
         int q=ans[0]+ans[1]+ans[2]+ans[3]+ans[4]+ans[5]+ans[6]+ans[7]+ans[8];
         int s=q-13;
+        System.out.println(s);
+        float ca=(float)s;
+        float caa=(ca/7)*100;
+        float ro=Math.round(caa*100)/100;
+        System.out.println("floattttttttttttttttttttt"+ro);
+        TextView textView=findViewById(R.id.current_accuracy);
+        textView.setText(String.valueOf(ro)+"%");
 
 //Score setting on textview
         TextView main_score;

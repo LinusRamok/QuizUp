@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.kamlesh.frd.Models.Topic;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
@@ -158,7 +159,8 @@ public class topic_page extends AppCompatActivity {
 
 
             try {
-                JSONObject response = getJSONObjectFromURL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID=kamlesh&Topic="+TopicKey); // calls method to get JSON object
+                String PID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                JSONObject response = getJSONObjectFromURL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID="+PID+"&Topic="+TopicKey); // calls method to get JSON object
                 respass=response;
             } catch (IOException e) {
                 e.printStackTrace();

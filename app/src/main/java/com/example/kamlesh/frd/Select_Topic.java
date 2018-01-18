@@ -181,7 +181,11 @@ public class Select_Topic extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 String text = newText;
            //  System.out.println(text);
-                Adapter.filter(text);
+                try {
+                    Adapter.filter(text);
+                }catch (Exception e){
+                    e.fillInStackTrace();
+                }
                 return false;
             }
         });

@@ -41,6 +41,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     Handler timer = new Handler();
     boolean isTimerStarted=false;
     double secondsPassed = 0.0;
+    double timeForEachQues[] = new double[7];
+    double startVar = 0.0, endVar;  int tempVar=0; //these two variables are only necessary for method calculateTimeForEachQues()
 
     @Override
     protected void onResume() {
@@ -131,21 +133,37 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     if (optionA_isClickable)
                     optionsAfterClickedMethod("A",i);
                     stopTimer();
+                    if(isTimerStarted==false && secondsPassed != 0.0) {
+                        double currentStoppedTime = Double.parseDouble(timerTextView.getText().toString());
+                        calculateTimeForEachQues(currentStoppedTime);
+                    }
                     break;
                 case R.id.optionB:
                     if (optionB_isClickable)
                     optionsAfterClickedMethod("B",i);
                     stopTimer();
+                    if(isTimerStarted==false && secondsPassed != 0.0) {
+                        double currentStoppedTime = Double.parseDouble(timerTextView.getText().toString());
+                        calculateTimeForEachQues(currentStoppedTime);
+                    }
                     break;
                 case R.id.optionC:
                     if (optionC_isClickable)
                     optionsAfterClickedMethod("C",i);
                     stopTimer();
+                    if(isTimerStarted==false && secondsPassed != 0.0) {
+                        double currentStoppedTime = Double.parseDouble(timerTextView.getText().toString());
+                        calculateTimeForEachQues(currentStoppedTime);
+                    }
                     break;
                 case R.id.optionD:
                     if (optionD_isClickable)
                     optionsAfterClickedMethod("D",i);
                     stopTimer();
+                    if(isTimerStarted==false && secondsPassed != 0.0) {
+                        double currentStoppedTime = Double.parseDouble(timerTextView.getText().toString());
+                        calculateTimeForEachQues(currentStoppedTime);
+                    }
                     break;
                 case R.id.perk1:
                     if(perk_one_isclickable)
@@ -275,6 +293,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     //intent Topic name
                     i.putExtra("topic_name",top);
                     i.putExtra("topic_name",url);
+                    System.out.println("the timer array is :" +timeForEachQues[0]+" "+timeForEachQues[1]+" "+timeForEachQues[2]+" "+timeForEachQues[3]+" "+timeForEachQues[4]+" "+timeForEachQues[5]+" "+timeForEachQues[6]+" ");
                     startActivity(i);
                 }
             }, 1500);
@@ -348,6 +367,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     //Intent Topic name
                     i.putExtra("topic_name",top);
                     i.putExtra("topic_url",url);
+                    System.out.println("the timer array is :" +timeForEachQues[0]+" "+timeForEachQues[1]+" "+timeForEachQues[2]+" "+timeForEachQues[3]+" "+timeForEachQues[4]+" "+timeForEachQues[5]+" "+timeForEachQues[6]+" ");
                     startActivity(i);
                 }
             }, 1500);
@@ -526,7 +546,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         isTimerStarted=false;
     }
 
-    public static double roundingOfDouble(double value, int places) {
+    public double roundingOfDouble(double value, int places) {
         //this method is used to round of a double 'value'(parameter one) to some specified decimal 'places'(parameter two)
         //without the use of this method, the double value will have many numbers after the decimal point
         if (places < 0) throw new IllegalArgumentException();
@@ -536,9 +556,18 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         return bd.doubleValue();
     }
 
+    public void calculateTimeForEachQues(double currentStoppedTime) {
+        while (tempVar<7)
+        {
+            endVar=roundingOfDouble(currentStoppedTime,1);
+            System.out.println("endVar="+endVar);
+            timeForEachQues[i]=endVar-startVar;
+            System.out.println("timeForEachQues["+tempVar+"]="+timeForEachQues[i]);
+            startVar=roundingOfDouble(currentStoppedTime,1);
+            System.out.println("startVar="+startVar);
+            ++tempVar;
+        }
 
-    @Override
-    public void onBackPressed() {
-        finish();
     }
+
 }

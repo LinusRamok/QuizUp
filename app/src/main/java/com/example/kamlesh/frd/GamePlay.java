@@ -557,17 +557,15 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     }
 
     public void calculateTimeForEachQues(double currentStoppedTime) {
-        while (tempVar<7)
+        if (tempVar<7)
         {
             endVar=roundingOfDouble(currentStoppedTime,1);
             System.out.println("endVar="+endVar);
-            timeForEachQues[i]=endVar-startVar;
+            timeForEachQues[tempVar]=endVar-startVar;
             System.out.println("timeForEachQues["+tempVar+"]="+timeForEachQues[i]);
             startVar=roundingOfDouble(currentStoppedTime,1);
             System.out.println("startVar="+startVar);
             ++tempVar;
         }
-
     }
-
 }

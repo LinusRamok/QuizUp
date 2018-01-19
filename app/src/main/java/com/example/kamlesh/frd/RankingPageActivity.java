@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.kamlesh.frd.CircularProgressBar.CircularProgressBar;
 import com.example.kamlesh.frd.ScorePagePOJO.PlayerScore;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.podcopic.animationlib.library.AnimationType;
 import com.podcopic.animationlib.library.StartSmartAnimation;
@@ -30,6 +31,8 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * Created by RAJA on 12-01-2018.
@@ -47,12 +50,22 @@ public class RankingPageActivity extends AppCompatActivity {
         rankinglistss = (RecyclerView) findViewById(R.id.recycler);
         rankinglistss.setLayoutManager(new LinearLayoutManager(this));
             StartSmartAnimation.startAnimation(findViewById(R.id.recycler) , AnimationType.SlideInUp , 2000 , 0 , true );
-        String name=getIntent().getStringExtra("topicName");
+        String Topic_name=getIntent().getStringExtra("topicName");
 
 
 //volley.......................................................
 //putting entered value into URL
-        String URL = "https://quizgame-backend.appspot.com/_ah/api/myapi/v1/ranking?Topic=sports&PID=sunil%40gmail.com";
+        String PID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String TopicKey = null;
+        try {
+
+            TopicKey = URLEncoder.encode(Topic_name, "UTF-8").replaceAll("\\+", "%20");
+            System.out.println("here is encoded key :" + TopicKey);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+
+        }
+        String URL = "https://quizgame-backend.appspot.com/_ah/api/myapi/v1/ranking?Topic="+TopicKey+"&PID="+PID;
 //Data Downloader-Volley
         final StringRequest request = new StringRequest(URL, new Response.Listener<String>() {
             @Override
@@ -102,5 +115,9 @@ else {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        finish();
     }
+}
 

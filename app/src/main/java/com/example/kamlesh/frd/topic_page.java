@@ -11,7 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.kamlesh.frd.CircularProgressBar.CircularProgressBar;
+import com.example.kamlesh.frd.Models.Topic;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
@@ -22,8 +23,10 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 public class topic_page extends AppCompatActivity {
     Topic topic;
@@ -70,21 +73,23 @@ public class topic_page extends AppCompatActivity {
         TextView topic_name =findViewById(R.id.topic_name);
         ImageView topic_image =findViewById(R.id.topic_image);
 
+           try {
+               if (getIntent() != null) {
+                   topic = new Gson().fromJson(getIntent().getStringExtra("topic_details"), Topic.class);
+                   System.out.println(topic.url);
+                   System.out.println(topic.name);
+                   System.out.println(topic.description);
+                   topic_name.setText(topic.name);
+                   Topic_name = topic.name;
+                   StorageReference storageRef = storage.getReference(topic.url);
+                   Glide.with(this)
+                           .load(storageRef)
+                           .into(topic_image);
 
-        if(getIntent()!=null){
-            topic =new Gson().fromJson(getIntent().getStringExtra("topic_details"),Topic.class);
-            System.out.println(topic.url);
-            System.out.println(topic.name);
-            System.out.println(topic.description);
-            topic_name.setText(topic.name);
-            Topic_name=topic.name;
-            StorageReference storageRef = storage.getReference(topic.url);
-            Glide.with(this)
-                    .load(storageRef)
-                    .into(topic_image);
-
-        }
-
+               }
+           }catch (Exception e){
+               System.out.println(e.toString());
+           }
         playButton = (TextView)findViewById(R.id.playButton);
         txt = (TextView)findViewById(R.id.txt);
         txt1 = (TextView)findViewById(R.id.txt1);
@@ -141,9 +146,21 @@ public class topic_page extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Integer... params) {
+            String TopicKey = null;
+            try {
+
+               TopicKey = URLEncoder.encode(Topic_name, "UTF-8").replaceAll("\\+", "%20");
+                System.out.println("here is encoded key :" + TopicKey);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                return e.toString();
+            }
+
+
 
             try {
-                JSONObject response = getJSONObjectFromURL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID=kamlesh&Topic="+Topic_name); // calls method to get JSON object
+                String PID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                JSONObject response = getJSONObjectFromURL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID="+PID+"&Topic="+TopicKey); // calls method to get JSON object
                 respass=response;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -189,5 +206,10 @@ public class topic_page extends AppCompatActivity {
         urlConnection.disconnect();
 
         return new JSONObject(jsonString);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

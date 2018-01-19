@@ -1,4 +1,4 @@
-package com.example.kamlesh.frd;
+package com.example.kamlesh.frd.Models;
 
 /**
  * Created by linus on 06-01-2018.

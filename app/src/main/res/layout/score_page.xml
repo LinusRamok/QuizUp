@@ -19,29 +19,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_margin="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:id="@+id/ranking_click"
-                        android:background="@drawable/option_background"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:id="@+id/ranking"
-                            android:padding="5dp"
-                            android:text="Ranking"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <ImageView
-                            android:background="@drawable/crown"
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp" />
-                    </LinearLayout>
-                </LinearLayout>
+
             </LinearLayout>
             <!--Layout 2...................................................            -->
             <LinearLayout
@@ -61,35 +39,69 @@
                         android:layout_height="match_parent" />
 
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/test2"
                     android:text="TOPIC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <TextView
+
+               <LinearLayout
+                   android:orientation="horizontal"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+
+                   <LinearLayout
+                       android:layout_margin="15dp"
+                       android:gravity="center_horizontal"
+                       android:orientation="vertical"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content">
+                   <TextView
                     android:textColor="@color/colorAccent"
-                    android:textSize="50sp"
+                    android:textSize="30sp"
                     android:id="@+id/score"
-                    android:text=""
+                    android:text="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/score_text"
-                    android:text="YOUR SCORE"
+                    android:text="SCORE"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+                   </LinearLayout>
+                   <LinearLayout
+                       android:layout_margin="15dp"
+                       android:gravity="center_horizontal"
+                       android:orientation="vertical"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content">
+                       <TextView
+                           android:textColor="@color/colorAccent"
+                           android:textSize="30sp"
+                           android:id="@+id/current_accuracy"
+                           android:text="1"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content" />
+                       <TextView
+                           android:text="ACCURACY"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content" />
+                   </LinearLayout>
+               </LinearLayout>
+
                 <LinearLayout
                     android:padding="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <LinearLayout
-                        android:layout_width="100dp"
-                        android:layout_height="100dp">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
                         <LinearLayout
                             android:orientation="vertical"
                             android:gravity="center_horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="wrap_content">
                             <!--<TextView-->
                             <!--android:id="@+id/accuracy"-->
                             <!--android:textSize="25sp"-->
@@ -118,16 +130,17 @@
                                 android:layout_height="wrap_content"
                                 />
                             <TextView
+                                android:gravity="center_horizontal"
                                 android:textAllCaps="true"
-                                android:text="Accuracy"
+                                android:text="OVERALL\nAccuracy"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="100dp"
-                        android:layout_height="100dp">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
                         <LinearLayout
                             android:orientation="vertical"
                             android:gravity="center_horizontal"
@@ -169,6 +182,38 @@
                                 />
                         </LinearLayout>
 
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_margin="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/ranking_click"
+                        android:background="@drawable/option_background"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/ranking"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingTop="5dp"
+                            android:text="Ranking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <ImageView
+                            android:background="@drawable/crown"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

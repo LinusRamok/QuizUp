@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.kamlesh.frd.CircularProgressBar.CircularProgressBar;
 import com.example.kamlesh.frd.ScorePagePOJO.PlayerScore;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
@@ -29,6 +30,8 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class ScorePageActivity extends AppCompatActivity {
     StringBuffer response;
@@ -48,11 +51,11 @@ public class ScorePageActivity extends AppCompatActivity {
         ImageView topic_logo =findViewById(R.id.topic_logo);
 
         //setting topic name in textview
-        final String topic_name=getIntent().getExtras().getString("topic_name");
+        Topic_name=getIntent().getExtras().getString("topic_name");
         String topic_url=getIntent().getExtras().getString("topic_url");
 
         TextView t=findViewById(R.id.test2);
-        t.setText(topic_name);
+        t.setText(Topic_name);
 
 
 try {
@@ -86,6 +89,13 @@ try {
         System.out.println("Score issssssssssssssssssssssssssssss :"+score);
         int q=ans[0]+ans[1]+ans[2]+ans[3]+ans[4]+ans[5]+ans[6]+ans[7]+ans[8];
         int s=q-13;
+        System.out.println(s);
+        float ca=(float)s;
+        float caa=(ca/7)*100;
+        float ro=Math.round(caa*100)/100;
+        System.out.println("floattttttttttttttttttttt"+ro);
+        TextView textView=findViewById(R.id.current_accuracy);
+        textView.setText(String.valueOf(ro)+"%");
 
 //Score setting on textview
         TextView main_score;
@@ -99,7 +109,7 @@ try {
             public void onClick(View view) {
                 Toast.makeText(ScorePageActivity.this, "Ranking Button clicked", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(getApplicationContext(),RankingPageActivity.class);
-                intent.putExtra("topicName",topic_name);
+                intent.putExtra("topicName",Topic_name);
                 startActivity(intent);
             }
         });
@@ -136,8 +146,22 @@ try {
 
 //volley.......................................................
 //putting entered value into URL
-        String URL = "https://quizgame-backend.appspot.com/_ah/api/myapi/v1/updateStats?PID=milind%40gmail.com&Q_Correct="+s+"&Score="+score+"&Topic="+topic_name;
-//Data Downloader-Volley
+        String PID= FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String TopicKey = null;
+        try {
+
+            TopicKey = URLEncoder.encode(Topic_name, "UTF-8").replaceAll("\\+", "%20");
+            System.out.println("here is encoded key :" + TopicKey);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+
+        }
+
+
+        String URL = "https://quizgame-backend.appspot.com/_ah/api/myapi/v1/updateStats?PID="+PID+"&Q_Correct="+s+"&Score="+score+"&Topic="+TopicKey;
+        System.out.println("url :"+URL);
+
+        //Data Downloader-Volley
         final StringRequest request = new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String data1) {
@@ -212,5 +236,12 @@ try {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent  =new Intent(ScorePageActivity.this,Select_Topic.class);
+        startActivity(intent);
+        finish();
     }
 }

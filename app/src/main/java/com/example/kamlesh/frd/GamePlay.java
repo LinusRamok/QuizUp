@@ -10,6 +10,8 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
+import com.example.kamlesh.frd.Models.Questionlist;
+import com.example.kamlesh.frd.Models.QuestionsApi;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -527,4 +529,9 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         return bd.doubleValue();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

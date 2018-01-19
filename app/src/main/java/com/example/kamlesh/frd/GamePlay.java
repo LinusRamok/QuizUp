@@ -118,7 +118,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         qadetails[8]=4;
         //setting the first question and options beforehand
         setQuestionsAndOptions(0);
-        startTimer();
 
     }
 
@@ -131,18 +130,22 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                 case R.id.optionA:
                     if (optionA_isClickable)
                     optionsAfterClickedMethod("A",i);
+                    stopTimer();
                     break;
                 case R.id.optionB:
                     if (optionB_isClickable)
                     optionsAfterClickedMethod("B",i);
+                    stopTimer();
                     break;
                 case R.id.optionC:
                     if (optionC_isClickable)
                     optionsAfterClickedMethod("C",i);
+                    stopTimer();
                     break;
                 case R.id.optionD:
                     if (optionD_isClickable)
                     optionsAfterClickedMethod("D",i);
+                    stopTimer();
                     break;
                 case R.id.perk1:
                     if(perk_one_isclickable)
@@ -196,6 +199,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             optionB.setText(q_and_a.get(k).getB());
             optionC.setText(q_and_a.get(k).getC());
             optionD.setText(q_and_a.get(k).getD());
+            startTimer();
         }
 
     }
@@ -205,6 +209,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         if (ans.equals(q_and_a.get(k).getAnswer()))
         {
             //whatever animation to be applied if answer is correct
+
             qadetails[k]=1;
             if(ans=="A")
             {
@@ -252,8 +257,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     }
                 }, 1500);
             }
-            else{
-            stopTimer();
+            else
+                {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -275,7 +280,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             }, 1500);
         }}
 
-        else {
+        else
+            {
             //whatever animation to be applied if animation is wrong
             qadetails[k]=0;
             if (ans == "A") {
@@ -324,10 +330,10 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                         }
                     }
                 }, 1500);
-            } else{
-                stopTimer();
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+            } else
+                {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if(changedqno!=10)
@@ -492,6 +498,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     public Runnable ute=new Runnable() {                //This runnable is used to run a timer and display it in TextView named timerTextView
         @Override
         public void run() {
+            //the actual implementation of timer using runnable
             long currentMilliseconds = System.currentTimeMillis();
             secondsPassed=secondsPassed+0.1;
             double temp=roundingOfDouble(secondsPassed,1);

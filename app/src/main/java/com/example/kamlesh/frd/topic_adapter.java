@@ -65,7 +65,7 @@ class topic_adapter extends BaseAdapter {
        final ViewHolder holder;
        if (view == null) {
            holder = new ViewHolder();
-           view = inflater.inflate(R.layout.list_item, null);
+           view = inflater.inflate(R.layout.list_item, parent, false);
            // Locate the TextViews in listview_item.xml
            holder.name = (TextView) view.findViewById(R.id.name);
            holder.img=(ImageView)view.findViewById(R.id.image);

@@ -41,8 +41,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     Handler timer = new Handler();
     boolean isTimerStarted=false;
     double secondsPassed = 0.0;
-    double timeForEachQues[] = new double[7];
-    double startVar = 0.0, endVar;  int tempVar=0; //these two variables are only necessary for method calculateTimeForEachQues()
+    double timeForEachQues[] = new double[7], totalTimeTaken;
+    double beginVar = 0.0, endVar;  int tempVar=0; //these two variables are only necessary for method calculateTimeForEachQues()
 
     @Override
     protected void onResume() {
@@ -132,38 +132,18 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                 case R.id.optionA:
                     if (optionA_isClickable)
                     optionsAfterClickedMethod("A",i);
-                    stopTimer();
-                    if(isTimerStarted==false && secondsPassed != 0.0) {
-                        double currentStoppedTime = Double.parseDouble(timerTextView.getText().toString());
-                        calculateTimeForEachQues(currentStoppedTime);
-                    }
                     break;
                 case R.id.optionB:
                     if (optionB_isClickable)
                     optionsAfterClickedMethod("B",i);
-                    stopTimer();
-                    if(isTimerStarted==false && secondsPassed != 0.0) {
-                        double currentStoppedTime = Double.parseDouble(timerTextView.getText().toString());
-                        calculateTimeForEachQues(currentStoppedTime);
-                    }
                     break;
                 case R.id.optionC:
                     if (optionC_isClickable)
                     optionsAfterClickedMethod("C",i);
-                    stopTimer();
-                    if(isTimerStarted==false && secondsPassed != 0.0) {
-                        double currentStoppedTime = Double.parseDouble(timerTextView.getText().toString());
-                        calculateTimeForEachQues(currentStoppedTime);
-                    }
                     break;
                 case R.id.optionD:
                     if (optionD_isClickable)
                     optionsAfterClickedMethod("D",i);
-                    stopTimer();
-                    if(isTimerStarted==false && secondsPassed != 0.0) {
-                        double currentStoppedTime = Double.parseDouble(timerTextView.getText().toString());
-                        calculateTimeForEachQues(currentStoppedTime);
-                    }
                     break;
                 case R.id.perk1:
                     if(perk_one_isclickable)
@@ -223,6 +203,13 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     }
     public void optionsAfterClickedMethod(final String ans, final int k)
     {
+        stopTimer();
+        if(isTimerStarted==false && secondsPassed != 0.0) {
+            double currentStoppedTime = Double.parseDouble(timerTextView.getText().toString());
+            calculateTimeForEachQues(currentStoppedTime);
+        }
+
+
         if(k<7)
         if (ans.equals(q_and_a.get(k).getAnswer()))
         {
@@ -369,10 +356,11 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     i.putExtra("topic_url",url);
                     System.out.println("the timer array is :" +timeForEachQues[0]+" "+timeForEachQues[1]+" "+timeForEachQues[2]+" "+timeForEachQues[3]+" "+timeForEachQues[4]+" "+timeForEachQues[5]+" "+timeForEachQues[6]+" ");
                     startActivity(i);
+                        }
+                    }, 1500);
                 }
-            }, 1500);
-        }
-    }}
+            }
+    }
 
     public void perk_one(int k)
     {
@@ -557,15 +545,26 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     }
 
     public void calculateTimeForEachQues(double currentStoppedTime) {
+        //This function calculates the time taken to complete each question(first 'if' condition),
+        //as well as the time taken to complete the whole game(secon if condition)
+
         if (tempVar<7)
         {
             endVar=roundingOfDouble(currentStoppedTime,1);
             System.out.println("endVar="+endVar);
-            timeForEachQues[tempVar]=endVar-startVar;
-            System.out.println("timeForEachQues["+tempVar+"]="+timeForEachQues[i]);
-            startVar=roundingOfDouble(currentStoppedTime,1);
-            System.out.println("startVar="+startVar);
+
+            timeForEachQues[tempVar]=roundingOfDouble(endVar - beginVar,1);
+            System.out.println("timeForEachQues["+tempVar+"]="+timeForEachQues[tempVar]);
+
+            beginVar =roundingOfDouble(currentStoppedTime,1);
+            System.out.println("beginVar="+ beginVar);
+
             ++tempVar;
+        }
+
+        else if(tempVar == 7)
+        {
+            totalTimeTaken = currentStoppedTime;
         }
     }
 }

@@ -78,7 +78,6 @@ public class topic_page extends AppCompatActivity {
                    topic = new Gson().fromJson(getIntent().getStringExtra("topic_details"), Topic.class);
                    System.out.println(topic.url);
                    System.out.println(topic.name);
-                   System.out.println(topic.description);
                    topic_name.setText(topic.name);
                    Topic_name = topic.name;
                    StorageReference storageRef = storage.getReference(topic.url);
@@ -210,6 +209,7 @@ public class topic_page extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        startActivity(new Intent(topic_page.this,Select_Topic.class));
         finish();
     }
 }

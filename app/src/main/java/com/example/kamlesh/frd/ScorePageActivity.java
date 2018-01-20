@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.kamlesh.frd.CircularProgressBar.CircularProgressBar;
+import com.example.kamlesh.frd.Models.Topic;
 import com.example.kamlesh.frd.ScorePagePOJO.PlayerScore;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
@@ -41,6 +42,7 @@ public class ScorePageActivity extends AppCompatActivity {
     double TimeForEachQues[]=new double[7];
     FirebaseStorage storage =FirebaseStorage.getInstance();
     String Topic_name;
+    String topic_url;
     JSONObject respass=null;
     double finalscore=0;
     @Override
@@ -54,7 +56,8 @@ public class ScorePageActivity extends AppCompatActivity {
 
         //setting topic name in textview
         Topic_name=getIntent().getExtras().getString("topic_name");
-        String topic_url=getIntent().getExtras().getString("topic_url");
+
+        topic_url = getIntent().getExtras().getString("topic_url");
 
         TextView t=findViewById(R.id.test2);
         t.setText(Topic_name);
@@ -126,7 +129,7 @@ score=10;
         rankingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ScorePageActivity.this, "Ranking Button clicked", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(ScorePageActivity.this, "Ranking Button clicked", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(getApplicationContext(),RankingPageActivity.class);
                 intent.putExtra("topicName",Topic_name);
                 startActivity(intent);
@@ -137,9 +140,13 @@ score=10;
         replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ScorePageActivity.this, "replay", Toast.LENGTH_SHORT).show();
-//                Intent intent1=new Intent(getApplicationContext(),topic_page.class);
-//                startActivity(intent1);
+            //    Toast.makeText(ScorePageActivity.this, "replay", Toast.LENGTH_SHORT).show();
+                Intent intent1=new Intent(getApplicationContext(),topic_page.class);
+                Topic topicdetails =new Topic(Topic_name,topic_url,"");
+                intent1.putExtra("topic_details",new Gson().toJson(topicdetails));
+                startActivity(intent1);
+                finish();
+
             }
         });
 //change topic
@@ -147,19 +154,27 @@ score=10;
         change_topic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ScorePageActivity.this, "change topic", Toast.LENGTH_SHORT).show();
+           //     Toast.makeText(ScorePageActivity.this, "change topic", Toast.LENGTH_SHORT).show();
 //                Intent intent=new Intent(getApplicationContext(),Select_Topic.class);
 //                startActivity(intent);
+                Intent intent  =new Intent(ScorePageActivity.this,Select_Topic.class);
+                startActivity(intent);
+                finish();
             }
         });
         //change topic
         LinearLayout quit=(LinearLayout)findViewById(R.id.quit);
-        change_topic.setOnClickListener(new View.OnClickListener() {
+        quit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ScorePageActivity.this, "quit game", Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(ScorePageActivity.this, "quit game", Toast.LENGTH_SHORT).show();
 //                Intent intent=new Intent(getApplicationContext(),Select_Topic.class);
 //                startActivity(intent);
+                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                homeIntent.addCategory( Intent.CATEGORY_HOME );
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homeIntent);
+
             }
         });
 
@@ -259,8 +274,10 @@ score=10;
 
     @Override
     public void onBackPressed() {
-        Intent intent  =new Intent(ScorePageActivity.this,Select_Topic.class);
-        startActivity(intent);
+        Intent intent1=new Intent(getApplicationContext(),topic_page.class);
+        Topic topicdetails =new Topic(Topic_name,topic_url,"");
+        intent1.putExtra("topic_details",new Gson().toJson(topicdetails));
+        startActivity(intent1);
         finish();
     }
 }

@@ -11,22 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--layout 1...............................................       -->
+        <!--layout 1A...............................................       -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
 
-            </LinearLayout>
-            <!--Layout 2...................................................            -->
+            <!--layout 1.......................................................-->
             <LinearLayout
+                android:layout_marginTop="30dp"
+                android:id="@+id/l1"
+                android:layout_alignParentTop="true"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
@@ -37,60 +33,123 @@
                         android:id="@+id/topic_logo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
-
                 </LinearLayout>
-
                 <TextView
+                    android:textAllCaps="true"
                     android:id="@+id/test2"
                     android:text="TOPIC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
-               <LinearLayout
-                   android:orientation="horizontal"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content">
-
-                   <LinearLayout
-                       android:layout_margin="15dp"
-                       android:gravity="center_horizontal"
-                       android:orientation="vertical"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content">
-                   <TextView
-                    android:textColor="@color/colorAccent"
-                    android:textSize="30sp"
-                    android:id="@+id/score"
-                    android:text="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/score_text"
-                    android:text="SCORE"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                   </LinearLayout>
-                   <LinearLayout
-                       android:layout_margin="15dp"
-                       android:gravity="center_horizontal"
-                       android:orientation="vertical"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content">
-                       <TextView
-                           android:textColor="@color/colorAccent"
-                           android:textSize="30sp"
-                           android:id="@+id/current_accuracy"
-                           android:text="1"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content" />
-                       <TextView
-                           android:text="ACCURACY"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content" />
-                   </LinearLayout>
-               </LinearLayout>
-
+            </LinearLayout>
+            <!--layout 1 end.......................................................-->
+            <!--layout 2.......................................................-->
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_centerInParent="true"
+                android:id="@+id/l2"
+                android:layout_below="@id/l1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
                 <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_margin="15dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="30sp"
+                            android:id="@+id/score"
+                            android:text="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/score_text"
+                            android:text="SCORE"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_margin="15dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="30sp"
+                            android:id="@+id/current_accuracy"
+                            android:text="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/acc_text"
+                            android:text="ACCURACY"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginRight="19dp"
+                    android:id="@+id/toggle"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:textSize="15sp"
+                    app:uncheckedTextColor="@color/textColorPrimary"
+                    android:textOn="Review Questions"
+                    android:textOff="Review Questions" />
+            </LinearLayout>
+            <!--layout 2 end.......................................................-->
+
+            <!--layout 3 .......................................................-->
+
+            <LinearLayout
+                android:layout_marginTop="0dp"
+                android:layout_below="@id/l2"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/q_a"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="199dp"
+                        >
+                        <LinearLayout
+                            android:background="@color/colorAccent"
+                            android:layout_width="1dp"
+                            android:layout_height="200dp" />
+                        <include layout="@layout/question_list_page" />
+                        <LinearLayout
+                            android:background="@color/colorAccent"
+                            android:layout_width="1dp"
+                            android:layout_height="200dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:background="@color/colorAccent"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="0dp"
+                    android:id="@+id/circle_progress"
+                    android:visibility="visible"
                     android:padding="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -128,8 +187,11 @@
                                 style="@style/Widget.ProgressBar.lo.CircularProgressBar"
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
+                                app:cpb_title="0"
+                                app:cpb_titleColor="@color/textColorPrimary"
                                 />
                             <TextView
+                                android:id="@+id/overall_text"
                                 android:gravity="center_horizontal"
                                 android:textAllCaps="true"
                                 android:text="OVERALL\nAccuracy"
@@ -172,10 +234,13 @@
                                 style="@style/Widget.ProgressBar.lo.CircularProgressBar"
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
-
+                                app:cpb_title="0%"
+                                app:cpb_titleColor="@color/textColorPrimary"
                                 />
                             <TextView
-                                android:text="solved"
+                                android:id="@+id/ques_text"
+                                android:gravity="center_horizontal"
+                                android:text="question\nsolved"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAllCaps="true"
@@ -190,35 +255,45 @@
                     </LinearLayout>
 
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_margin="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:id="@+id/ranking_click"
-                        android:background="@drawable/option_background"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:id="@+id/ranking"
-                            android:paddingBottom="5dp"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp"
-                            android:paddingTop="5dp"
-                            android:text="Ranking"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <ImageView
-                            android:background="@drawable/crown"
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp" />
-                    </LinearLayout>
-                </LinearLayout>
+
+
             </LinearLayout>
-            <!--Layout 3....................................................            -->
+            <!--layout 3 end.......................................................-->
+
+            <!--Layout 4....................................................            -->
             <LinearLayout
+                android:layout_marginBottom="30dp"
+                android:layout_above="@id/l4"
+                android:layout_marginTop="0dp"
+                android:id="@+id/ranking_click"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="70dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+                <LinearLayout
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/option_background"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:paddingRight="15dp"
+                        android:textSize="15sp"
+                        android:id="@+id/ranking"
+                        android:text="Ranking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:visibility="gone"
+                        android:background="@drawable/crown"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/l4"
                 android:layout_marginBottom="20dp"
                 android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
@@ -237,6 +312,7 @@
                         android:layout_width="75dp"
                         android:layout_height="wrap_content">
                         <TextView
+                            android:id="@+id/t_text"
                             android:text="Topic"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -253,6 +329,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
+                            android:id="@+id/p_g_text"
                             android:textSize="25sp"
                             android:gravity="center_horizontal"
                             android:text="Play Game"
@@ -273,13 +350,16 @@
                         android:layout_width="75dp"
                         android:layout_height="wrap_content">
                         <TextView
-
+                            android:id="@+id/quit_text"
                             android:text="Quit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+            <!--layout 4 end.......................................................-->
+
+
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

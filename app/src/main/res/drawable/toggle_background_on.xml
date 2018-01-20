@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <padding android:left="@dimen/playButtonBackgroundPadding"
+                android:top="@dimen/playButtonBackgroundPadding"
+                android:right="@dimen/playButtonBackgroundPadding"
+                android:bottom="@dimen/playButtonBackgroundPadding" />
+            <corners android:radius="@dimen/playButtonBackgroundRadius" />
+            <solid android:color="@color/colorPrimary" />
+        </shape>
+    </item>
+</selector>

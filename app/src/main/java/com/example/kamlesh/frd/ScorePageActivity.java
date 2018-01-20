@@ -1,10 +1,14 @@
 package com.example.kamlesh.frd;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -18,14 +22,19 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.kamlesh.frd.CircularProgressBar.CircularProgressBar;
+import com.example.kamlesh.frd.Models.Questionlist;
 import com.example.kamlesh.frd.Models.Topic;
 import com.example.kamlesh.frd.ScorePagePOJO.PlayerScore;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
+import com.podcopic.animationlib.library.AnimationType;
+import com.podcopic.animationlib.library.StartSmartAnimation;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -34,7 +43,13 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import me.rishabhkhanna.customtogglebutton.CustomToggleButton;
+
 public class ScorePageActivity extends AppCompatActivity {
+    TextView a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11;
+    RecyclerView lists;
+    JSONObject object= null;
+    JSONArray array=null;
     StringBuffer response;
     int ans[]=new int[10],score=0;
     double scoreArray[]=new double[9];
@@ -266,7 +281,77 @@ score=10;
 
         //     StartSmartAnimation.startAnimation( findViewById(R.id.test) , AnimationType.ZoomIn,1000, 0 , true );
 
+//font
+        a1=findViewById(R.id.test2);
+        a2=findViewById(R.id.score_text);
+        a3=findViewById(R.id.acc_text);
+        a4=findViewById(R.id.overall_text);
+        a5=findViewById(R.id.ques_text);
+        a6=findViewById(R.id.ranking);
+        a7=findViewById(R.id.t_text);
+        a8=findViewById(R.id.p_g_text);
+        a9=findViewById(R.id.quit_text);
+        a10=findViewById(R.id.quest);
 
+        CustomToggleButton toggleButton=findViewById(R.id.toggle);
+        Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
+        Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
+
+        a1.setTypeface(ourBoldFont);
+        a2.setTypeface(ourBoldFont);
+        a3.setTypeface(ourBoldFont);
+        a4.setTypeface(ourBoldFont);
+        a5.setTypeface(ourBoldFont);
+        a6.setTypeface(ourBoldFont);
+        a7.setTypeface(ourBoldFont);
+        a8.setTypeface(ourBoldFont);
+        a9.setTypeface(ourBoldFont);
+        toggleButton.setTypeface(ourBoldFont);
+
+        //Creating recycler view object
+        lists = (RecyclerView) findViewById(R.id.recycler1);
+        lists.setLayoutManager(new LinearLayoutManager(this));
+        StartSmartAnimation.startAnimation( findViewById(R.id.recycler1) , AnimationType.SlideInUp,5000, 00 ,true );
+//listview questions and answers
+
+        System.out.println("DATA................."+questionsAndAnswers);
+
+        try {
+            object = new JSONObject(questionsAndAnswers);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            array=object.getJSONArray("questionlist");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Questionlist[] list = new Gson().fromJson(String.valueOf(array), Questionlist[].class);
+        lists.setAdapter(new QuestionlistAdapter(getApplicationContext(), list,ans));
+
+        findViewById(R.id.q_a).setVisibility(View.GONE);
+        final CustomToggleButton toggle = (CustomToggleButton) findViewById(R.id.toggle);
+        toggle.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_background_off));
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //Toast.makeText(getApplicationContext(), "on", Toast.LENGTH_SHORT).show();
+                    toggle.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_background_on));
+                    findViewById(R.id.q_a).setVisibility(View.VISIBLE);
+                    findViewById(R.id.circle_progress).setVisibility(View.GONE);
+                    findViewById(R.id.ranking_click).setVisibility(View.GONE);
+//                    StartSmartAnimation.startAnimation( findViewById(R.id.q_a) , AnimationType.SlideInDown,1000, 00 ,true );
+                    StartSmartAnimation.startAnimation( findViewById(R.id.recycler1) , AnimationType.SlideInUp,300, 0 ,true );
+                } else {
+                    //Toast.makeText(getApplicationContext(), "off", Toast.LENGTH_SHORT).show();
+                    toggle.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_background_off));
+                    //        StartSmartAnimation.startAnimation( findViewById(R.id.q_a) , AnimationType.SlideInUp,500, 0 ,true );
+                    findViewById(R.id.q_a).setVisibility(View.GONE);
+                    findViewById(R.id.circle_progress).setVisibility(View.VISIBLE);
+                    findViewById(R.id.ranking_click).setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
 
 

@@ -277,6 +277,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
                     i.putExtra("QuestionAndAnswers",jsonString);
                     i.putExtra("userAnswers",qadetails);
+                    i.putExtra("TimerValues",timeForEachQues);
                     //intent Topic name
                     i.putExtra("topic_name",top);
                     i.putExtra("topic_name",url);
@@ -351,6 +352,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
                     i.putExtra("QuestionAndAnswers",jsonString);
                     i.putExtra("userAnswers",qadetails);
+                    i.putExtra("TimerValues",timeForEachQues);
                     //Intent Topic name
                     i.putExtra("topic_name",top);
                     i.putExtra("topic_url",url);

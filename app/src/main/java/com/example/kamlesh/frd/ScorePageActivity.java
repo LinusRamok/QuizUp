@@ -36,16 +36,18 @@ import java.net.URLEncoder;
 public class ScorePageActivity extends AppCompatActivity {
     StringBuffer response;
     int ans[]=new int[10],score=0;
+    double scoreArray[]=new double[9];
     String questionsAndAnswers;
+    double TimeForEachQues[]=new double[7];
     FirebaseStorage storage =FirebaseStorage.getInstance();
     String Topic_name;
     JSONObject respass=null;
-
+    double finalscore=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.score_page);
-
+        TimeForEachQues =getIntent().getDoubleArrayExtra("TimerValues");
         ans=getIntent().getIntArrayExtra("userAnswers");
         questionsAndAnswers=getIntent().getStringExtra("QuestionAndAnswers");
         ImageView topic_logo =findViewById(R.id.topic_logo);
@@ -67,28 +69,45 @@ try {
 }catch (Exception e){
     System.out.println(e.getMessage());
 }
-
-
+scoreArray[7]=0;
+scoreArray[8]=0;
+        int cqn=0;
         for(int i=0;i<7;i++)
         {
-            if (ans[i]==0)
-                score-=4;
-            else if (ans[i]==1)
-                score+=10;
-            else if(ans[i]==9)
-                score-=2;
+             if (ans[i]==1)
+             {  scoreArray[i]+=10;
+                if(TimeForEachQues[i]>5)
+                {
+                    scoreArray[i]=scoreArray[i]-((TimeForEachQues[i]-5)*0.6);
+                }
+                if(scoreArray[i]<3)
+                {
+                    scoreArray[i]=3;
+                }
+                score+=10;}
+            else if(ans[i]==9) {
+                 score -= 2;
+                 cqn=i;
+                scoreArray[i]-=2;
+             }
         }
-        if(ans[7]==1)
-            score+=12;
-        else if (ans[7]==0)
-            score-=4;
-        if (ans[8]==3)
-            score-=2;
-
-
-        System.out.println("Score issssssssssssssssssssssssssssss :"+score);
-        int q=ans[0]+ans[1]+ans[2]+ans[3]+ans[4]+ans[5]+ans[6]+ans[7]+ans[8];
-        int s=q-13;
+        if(cqn==1)
+        {
+            if(TimeForEachQues[cqn]>5)
+                scoreArray[7]=scoreArray[7]-((TimeForEachQues[cqn]-5)*0.6);
+            if(scoreArray[7]<3)
+                scoreArray[7]=3;
+            score+=12;}
+        if (ans[8]==3) {
+            score -= 2;
+            scoreArray[8]-=2;
+        }
+        System.out.println("score Array"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" "+scoreArray[7]+" "+scoreArray[8]);
+        finalscore=scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6]+scoreArray[7]+scoreArray[8];
+        System.out.println("Score issssssssssssssssssssssssssssss :"+finalscore);
+score=10;
+        int q=ans[0]+ans[1]+ans[2]+ans[3]+ans[4]+ans[5]+ans[6]+ans[7];
+        int s=q-9;
         System.out.println(s);
         float ca=(float)s;
         float caa=(ca/7)*100;

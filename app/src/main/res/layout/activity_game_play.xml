@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:padding="@dimen/generalLayoutPadding"
         android:id="@+id/upperLayout"
-        android:background="@color/colorPrimary">
+        android:background="@color/windowBackground">
 
 
         <Button
@@ -27,7 +27,7 @@
             android:layout_centerVertical="true"
             android:text=""
             android:background="@drawable/ic_pause"
-            android:backgroundTint="@color/iconDark"/>
+            android:backgroundTint="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/timer"
@@ -38,7 +38,7 @@
             android:layout_centerVertical="true"
             android:text="0.0"
             android:textSize="@dimen/largeTextSize"
-            android:textColor="@color/iconDark"/>
+            android:textColor="@color/colorPrimary"/>
 
     </RelativeLayout>
 

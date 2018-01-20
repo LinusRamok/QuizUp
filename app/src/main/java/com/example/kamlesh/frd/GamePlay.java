@@ -279,7 +279,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     i.putExtra("userAnswers",qadetails);
                     //intent Topic name
                     i.putExtra("topic_name",top);
-                    i.putExtra("topic_name",url);
+                    i.putExtra("topic_url",url);
                     System.out.println("the timer array is :" +timeForEachQues[0]+" "+timeForEachQues[1]+" "+timeForEachQues[2]+" "+timeForEachQues[3]+" "+timeForEachQues[4]+" "+timeForEachQues[5]+" "+timeForEachQues[6]+" ");
                     startActivity(i);
                 }

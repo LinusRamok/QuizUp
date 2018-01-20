@@ -75,19 +75,14 @@ public class Select_Topic extends AppCompatActivity {
         dv.setSystemUiVisibility(ui);
 
         setContentView(R.layout.activity_select_topic);
-        Button settings = findViewById(R.id.settings);
+
         listView1 = (GridView) findViewById(R.id.listview);
         searchView= findViewById(R.id.search);
+
+
+
         myRef = database.getReference();
 
-
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Select_Topic.this,logout_page.class));
-                //  finish();
-            }
-        });
 
         listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

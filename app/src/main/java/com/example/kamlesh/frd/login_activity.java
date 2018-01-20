@@ -250,7 +250,7 @@ public class login_activity extends AppCompatActivity {
                             Log.d("TAG", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            System.out.println(user.getEmail());
+//                            System.out.println(user.getEmail());
                             System.out.println(user.getDisplayName());
                             System.out.println(user.getPhotoUrl());
                             //    updateUI(user);

@@ -5,6 +5,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
+
     <SearchView
         android:id="@+id/search"
         android:labelFor="@id/search"
@@ -16,7 +17,13 @@
         android:queryHint="Search a Topic"
         android:iconifiedByDefault="false">
     </SearchView>
-
+    <Button
+        android:id="@+id/settings"
+        android:gravity="center_vertical"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="settings" />
     <GridView
         android:numColumns="3"
         android:id="@+id/listview"

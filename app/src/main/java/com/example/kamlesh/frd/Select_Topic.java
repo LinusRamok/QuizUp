@@ -79,13 +79,13 @@ public class Select_Topic extends AppCompatActivity {
         listView1 = (GridView) findViewById(R.id.listview);
         searchView= findViewById(R.id.search);
 
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Select_Topic.this,logout_page.class));
-                //  finish();
-            }
-        });
+//        settings.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(Select_Topic.this,logout_page.class));
+//                //  finish();
+//            }
+//        });
 
         myRef = database.getReference();
 

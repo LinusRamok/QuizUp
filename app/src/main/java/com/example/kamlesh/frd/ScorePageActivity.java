@@ -51,10 +51,9 @@ public class ScorePageActivity extends AppCompatActivity {
     JSONObject object= null;
     JSONArray array=null;
     StringBuffer response;
-    int ans[]=new int[10],score=0;
-    double scoreArray[]=new double[9];
+    int ans[]=new int[10];
     String questionsAndAnswers;
-    double TimeForEachQues[]=new double[7];
+    double TimeForEachQues[]=new double[7],scoreArray[]=new double[9];
     FirebaseStorage storage =FirebaseStorage.getInstance();
     String Topic_name;
     String topic_url;
@@ -66,7 +65,9 @@ public class ScorePageActivity extends AppCompatActivity {
         setContentView(R.layout.score_page);
         TimeForEachQues =getIntent().getDoubleArrayExtra("TimerValues");
         ans=getIntent().getIntArrayExtra("userAnswers");
+        scoreArray=getIntent().getDoubleArrayExtra("scoreArray");
         questionsAndAnswers=getIntent().getStringExtra("QuestionAndAnswers");
+        finalscore=getIntent().getDoubleExtra("Score",0);
         ImageView topic_logo =findViewById(R.id.topic_logo);
 
         //setting topic name in textview
@@ -87,43 +88,8 @@ try {
 }catch (Exception e){
     System.out.println(e.getMessage());
 }
-scoreArray[7]=0;
-scoreArray[8]=0;
-        int cqn=0;
-        for(int i=0;i<7;i++)
-        {
-             if (ans[i]==1)
-             {  scoreArray[i]+=10;
-                if(TimeForEachQues[i]>5)
-                {
-                    scoreArray[i]=scoreArray[i]-((TimeForEachQues[i]-5)*0.6);
-                }
-                if(scoreArray[i]<3)
-                {
-                    scoreArray[i]=3;
-                }
-                score+=10;}
-            else if(ans[i]==9) {
-                 score -= 2;
-                 cqn=i;
-                scoreArray[i]-=2;
-             }
-        }
-        if(cqn==1)
-        {
-            if(TimeForEachQues[cqn]>5)
-                scoreArray[7]=scoreArray[7]-((TimeForEachQues[cqn]-5)*0.6);
-            if(scoreArray[7]<3)
-                scoreArray[7]=3;
-            score+=12;}
-        if (ans[8]==3) {
-            score -= 2;
-            scoreArray[8]-=2;
-        }
         System.out.println("score Array"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" "+scoreArray[7]+" "+scoreArray[8]);
-        finalscore=scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6]+scoreArray[7]+scoreArray[8];
         System.out.println("Score issssssssssssssssssssssssssssss :"+finalscore);
-score=10;
         int q=ans[0]+ans[1]+ans[2]+ans[3]+ans[4]+ans[5]+ans[6]+ans[7];
         int s=q-9;
         System.out.println(s);
@@ -137,7 +103,7 @@ score=10;
 //Score setting on textview
         TextView main_score;
         main_score=findViewById(R.id.score);
-        main_score.setText(String.valueOf(score));
+        main_score.setText(String.valueOf(finalscore));
 
 //ranking Button
         LinearLayout rankingButton= (LinearLayout) findViewById(R.id.ranking_click);
@@ -207,7 +173,7 @@ score=10;
         }
 
 
-        String URL = "https://quizgame-backend.appspot.com/_ah/api/myapi/v1/updateStats?PID="+PID+"&Q_Correct="+s+"&Score="+score+"&Topic="+TopicKey;
+        String URL = "https://quizgame-backend.appspot.com/_ah/api/myapi/v1/updateStats?PID="+PID+"&Q_Correct="+s+"&Score="+finalscore+"&Topic="+TopicKey;
         System.out.println("url :"+URL);
 
         //Data Downloader-Volley

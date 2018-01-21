@@ -28,12 +28,15 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     BufferedReader reader;
     List<Questionlist> q_and_a=new ArrayList<>();
     int i=0;
+    double scoreArray[]=new double[9];
     int qadetails[]=new int[9],changedqno=10;
+    double finalscore=0;
     //qa details is an array which passes the details of attempted questions and their answers given by user to the next activity via intent
     //0 is for wrong answer
     //1 is for right answer
     //9 is for unattempted question or question changed by using perk two
     //3 is for that 50-50perk is used
+    //10 is for that 50-50perk is not used otherwise qadetails[8] shows the no. of que in which this perk was used
     TextView optionA, optionB, optionC, optionD, perk1, perk2;
     boolean perk_one_isclickable=true, perk_one_isCliked=false, perk_two_isClicked =false, perk_two_isclickable=true;
     boolean optionA_isClickable=true, optionB_isClickable=true, optionC_isClickable=true, optionD_isClickable=true;
@@ -116,8 +119,11 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         obj=new Gson().fromJson(jsonString , QuestionsApi.class);
         q_and_a= obj.getQuestionlist();
 
+        scoreArray[7]=0;
+        scoreArray[8]=0;
         qadetails[7]=9;
         qadetails[8]=4;
+        qadetails[8]=10;
         //setting the first question and options beforehand
         setQuestionsAndOptions(0);
 
@@ -201,6 +207,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         }
 
     }
+
     public void optionsAfterClickedMethod(final String ans, final int k)
     {
         stopTimer();
@@ -214,6 +221,15 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         if (ans.equals(q_and_a.get(k).getAnswer()))
         {
             //whatever animation to be applied if answer is correct
+            scoreArray[i]+=10;
+            if(timeForEachQues[i]>5)
+            {
+                scoreArray[i]=roundingOfDouble(scoreArray[i]-((timeForEachQues[i]-5)*0.6),1);
+            }
+            if(scoreArray[i]<3)
+            {
+                scoreArray[i]=3;
+            }
 
             qadetails[k]=1;
             if(ans=="A")
@@ -273,14 +289,28 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                         int temp=qadetails[changedqno];
                         qadetails[changedqno]=qadetails[7];
                         qadetails[7]=temp;
+                        double t=scoreArray[changedqno];
+                        scoreArray[changedqno]=-2;
+                        scoreArray[7]=t;
                     }
+                    if(qadetails[8]!=10)
+                    {
+                        scoreArray[qadetails[8]]-=2;
+                    }
+                    finalscore= roundingOfDouble(scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6]+scoreArray[7]+scoreArray[8],1);
+
                     Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
                     i.putExtra("QuestionAndAnswers",jsonString);
                     i.putExtra("userAnswers",qadetails);
                     i.putExtra("TimerValues",timeForEachQues);
                     //intent Topic name
+                    i.putExtra("scoreArray",scoreArray);
+                    i.putExtra("Score",finalscore);
+                    //intent Topic name/
                     i.putExtra("topic_name",top);
                     i.putExtra("topic_url",url);
+                    System.out.println("the q and a details are:"+qadetails[0]+qadetails[1]+qadetails[2]+qadetails[3]+qadetails[4]+qadetails[5]+qadetails[6]+qadetails[7]+qadetails[8]);
+                    System.out.println("the score Array is :"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" "+scoreArray[7]+" "+scoreArray[8]);
                     System.out.println("the timer array is :" +timeForEachQues[0]+" "+timeForEachQues[1]+" "+timeForEachQues[2]+" "+timeForEachQues[3]+" "+timeForEachQues[4]+" "+timeForEachQues[5]+" "+timeForEachQues[6]+" ");
                     startActivity(i);
                 }
@@ -348,14 +378,27 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                         int temp=qadetails[changedqno];
                         qadetails[changedqno]=qadetails[7];
                         qadetails[7]=temp;
+                        double t=scoreArray[changedqno];
+                        scoreArray[changedqno]=-2;
+                        scoreArray[7]=t;
                     }
+                    if(qadetails[8]!=10)
+                    {
+                        scoreArray[qadetails[8]]-=2;
+                    }
+                    finalscore= roundingOfDouble(scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6]+scoreArray[7]+scoreArray[8],1);
+
                     Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
                     i.putExtra("QuestionAndAnswers",jsonString);
                     i.putExtra("userAnswers",qadetails);
                     i.putExtra("TimerValues",timeForEachQues);
+                    i.putExtra("scoreArray",scoreArray);
+                    i.putExtra("Score",finalscore);
                     //Intent Topic name
                     i.putExtra("topic_name",top);
                     i.putExtra("topic_url",url);
+                    System.out.println("the q and a details are:"+qadetails[0]+qadetails[1]+qadetails[2]+qadetails[3]+qadetails[4]+qadetails[5]+qadetails[6]+qadetails[7]+qadetails[8]);
+                    System.out.println("the score Array is :"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" "+scoreArray[7]+" "+scoreArray[8]);
                     System.out.println("the timer array is :" +timeForEachQues[0]+" "+timeForEachQues[1]+" "+timeForEachQues[2]+" "+timeForEachQues[3]+" "+timeForEachQues[4]+" "+timeForEachQues[5]+" "+timeForEachQues[6]+" ");
                     startActivity(i);
                         }
@@ -370,6 +413,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         perk_one_isclickable=false;
         perk_one_isCliked=true;
         qadetails[8]=3;
+        qadetails[8]=k;
         setDisabledBackground(perk1);
         char check='o';
         int p=2,a;

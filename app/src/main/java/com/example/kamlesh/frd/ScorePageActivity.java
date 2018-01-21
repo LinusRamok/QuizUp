@@ -53,8 +53,10 @@ public class ScorePageActivity extends AppCompatActivity {
     StringBuffer response;
     int ans[]=new int[10],score=0;
     double scoreArray[]=new double[9];
+    int ans[]=new int[10];
     String questionsAndAnswers;
     double TimeForEachQues[]=new double[7];
+    double TimeForEachQues[]=new double[7],scoreArray[]=new double[9];
     FirebaseStorage storage =FirebaseStorage.getInstance();
     String Topic_name;
     String topic_url;
@@ -66,7 +68,9 @@ public class ScorePageActivity extends AppCompatActivity {
         setContentView(R.layout.score_page);
         TimeForEachQues =getIntent().getDoubleArrayExtra("TimerValues");
         ans=getIntent().getIntArrayExtra("userAnswers");
+        scoreArray=getIntent().getDoubleArrayExtra("scoreArray");
         questionsAndAnswers=getIntent().getStringExtra("QuestionAndAnswers");
+        finalscore=getIntent().getDoubleExtra("Score",0);
         ImageView topic_logo =findViewById(R.id.topic_logo);
 
         //setting topic name in textview
@@ -138,6 +142,7 @@ score=10;
         TextView main_score;
         main_score=findViewById(R.id.score);
         main_score.setText(String.valueOf(score));
+        main_score.setText(String.valueOf(finalscore));
 
 //ranking Button
         LinearLayout rankingButton= (LinearLayout) findViewById(R.id.ranking_click);
@@ -208,6 +213,7 @@ score=10;
 
 
         String URL = "https://quizgame-backend.appspot.com/_ah/api/myapi/v1/updateStats?PID="+PID+"&Q_Correct="+s+"&Score="+score+"&Topic="+TopicKey;
+        String URL = "https://quizgame-backend.appspot.com/_ah/api/myapi/v1/updateStats?PID="+PID+"&Q_Correct="+s+"&Score="+finalscore+"&Topic="+TopicKey;
         System.out.println("url :"+URL);
 
         //Data Downloader-Volley

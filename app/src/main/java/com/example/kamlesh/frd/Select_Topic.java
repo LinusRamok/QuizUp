@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -29,7 +31,7 @@ public class Select_Topic extends AppCompatActivity {
 
     topic_adapter Adapter;
     FirebaseDatabase database;
-    GridView listView1;
+    RecyclerView listView1;
     SQLiteDatabase db;
     DatabaseReference myRef;
 
@@ -75,7 +77,10 @@ public class Select_Topic extends AppCompatActivity {
         dv.setSystemUiVisibility(ui);
         setContentView(R.layout.activity_select_topic);
 
-        listView1 = (GridView) findViewById(R.id.listview);
+        listView1 = (RecyclerView) findViewById(R.id.listview);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),3);
+        listView1.setLayoutManager(gridLayoutManager);
+
         searchView= findViewById(R.id.search);
 
         Button settings = findViewById(R.id.settings);
@@ -89,22 +94,6 @@ public class Select_Topic extends AppCompatActivity {
 
 
         myRef = database.getReference();
-
-
-        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                System.out.println("item clicked...");
-                System.out.println(topics.get(i).name);
-                System.out.println(topics.get(i).url);
-                System.out.println(topics.get(i).description);
-                Intent intent = new Intent(Select_Topic.this,topic_page.class);
-                intent.putExtra("topic_details", new Gson().toJson(topics.get(i)));
-                startActivity(intent);
-
-
-            }
-        });
 
 
         myRef.addChildEventListener(new ChildEventListener() {
@@ -170,24 +159,7 @@ public class Select_Topic extends AppCompatActivity {
 
  //               searchView.setIconified(false);
         searchView.setQueryHint("Search Topic....");
-        searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-            boolean list1visible=false;
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                String text = newText;
-           //  System.out.println(text);
-                try {
-                    Adapter.filter(text);
-                }catch (Exception e){
-                    e.fillInStackTrace();
-                }
-                return false;
-            }
-        });
+
 
     }
     @Override

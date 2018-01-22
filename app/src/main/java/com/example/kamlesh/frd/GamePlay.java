@@ -397,7 +397,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                             i.putExtra("Score",finalscore);
                             //Intent Topic name
                             i.putExtra("topic_name",top);
-
+                            i.putExtra("topic_url",url);
                             System.out.println("the final score is :"+finalscore);
                             System.out.println("the q and a details are:"+qadetails[0]+qadetails[1]+qadetails[2]+qadetails[3]+qadetails[4]+qadetails[5]+qadetails[6]+qadetails[7]+qadetails[8]);
                             System.out.println("the score Array is :"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" "+scoreArray[7]+" "+scoreArray[8]);

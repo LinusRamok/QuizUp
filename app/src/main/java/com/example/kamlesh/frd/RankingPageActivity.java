@@ -66,6 +66,7 @@ public class RankingPageActivity extends AppCompatActivity {
 
         }
         String URL = "https://quizgame-backend.appspot.com/_ah/api/myapi/v1/ranking?Topic="+TopicKey+"&PID="+PID;
+        System.out.println(URL);
 //Data Downloader-Volley
         final StringRequest request = new StringRequest(URL, new Response.Listener<String>() {
             @Override

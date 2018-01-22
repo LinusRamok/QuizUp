@@ -11,11 +11,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar;
+import com.bumptech.glide.Glide;
 import com.podcopic.animationlib.library.AnimationType;
 import com.podcopic.animationlib.library.StartSmartAnimation;
 import com.quiz.up.RankingPagePOJO.Top5;
 
 import java.lang.reflect.Array;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by RAJA on 12-01-2018.
@@ -42,6 +45,9 @@ public class RankinglistAdapter extends RecyclerView.Adapter<RankinglistAdapter.
     @Override
     public void onBindViewHolder(RankingViewHolder holder, int position) {
         final Top5 top5=data[position];
+
+        Glide.with(holder.pic.getContext()).load(top5.getPicUrl()).into(holder.pic);
+
         holder.name.setText(top5.getName());
 //      holder.country.setText(top5.getCountry());
         holder.rank.setText(String.valueOf(top5.getRank()));
@@ -119,6 +125,7 @@ public class RankinglistAdapter extends RecyclerView.Adapter<RankinglistAdapter.
         TextView name,rank,email,country,accuracy;
         LinearLayout linearLayout,crown,all;
         TextRoundCornerProgressBar testing;
+        CircleImageView pic;
         public RankingViewHolder(final View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.name);
@@ -128,6 +135,7 @@ public class RankinglistAdapter extends RecyclerView.Adapter<RankinglistAdapter.
             accuracy = (TextView) itemView.findViewById(R.id.accuracy1);
             linearLayout=(LinearLayout) itemView.findViewById(R.id.ranking_onclick);
             all=(LinearLayout) itemView.findViewById(R.id.all);
+            pic=itemView.findViewById(R.id.profile_image);
 //            crown=(LinearLayout) itemView.findViewById(R.id.crown);
 //            testing=itemView.findViewById(R.id.pro);
 //            StartSmartAnimation.startAnimation(itemView.findViewById(R.id.ranking_onclick) , AnimationType.SlideInUp , 2000 , 0 , true );

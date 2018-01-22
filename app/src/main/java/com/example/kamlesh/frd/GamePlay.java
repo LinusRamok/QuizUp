@@ -297,7 +297,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                                 scoreArray[qadetails[8]]-=2;
                             }
                             finalscore= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6]+scoreArray[7]+scoreArray[8];
-
+                            if(finalscore<0)
+                                finalscore=0;
                             Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
                             i.putExtra("QuestionAndAnswers",jsonString);
                             i.putExtra("userAnswers",qadetails);
@@ -386,7 +387,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                                 scoreArray[qadetails[8]]-=2;
                             }
                             finalscore= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6]+scoreArray[7]+scoreArray[8];
-
+                            if(finalscore<0)
+                                    finalscore=0;
                             Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
                             i.putExtra("QuestionAndAnswers",jsonString);
                             i.putExtra("userAnswers",qadetails);

@@ -51,23 +51,23 @@ public class ScorePageActivity extends AppCompatActivity {
     JSONObject object= null;
     JSONArray array=null;
     StringBuffer response;
-    int ans[]=new int[10];
+    int ans[]=new int[10],scoreArray[]=new int[9];;
     String questionsAndAnswers;
-    double TimeForEachQues[]=new double[7],scoreArray[]=new double[9];
+    double TimeForEachQues[]=new double[7];
     FirebaseStorage storage =FirebaseStorage.getInstance();
     String Topic_name;
     String topic_url;
     JSONObject respass=null;
-    double finalscore=0;
+    int finalscore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.score_page);
         TimeForEachQues =getIntent().getDoubleArrayExtra("TimerValues");
         ans=getIntent().getIntArrayExtra("userAnswers");
-        scoreArray=getIntent().getDoubleArrayExtra("scoreArray");
+        scoreArray=getIntent().getIntArrayExtra("scoreArray");
         questionsAndAnswers=getIntent().getStringExtra("QuestionAndAnswers");
-        finalscore=getIntent().getDoubleExtra("Score",0);
+        finalscore=getIntent().getIntExtra("Score",0);
         ImageView topic_logo =findViewById(R.id.topic_logo);
 
         //setting topic name in textview

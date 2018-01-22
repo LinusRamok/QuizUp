@@ -28,9 +28,9 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     BufferedReader reader;
     List<Questionlist> q_and_a=new ArrayList<>();
     int i=0;
-    double scoreArray[]=new double[9];
+    int scoreArray[]=new int[9];
     int qadetails[]=new int[9],changedqno=10;
-    double finalscore=0;
+    int finalscore=0;
     //qa details is an array which passes the details of attempted questions and their answers given by user to the next activity via intent
     //0 is for wrong answer
     //1 is for right answer
@@ -219,10 +219,11 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             if (ans.equals(q_and_a.get(k).getAnswer()))
             {
                 //whatever animation to be applied if answer is correct
-                scoreArray[i]+=10;
-                if(timeForEachQues[i]>5)
+                scoreArray[i]+=20;
+                if(timeForEachQues[i]>3)
                 {
-                    scoreArray[i]=roundingOfDouble(scoreArray[i]-((timeForEachQues[i]-5)*0.6),1);
+                    Long L=Math.round(scoreArray[i]-((timeForEachQues[i]-3)*0.6));
+                    scoreArray[i]=Integer.valueOf(L.intValue());
                 }
                 if(scoreArray[i]<3)
                 {
@@ -287,7 +288,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                                 int temp=qadetails[changedqno];
                                 qadetails[changedqno]=qadetails[7];
                                 qadetails[7]=temp;
-                                double t=scoreArray[changedqno];
+                                int t=scoreArray[changedqno];
                                 scoreArray[changedqno]=-2;
                                 scoreArray[7]=t;
                             }
@@ -295,7 +296,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                             {
                                 scoreArray[qadetails[8]]-=2;
                             }
-                            finalscore= roundingOfDouble(scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6]+scoreArray[7]+scoreArray[8],1);
+                            finalscore= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6]+scoreArray[7]+scoreArray[8];
 
                             Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
                             i.putExtra("QuestionAndAnswers",jsonString);
@@ -306,6 +307,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                             //intent Topic name/
                             i.putExtra("topic_name",top);
                             i.putExtra("topic_url",url);
+                            System.out.println("the final score is :"+finalscore);
                             System.out.println("the q and a details are:"+qadetails[0]+qadetails[1]+qadetails[2]+qadetails[3]+qadetails[4]+qadetails[5]+qadetails[6]+qadetails[7]+qadetails[8]);
                             System.out.println("the score Array is :"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" "+scoreArray[7]+" "+scoreArray[8]);
                             System.out.println("the timer array is :" +timeForEachQues[0]+" "+timeForEachQues[1]+" "+timeForEachQues[2]+" "+timeForEachQues[3]+" "+timeForEachQues[4]+" "+timeForEachQues[5]+" "+timeForEachQues[6]+" ");
@@ -375,7 +377,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                                 int temp=qadetails[changedqno];
                                 qadetails[changedqno]=qadetails[7];
                                 qadetails[7]=temp;
-                                double t=scoreArray[changedqno];
+                                int t=scoreArray[changedqno];
                                 scoreArray[changedqno]=-2;
                                 scoreArray[7]=t;
                             }
@@ -383,7 +385,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                             {
                                 scoreArray[qadetails[8]]-=2;
                             }
-                            finalscore= roundingOfDouble(scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6]+scoreArray[7]+scoreArray[8],1);
+                            finalscore= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6]+scoreArray[7]+scoreArray[8];
 
                             Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
                             i.putExtra("QuestionAndAnswers",jsonString);
@@ -393,7 +395,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                             i.putExtra("Score",finalscore);
                             //Intent Topic name
                             i.putExtra("topic_name",top);
-                            i.putExtra("topic_url",url);
+
+                            System.out.println("the final score is :"+finalscore);
                             System.out.println("the q and a details are:"+qadetails[0]+qadetails[1]+qadetails[2]+qadetails[3]+qadetails[4]+qadetails[5]+qadetails[6]+qadetails[7]+qadetails[8]);
                             System.out.println("the score Array is :"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" "+scoreArray[7]+" "+scoreArray[8]);
                             System.out.println("the timer array is :" +timeForEachQues[0]+" "+timeForEachQues[1]+" "+timeForEachQues[2]+" "+timeForEachQues[3]+" "+timeForEachQues[4]+" "+timeForEachQues[5]+" "+timeForEachQues[6]+" ");

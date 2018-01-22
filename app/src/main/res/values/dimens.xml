@@ -13,5 +13,8 @@
     <dimen name="playButtonBackgroundStroke">2dp</dimen>
     <dimen name="searchButtonBackgroundPadding">5dp</dimen>
     <dimen name="searchButtonBackgroundRadius">100dp</dimen>
-    <dimen name="searchButtonBackgroundStroke">2dp</dimen>
+    <dimen name="searchButtonBackgroundStroke">1dp</dimen>
+    <dimen name="listItemButtonBackgroundPadding">5dp</dimen>
+    <dimen name="listItemButtonBackgroundRadius">10dp</dimen>
+    <dimen name="listItemButtonBackgroundStroke">1dp</dimen>
 </resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:state_enabled="true"
+        android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <padding android:left="@dimen/listItemButtonBackgroundPadding"
+                android:top="@dimen/listItemButtonBackgroundPadding"
+                android:right="@dimen/listItemButtonBackgroundPadding"
+                android:bottom="@dimen/listItemButtonBackgroundPadding" />
+            <corners android:bottomLeftRadius="@dimen/listItemButtonBackgroundRadius"
+                android:bottomRightRadius="@dimen/listItemButtonBackgroundRadius"/>
+            <solid android:color="@color/colorAccent" />
+        </shape>
+    </item>
+
+    <item
+        android:state_enabled="true"
+        android:state_focused="true">
+        <shape android:shape="rectangle">
+            <padding android:left="@dimen/listItemButtonBackgroundPadding"
+                android:top="@dimen/listItemButtonBackgroundPadding"
+                android:right="@dimen/listItemButtonBackgroundPadding"
+                android:bottom="@dimen/listItemButtonBackgroundPadding" />
+            <corners android:bottomLeftRadius="@dimen/listItemButtonBackgroundRadius"
+                android:bottomRightRadius="@dimen/listItemButtonBackgroundRadius"/>
+            <solid android:color="@color/colorAccent" />
+        </shape>
+    </item>
+
+    <item
+        android:state_enabled="true">
+        <layer-list>
+            <item>
+                <!--This is the border of background-->
+                <shape android:shape="rectangle">
+                    <corners android:bottomLeftRadius="@dimen/listItemButtonBackgroundRadius"
+                        android:bottomRightRadius="@dimen/listItemButtonBackgroundRadius"/>
+                    <stroke
+                        android:width="@dimen/listItemButtonBackgroundStroke"
+                        android:color="@color/colorAccent" />
+                    <solid android:color="@color/colorAccent" />
+                </shape>
+            </item>
+
+            <item
+                android:bottom="@dimen/listItemButtonBackgroundStroke"
+                android:left="@dimen/listItemButtonBackgroundStroke"
+                android:right="@dimen/listItemButtonBackgroundStroke">
+                <!--This is the background color-->
+                <shape android:shape="rectangle">
+                    <padding android:left="@dimen/listItemButtonBackgroundPadding"
+                        android:top="@dimen/listItemButtonBackgroundPadding"
+                        android:right="@dimen/listItemButtonBackgroundPadding"
+                        android:bottom="@dimen/listItemButtonBackgroundPadding" />
+                    <corners android:bottomLeftRadius="@dimen/listItemButtonBackgroundRadius"
+                        android:bottomRightRadius="@dimen/listItemButtonBackgroundRadius"/>
+                    <stroke
+                        android:width="@dimen/listItemButtonBackgroundStroke"
+                        android:color="@color/windowBackground" />
+                    <solid android:color="@color/windowBackground" />
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+
+</selector>

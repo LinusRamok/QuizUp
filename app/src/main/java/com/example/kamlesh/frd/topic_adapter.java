@@ -4,6 +4,7 @@ package com.example.kamlesh.frd;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,8 @@ class topic_adapter extends RecyclerView.Adapter<topic_adapter.MyViewHolder> {
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         MyViewHolder vh = new MyViewHolder(v); // pass the view to View Holder
+        Typeface ourFont = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/primelight.otf");
+        vh.name.setTypeface(ourFont);
         return vh;
     }
 

@@ -184,60 +184,71 @@ public class ScorePageActivity extends AppCompatActivity {
                 PlayerScore data = new Gson().fromJson(data1, PlayerScore.class);
                 System.out.println(data.getMessage().getAccuracy());
 
+                if (data1 != null) {
+                    LinearLayout circular_progress=findViewById(R.id.circle_progress);
+                    circular_progress.setVisibility(View.VISIBLE);
+                    ProgressBar progressBar=findViewById(R.id.p_b);
+                    progressBar.setVisibility(View.GONE);
 //Accuracy
-                String a1=  data.getMessage().getAccuracy();
-                float result = Float.parseFloat(a1);
-                int intresult=(int)result;
+                    String a1 = data.getMessage().getAccuracy();
+                    float result = Float.parseFloat(a1);
+                    int intresult = (int) result;
 
-                final CircularProgressBar c1= (CircularProgressBar) findViewById(R.id.accuracy);
-                c1.setMax(100);
-                c1.animateProgressTo(0, intresult, new CircularProgressBar.ProgressAnimationListener() {
-                    @Override
-                    public void onAnimationStart() {
-                    }
+                    final CircularProgressBar c1 = (CircularProgressBar) findViewById(R.id.accuracy);
+                    c1.setMax(100);
+                    c1.animateProgressTo(0, intresult, new CircularProgressBar.ProgressAnimationListener() {
+                        @Override
+                        public void onAnimationStart() {
+                        }
 
-                    @Override
-                    public void onAnimationFinish() {
+                        @Override
+                        public void onAnimationFinish() {
 
-                    }
+                        }
 
-                    @Override
-                    public void onAnimationProgress(int progress) {
-                        c1.setTitle(String.valueOf(progress)+"%");
-                    }
-                });
+                        @Override
+                        public void onAnimationProgress(int progress) {
+                            c1.setTitle(String.valueOf(progress) + "%");
+                        }
+                    });
 
 //question completed
-                final CircularProgressBar c2= (CircularProgressBar) findViewById(R.id.question_completed);
-                c2.setMax(100);
-                float a=data.getMessage().getCorrect();
-                float b=data.getMessage().getQTotal();
-                System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaa"+a+"bbbbbbbbbbbbbbbb"+b);
-                float c=(a/b)*100;
-                System.out.println(c);
-                c2.animateProgressTo(0, (int) c, new CircularProgressBar.ProgressAnimationListener() {
-                    @Override
-                    public void onAnimationStart() {
-                    }
+                    final CircularProgressBar c2 = (CircularProgressBar) findViewById(R.id.question_completed);
+                    c2.setMax(100);
+                    float a = data.getMessage().getCorrect();
+                    float b = data.getMessage().getQTotal();
+                    System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaa" + a + "bbbbbbbbbbbbbbbb" + b);
+                    float c = (a / b) * 100;
+                    System.out.println(c);
+                    c2.animateProgressTo(0, (int) c, new CircularProgressBar.ProgressAnimationListener() {
+                        @Override
+                        public void onAnimationStart() {
+                        }
 
-                    @Override
-                    public void onAnimationFinish() {
+                        @Override
+                        public void onAnimationFinish() {
 
-                    }
+                        }
 
-                    @Override
-                    public void onAnimationProgress(int progress) {
-                        c2.setTitle(String.valueOf(progress)+"%");
-                    }
-                });
+                        @Override
+                        public void onAnimationProgress(int progress) {
+                            c2.setTitle(String.valueOf(progress) + "%");
+                        }
+                    });
 
+                }
+                else {
+
+                }
             }
         },
 //Error listener:Server error
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ScorePageActivity.this, "Server error Please retry", Toast.LENGTH_SHORT).show();
+                        finish();
+                        startActivity(getIntent());
+                        //Toast.makeText(ScorePageActivity.this, "Server error Please retry", Toast.LENGTH_SHORT).show();
                     }
                 });
 //Adding request Queue

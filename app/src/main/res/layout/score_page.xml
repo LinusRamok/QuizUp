@@ -146,10 +146,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"/>
                 </LinearLayout>
+                <ProgressBar
+                    android:id="@+id/p_b"
+                    android:visibility="visible"
+                    android:layout_marginTop="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
                 <LinearLayout
                     android:layout_marginTop="0dp"
                     android:id="@+id/circle_progress"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:padding="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">

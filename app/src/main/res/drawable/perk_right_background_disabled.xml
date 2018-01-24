@@ -13,7 +13,7 @@
                 android:topRightRadius="@dimen/gameButtonBackgroundRadius"/>
             <stroke
                 android:width="@dimen/gameButtonBackgroundStroke"
-                android:color="@color/colorPrimary" />
+                android:color="@color/colorAccent" />
             <solid android:color="@color/windowBackground" />
         </shape>
     </item>

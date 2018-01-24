@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
@@ -18,11 +18,11 @@
     <style name="Widget.ProgressBar.CircularProgressBar" parent="Widget">
         <item name="android:indeterminateOnly">false</item>
         <item name="android:adjustViewBounds">true</item>
-        <item name="cpb_progressColor">@color/colorAccent</item>
+        <item name="cpb_progressColor">@color/colorPrimary</item>
         <item name="cpb_hasShadow">true</item>
         <item name="cpb_strokeWidth">7</item>
-        <item name="cpb_titleColor">@color/colorAccent</item>
-        <item name="cpb_subtitleColor">@color/colorAccent</item>
+        <item name="cpb_titleColor">@color/colorPrimary</item>
+        <item name="cpb_subtitleColor">@color/colorPrimary</item>
     </style>
 
     <style name="Widget.ProgressBar.lo.CircularProgressBar" parent="Widget.ProgressBar.CircularProgressBar">

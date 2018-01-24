@@ -7,7 +7,7 @@
                 android:right="@dimen/playButtonBackgroundPadding"
                 android:bottom="@dimen/playButtonBackgroundPadding" />
             <corners android:radius="@dimen/playButtonBackgroundRadius" />
-            <solid android:color="@color/colorPrimary" />
+            <solid android:color="@color/colorAccent" />
         </shape>
     </item>
 </selector>

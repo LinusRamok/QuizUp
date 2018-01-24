@@ -27,7 +27,7 @@
             android:layout_centerVertical="true"
             android:text=""
             android:background="@drawable/ic_pause"
-            android:backgroundTint="@color/colorPrimary"/>
+            android:backgroundTint="@color/colorAccent"/>
 
         <TextView
             android:id="@+id/timer"
@@ -38,7 +38,7 @@
             android:layout_centerVertical="true"
             android:text="0.0"
             android:textSize="@dimen/largeTextSize"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/colorAccent"/>
 
     </RelativeLayout>
 

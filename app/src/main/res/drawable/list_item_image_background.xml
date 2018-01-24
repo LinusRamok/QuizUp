@@ -12,7 +12,7 @@
                 android:topRightRadius="@dimen/listItemButtonBackgroundRadius"/>
             <stroke
                 android:width="@dimen/listItemButtonBackgroundStroke"
-                android:color="@color/colorAccent" />
+                android:color="@color/colorPrimary" />
             <solid android:color="@color/windowBackground" />
         </shape>
     </item>

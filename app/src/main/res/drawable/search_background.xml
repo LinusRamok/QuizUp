@@ -12,7 +12,7 @@
 
             <stroke
                 android:width="@dimen/searchButtonBackgroundStroke"
-                android:color="@color/colorPrimary" />
+                android:color="@color/colorAccent" />
             <!--<solid android:color="@color/windowBackground" />-->
         </shape>
 

@@ -11,7 +11,7 @@
                 android:bottom="@dimen/listItemButtonBackgroundPadding" />
             <corners android:bottomLeftRadius="@dimen/listItemButtonBackgroundRadius"
                 android:bottomRightRadius="@dimen/listItemButtonBackgroundRadius"/>
-            <solid android:color="@color/colorAccent" />
+            <solid android:color="@color/colorPrimary" />
         </shape>
     </item>
 
@@ -25,7 +25,7 @@
                 android:bottom="@dimen/listItemButtonBackgroundPadding" />
             <corners android:bottomLeftRadius="@dimen/listItemButtonBackgroundRadius"
                 android:bottomRightRadius="@dimen/listItemButtonBackgroundRadius"/>
-            <solid android:color="@color/colorAccent" />
+            <solid android:color="@color/colorPrimary" />
         </shape>
     </item>
 
@@ -39,8 +39,8 @@
                         android:bottomRightRadius="@dimen/listItemButtonBackgroundRadius"/>
                     <stroke
                         android:width="@dimen/listItemButtonBackgroundStroke"
-                        android:color="@color/colorAccent" />
-                    <solid android:color="@color/colorAccent" />
+                        android:color="@color/colorPrimary" />
+                    <solid android:color="@color/colorPrimary" />
                 </shape>
             </item>
 

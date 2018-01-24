@@ -94,7 +94,7 @@ public class CircularProgressBar extends ProgressBar {
 
 		color = a.getString(R.styleable.CircularProgressBar_cpb_progressColor);
 		if(color==null)
-			mProgressColorPaint.setColor(res.getColor(R.color.colorPrimary));
+			mProgressColorPaint.setColor(res.getColor(R.color.colorAccent));
 		else
 			mProgressColorPaint.setColor(Color.parseColor(color));
 
@@ -106,13 +106,13 @@ public class CircularProgressBar extends ProgressBar {
 
 		color = a.getString(R.styleable.CircularProgressBar_cpb_titleColor);
 		if(color==null)
-			mTitlePaint.setColor(res.getColor(R.color.colorPrimary));
+			mTitlePaint.setColor(res.getColor(R.color.colorAccent));
 		else
 			mTitlePaint.setColor(Color.parseColor(color));
 
 		color = a.getString(R.styleable.CircularProgressBar_cpb_subtitleColor);
 		if(color==null)
-			mSubtitlePaint.setColor(res.getColor(R.color.colorPrimary));
+			mSubtitlePaint.setColor(res.getColor(R.color.colorAccent));
 		else
 			mSubtitlePaint.setColor(Color.parseColor(color));
 

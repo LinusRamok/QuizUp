@@ -10,7 +10,7 @@
             <corners android:radius="@dimen/gameButtonBackgroundRadius" />
             <stroke
                 android:width="@dimen/gameButtonBackgroundStroke"
-                android:color="@color/colorAccent" />
+                android:color="@color/colorPrimary" />
             <solid android:color="@color/windowBackground" />
         </shape>
 

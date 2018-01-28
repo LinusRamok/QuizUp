@@ -35,7 +35,7 @@ public class logout_page extends AppCompatActivity {
             public void onClick(View view) {
                 mAuth.signOut();
                 LoginManager.getInstance().logOut();
-                startActivity(new Intent(logout_page.this,login_activity.class));
+                startActivity(new Intent(logout_page.this,LoginActivity.class));
                 finish();
             }
         });

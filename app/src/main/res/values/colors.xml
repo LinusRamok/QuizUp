@@ -5,6 +5,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="windowBackground">#000000</color>
     <color name="textColorPrimary">#ffffff</color>
+    <color name="textColorPrimaryInverse">#000000</color>
     <color name="textColorSecondary">#e0e0e0</color>
     <color name="wrongAnswer">#dd0000</color>
     <color name="correctAnswer">#009668</color>
@@ -12,4 +13,7 @@
     <color name="circular_progress_default_background">#cfcfcf</color>
     <color name="progressbar_background">#b5d9f5</color>
     <color name="darkgray">#303030</color>
+    <color name="facebookColor">#385c8e</color>
+    <color name="googleColor">#ffffff</color>
+    <color name="guestColor">#F8CF26</color>
 </resources>

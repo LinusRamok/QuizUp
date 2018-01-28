@@ -32,6 +32,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:11.4.2'
     implementation 'com.google.android.gms:play-services-auth:11.4.2'
     implementation 'com.facebook.android:facebook-android-sdk:4.29.0'
+    implementation 'com.android.support:support-v4:27.0.2'
     testImplementation 'junit:junit:4.12'
 
     implementation 'com.firebaseui:firebase-ui-storage:3.0.0'
@@ -48,6 +49,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'de.hdodenhof:circleimageview:2.2.0' //circular image view, link: https://github.com/hdodenhof/CircleImageView
+    compile 'me.relex:circleindicator:1.2.2@aar' //View pager indicater, link: https://github.com/ongakuer/CircleIndicator
 }
 
 apply plugin: 'com.google.gms.google-services'

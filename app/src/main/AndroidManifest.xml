@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label">
         <activity android:name=".Select_Topic" />
-        <activity android:name=".login_activity"
+        <activity android:name=".LoginActivity"
             android:label="Select Any Topic">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

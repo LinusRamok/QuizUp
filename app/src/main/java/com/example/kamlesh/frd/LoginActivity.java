@@ -1,63 +1,28 @@
 package com.example.kamlesh.frd;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
-import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.FirebaseDatabase;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Iterator;
-import java.util.Set;
+import me.relex.circleindicator.CircleIndicator;
 
 
-public class login_activity extends AppCompatActivity {
-    public FirebaseAuth mAuth;
+public class LoginActivity extends AppCompatActivity {
+
+    LinearLayout facebookLogin, googleLogin, guestLogin;
+
+    /*public FirebaseAuth mAuth;
     public CallbackManager mCallbackManager;
     FirebaseAuth.AuthStateListener mAuthListener;
     final static int RC_SIGN_IN = 2;
     static GoogleApiClient mGoogleSignInClient;
     SharedPreferences prefs;
     ProgressDialog dialog;
+    */
+   /*
     @Override
     protected void onStart() {
         super.onStart();
@@ -65,14 +30,78 @@ public class login_activity extends AppCompatActivity {
         mAuth.addAuthStateListener(mAuthListener);
 
     }
+*/
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        View dv=getWindow().getDecorView();
+        int ui= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+        dv.setSystemUiVisibility(ui);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            View decorView= getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        View dv=getWindow().getDecorView();
+        int ui= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+        dv.setSystemUiVisibility(ui);
+
         setContentView(R.layout.activity_login);
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        dialog=new ProgressDialog(login_activity.this);
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+        viewPager.setPageTransformer(false, new CustomLoginFadeAnimation());
+        viewPager.setAdapter(new CustomLoginPagerAdapter(this));
+        indicator.setViewPager(viewPager);
+        viewPager.setOffscreenPageLimit(2);
+
+        facebookLogin = (LinearLayout)findViewById(R.id.facebookLogin);
+        googleLogin = (LinearLayout)findViewById(R.id.googleLogin);
+        guestLogin = (LinearLayout)findViewById(R.id.guestLogin);
+
+        facebookLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        googleLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        guestLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
+
+
+        /*prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        dialog=new ProgressDialog(LoginActivity.this);
+        SignInButton signInButton = findViewById(R.id.signin_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         mAuth = FirebaseAuth.getInstance();
 
@@ -94,7 +123,7 @@ public class login_activity extends AppCompatActivity {
                 .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Toast.makeText(login_activity.this, "something went wrong", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "something went wrong", Toast.LENGTH_LONG).show();
                     }
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -107,7 +136,7 @@ public class login_activity extends AppCompatActivity {
                       FirebaseUser user=firebaseAuth.getCurrentUser();
                     System.out.println("oth state change");
                     if (prefs.getBoolean("Islogin", false)) {
-                        startActivity(new Intent(login_activity.this, Select_Topic.class));
+                        startActivity(new Intent(LoginActivity.this, Select_Topic.class));
                         finish();
                     } else {
 
@@ -152,10 +181,10 @@ public class login_activity extends AppCompatActivity {
                     System.out.println(" granted : " + iterator.next().toString());
 
                 }
+*/
+    }
 
-            }
-
-            @Override
+            /*@Override
             public void onCancel() {
                 Log.d("TAG", "facebook:onCancel");
                 // ...
@@ -259,7 +288,7 @@ public class login_activity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
-                            Toast.makeText(login_activity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             //  updateUI(null);
                         }
@@ -288,8 +317,8 @@ public class login_activity extends AppCompatActivity {
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setRequestMethod("GET");
-                urlConnection.setReadTimeout(10000 /* milliseconds */);
-                urlConnection.setConnectTimeout(15000 /* milliseconds */);
+                urlConnection.setReadTimeout(10000 *//* milliseconds *//*);
+                urlConnection.setConnectTimeout(15000 *//* milliseconds *//*);
 
                 urlConnection.setDoOutput(true);
 
@@ -330,10 +359,10 @@ public class login_activity extends AppCompatActivity {
                 System.out.println("yeh register success");
 
                 prefs.edit().putBoolean("Islogin",true).commit();
-                startActivity(new Intent(login_activity.this, Select_Topic.class));
+                startActivity(new Intent(LoginActivity.this, Select_Topic.class));
                 finish();
             }else{
-                Toast.makeText(login_activity.this,"error pls retry",Toast.LENGTH_LONG);
+                Toast.makeText(LoginActivity.this,"error pls retry",Toast.LENGTH_LONG);
                 System.out.println("player register error pls retry....");
             }
         }
@@ -346,6 +375,6 @@ public class login_activity extends AppCompatActivity {
             a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(a);
         }
-
+*/
 
 }

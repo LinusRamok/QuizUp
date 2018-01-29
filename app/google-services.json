@@ -59,6 +59,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "273244295267-lr6e6fpp2egmiu4h7spjpg3kbktugeee.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kamlesh.frd",
+            "certificate_hash": "15ec211621432a1f083bd81238d6d603e6526e78"
+          }
+        },
+        {
           "client_id": "273244295267-h6p10kjssqspusglk2naokja2aemdi0d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -1,9 +1,12 @@
 package com.example.kamlesh.frd;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -27,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class Select_Topic extends AppCompatActivity {
+public class Select_Topic extends AppCompatActivity implements ForceUpdateChecker.OnUpdateNeededListener {
 
     topic_adapter Adapter;
     FirebaseDatabase database;
@@ -69,6 +72,7 @@ public class Select_Topic extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ForceUpdateChecker.with(this).onUpdateNeeded(this).check();
 
         database = FirebaseDatabase.getInstance();
 
@@ -170,6 +174,32 @@ public class Select_Topic extends AppCompatActivity {
         startActivity(a);
     }
 
+    @Override
+    public void onUpdateNeeded(final String updateUrl) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("New version available")
+                .setMessage("Please, update app to new version to continue experiencing.")
+                .setPositiveButton("Update",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                redirectStore(updateUrl);
+                            }
+                        }).setNegativeButton("No, thanks",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        }).create();
+        dialog.show();
 
+    }
+    private void redirectStore(String updateUrl) {
+        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
+    }
 
 }

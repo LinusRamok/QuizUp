@@ -19,28 +19,74 @@
 
 
         <Button
-            android:id="@+id/pause"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/quitGame"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text=""
-            android:background="@drawable/ic_pause"
-            android:backgroundTint="@color/colorAccent"/>
+            android:background="@drawable/icon_quit_game"
+            android:backgroundTint="@color/wrongAnswer"/>
 
-        <TextView
-            android:id="@+id/timer"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="0.0"
-            android:textSize="@dimen/largeTextSize"
-            android:textColor="@color/colorAccent"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/timerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SECONDS"
+                android:textColor="@color/textColorSecondary"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.0"
+                android:layout_below="@id/timerText"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/mediumTextSize"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/scoreText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="SCORE"
+            android:textSize="10dp"
+            android:textColor="@color/textColorSecondary"/>
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:layout_below="@id/scoreText"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/mediumTextSize"
+            android:layout_alignLeft="@id/scoreText"
+            android:layout_alignRight="@id/scoreText"
+            android:gravity="center_horizontal"/>
+
 
     </RelativeLayout>
+
+    <View
+        android:id="@+id/gradientSeparatorAbove"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/gradient_separate_gameplay"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/upperLayout" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -76,9 +122,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_above="@id/perkLayout"
         android:id="@+id/optionsLayout"
         android:padding="@dimen/generalLayoutPadding">
 
@@ -130,34 +176,47 @@
             android:background="@drawable/option_background"
             android:layout_margin="@dimen/generalSmallMargin"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/optionD"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/generalSmallMargin">
-
-            <TextView
-                android:id="@+id/perk1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="use 50-50"
-                android:textSize="@dimen/mediumTextSize"
-                android:textAlignment="center"
-                android:background="@drawable/perk_left_background"
-                android:layout_marginRight="@dimen/generalSmallMargin"/>
-
-            <TextView
-                android:id="@+id/perk2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="skip this question"
-                android:textSize="@dimen/mediumTextSize"
-                android:textAlignment="center"
-                android:background="@drawable/perk_right_background"
-                android:layout_marginLeft="@dimen/generalSmallMargin"/>
-        </LinearLayout>
     </RelativeLayout>
+
+    <View
+        android:id="@+id/gradientSeparatorBelow"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/gradient_separate_gameplay"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/optionsLayout" />
+
+    <LinearLayout
+        android:id="@+id/perkLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/generalLayoutPadding"
+        android:layout_margin="@dimen/generalSmallMargin">
+
+        <TextView
+            android:id="@+id/perk1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="use 50-50"
+            android:textSize="@dimen/mediumTextSize"
+            android:textAlignment="center"
+            android:textColor="@color/color_text_from_white_to_black"
+            android:background="@drawable/perk_left_background"
+            android:layout_marginRight="@dimen/generalSmallMargin"/>
+
+        <TextView
+            android:id="@+id/perk2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="skip this question"
+            android:textSize="@dimen/mediumTextSize"
+            android:textAlignment="center"
+            android:textColor="@color/color_text_from_white_to_black"
+            android:background="@drawable/perk_right_background"
+            android:layout_marginLeft="@dimen/generalSmallMargin"/>
+    </LinearLayout>
 </RelativeLayout>

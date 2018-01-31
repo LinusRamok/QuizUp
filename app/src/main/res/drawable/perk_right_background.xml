@@ -11,7 +11,7 @@
                 android:bottom="@dimen/gameButtonBackgroundPadding" />
             <corners android:bottomRightRadius="@dimen/gameButtonBackgroundRadius"
                 android:topRightRadius="@dimen/gameButtonBackgroundRadius"/>
-            <solid android:color="@color/colorAccent" />
+            <solid android:color="@color/perkColor" />
         </shape>
     </item>
 
@@ -25,7 +25,7 @@
                 android:bottom="@dimen/gameButtonBackgroundPadding" />
             <corners android:bottomRightRadius="@dimen/gameButtonBackgroundRadius"
                 android:topRightRadius="@dimen/gameButtonBackgroundRadius"/>
-            <solid android:color="@color/colorAccent" />
+            <solid android:color="@color/perkColor" />
         </shape>
     </item>
 
@@ -40,7 +40,7 @@
                 android:topRightRadius="@dimen/gameButtonBackgroundRadius"/>
             <stroke
                 android:width="@dimen/gameButtonBackgroundStroke"
-                android:color="@color/colorAccent" />
+                android:color="@color/perkColor" />
             <solid android:color="@color/windowBackground" />
         </shape>
     </item>

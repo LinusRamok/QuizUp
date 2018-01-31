@@ -1,13 +1,20 @@
 package com.example.kamlesh.frd;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.kamlesh.frd.Models.Questionlist;
@@ -39,7 +46,9 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     TextView optionA, optionB, optionC, optionD, perk1, perk2;
     boolean perk_one_isclickable=true, perk_one_isCliked=false, perk_two_isClicked =false, perk_two_isclickable=true;
     boolean optionA_isClickable=true, optionB_isClickable=true, optionC_isClickable=true, optionD_isClickable=true;
-    TextView question, questionNumber, timerTextView;
+    TextView question, questionNumber, secondsText, score, scoreText, timerText;
+    Button quitGame;
+    boolean isDialogOpen=false;
     Handler timer = new Handler();
     boolean isTimerStarted=false;
     double secondsPassed = 0.0;
@@ -71,6 +80,14 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     }
 
     @Override
+    public void onBackPressed() {
+        if (isDialogOpen == false)
+            quitGameDialogMethod();
+        else
+            super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -98,8 +115,12 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         perk1.setOnClickListener(this);
         perk2 =(TextView)findViewById(R.id.perk2);
         perk2.setOnClickListener(this);
-        timerTextView =(TextView)findViewById(R.id.timer);
-
+        secondsText =(TextView)findViewById(R.id.timer);
+        timerText = (TextView) findViewById(R.id.timerText);
+        score = (TextView)findViewById(R.id.score);
+        scoreText = (TextView)findViewById(R.id.scoreText);
+        quitGame = (Button)findViewById(R.id.quitGame);
+        quitGame.setOnClickListener(this);
 
         Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
         Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
@@ -112,7 +133,11 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         optionD.setTypeface(ourLightFont);
         perk1.setTypeface(ourLightFont);
         perk2.setTypeface(ourLightFont);
-        timerTextView.setTypeface(ourBoldFont);
+        secondsText.setTypeface(ourLightFont);
+        score.setTypeface(ourLightFont);
+        timerText.setTypeface(ourBoldFont);
+        scoreText.setTypeface(ourBoldFont);
+
 
         jsonString = getIntent().getStringExtra("jsonobj");
         obj=new Gson().fromJson(jsonString , QuestionsApi.class);
@@ -157,6 +182,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                 if(perk_two_isclickable)
                     perk_two(i);
                 break;
+            case R.id.quitGame:
+                quitGameDialogMethod();
         }
     }
 
@@ -191,7 +218,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     public void setQuestionsAndOptions (int k)
     {
         set_visibility_after_perk_one();
-
         if(k<7) {
             // logic for setting the question and options relative to the index passed
 
@@ -210,7 +236,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     {
         stopTimer();
         if(isTimerStarted==false && secondsPassed != 0.0) {
-            double currentStoppedTime = Double.parseDouble(timerTextView.getText().toString());
+            double currentStoppedTime = Double.parseDouble(secondsText.getText().toString());
             calculateTimeForEachQues(currentStoppedTime);
         }
 
@@ -511,12 +537,14 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         {
             textView.setBackground(getResources().getDrawable(R.drawable.perk_left_background_disabled));
             textView.setAlpha(0.4f);
+            textView.setTextColor(getResources().getColor(R.color.textColorPrimary));
         }
 
         else if (textView == perk2)
         {
             textView.setBackground(getResources().getDrawable(R.drawable.perk_right_background_disabled));
             textView.setAlpha(0.4f);
+            textView.setTextColor(getResources().getColor(R.color.textColorPrimary));
         }
 
     }
@@ -549,7 +577,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
-    public Runnable ute=new Runnable() {                //This runnable is used to run a timer and display it in TextView named timerTextView
+    public Runnable ute=new Runnable() {                //This runnable is used to run a timer and display it in TextView named secondsText
         @Override
         public void run() {
             //the actual implementation of timer using runnable
@@ -557,7 +585,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             secondsPassed=secondsPassed+0.1;
             double temp=roundingOfDouble(secondsPassed,1);
 
-            timerTextView.setText(Double.toString(temp));
+            secondsText.setText(Double.toString(temp));
             timer.postAtTime(this, currentMilliseconds);
             timer.postDelayed(ute, 100);
         }
@@ -613,4 +641,69 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             totalTimeTaken = currentStoppedTime;
         }
     }
+
+    public void calculateScore(int currentQuesNum, String onAction)
+    {
+        //currentQuesNum values lies between 0 to maxQuestion-1. it tells the current question number user is playing.
+        //onAction tells at what action this function is being called. It values can be "Perk Clicked", "Correct Answer", "Wrong Answer" (if negative marks are to be calulated)
+    }
+
+    public void quitGameDialogMethod()
+    {
+        TextView alertMessage, positiveButton, negativeButton;
+
+        LayoutInflater factory = LayoutInflater.from(this);
+        final Dialog quitDialog = new Dialog(this);
+        quitDialog.setContentView(R.layout.alert_dialog_simple_positive_negative_buttons);
+        quitDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));  //to make background of dialog transparent, hence allowing curved borders to be visible
+        quitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE); //to make dialog not focussible
+
+        alertMessage = quitDialog.findViewById(R.id.alertMessage);
+        positiveButton = quitDialog.findViewById(R.id.positiveButton);
+        negativeButton = quitDialog.findViewById(R.id.negativeButton);
+
+        alertMessage.setText("Are you sure you want to quit the game? All the progress of your current game will be lost!");
+        positiveButton.setText("Keep Playing");
+        negativeButton.setText("Quit Game");
+
+        Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
+        Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
+        alertMessage.setTypeface(ourLightFont);
+        positiveButton.setTypeface(ourBoldFont);
+        negativeButton.setTypeface(ourBoldFont);
+
+        quitDialog.show();
+        quitDialog.getWindow().getDecorView().setSystemUiVisibility(this.getWindow().getDecorView().getSystemUiVisibility());
+        quitDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE); //clear not focussible flags
+        isDialogOpen = true;
+        System.out.println("Dialog is opened");
+
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isDialogOpen = false;
+                quitDialog.dismiss();
+                System.out.println("Dialog is closed");
+            }
+        });
+        negativeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isDialogOpen = false;
+                quitDialog.dismiss();
+                System.out.println("Dialog is closed");
+                finish();
+            }
+        });
+
+        quitDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                System.out.println("Dialog is closed");
+                isDialogOpen=false;
+                quitDialog.dismiss();
+            }
+        });
+    }
+
 }

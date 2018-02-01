@@ -4,14 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageView"
-        android:foreground="@drawable/gradient_login_black"
-        android:layout_alignParentStart="true"
-        android:adjustViewBounds="true"
-        android:scaleType="fitStart"/>
+        android:foreground="@drawable/gradient_login_black">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/login_image_one"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart"/>
+
+    </FrameLayout>
 
     <TextView
         android:layout_width="match_parent"

@@ -88,9 +88,9 @@ public class ScorePageActivity extends AppCompatActivity {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-        System.out.println("score Array"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" "+scoreArray[7]+" "+scoreArray[8]);
+        System.out.println("score Array"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]);
         System.out.println("Score issssssssssssssssssssssssssssss :"+finalscore);
-        int q=ans[0]+ans[1]+ans[2]+ans[3]+ans[4]+ans[5]+ans[6]+ans[7];
+        int q=ans[0]+ans[1]+ans[2]+ans[3]+ans[4]+ans[5]+ans[6];
         int s=q-9;
         System.out.println(s);
         float ca=(float)s;

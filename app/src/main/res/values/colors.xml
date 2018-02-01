@@ -17,4 +17,13 @@
     <color name="facebookColor">#385c8e</color>
     <color name="googleColor">#ffffff</color>
     <color name="guestColor">#F8CF26</color>
+    <array name="scoreColor">
+        <item>#f44336</item>
+        <item>#ff5722</item>
+        <item>#fb8c00</item>
+        <item>#ffb300</item>
+        <item>#66bb6a</item>
+        <item>#009668</item>
+        <item>#03A9F4</item>
+    </array>
 </resources>

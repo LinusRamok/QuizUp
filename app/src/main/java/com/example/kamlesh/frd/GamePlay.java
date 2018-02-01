@@ -1,5 +1,7 @@
 package com.example.kamlesh.frd;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +19,8 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.kamlesh.frd.Models.Questionlist;
 import com.example.kamlesh.frd.Models.QuestionsApi;
 import com.google.gson.Gson;
@@ -35,8 +39,9 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     BufferedReader reader;
     List<Questionlist> q_and_a=new ArrayList<>();
     int i=0;
-    int scoreArray[]=new int[9];
-    int qadetails[]=new int[9],changedqno=10;
+    int scoreArray[]=new int[7];
+    int qadetails[]=new int[7];
+    int qnoForPerk[]=new int[2];
     int finalscore=0;
     //qa details is an array which passes the details of attempted questions and their answers given by user to the next activity via intent
     //0 is for wrong answer
@@ -46,7 +51,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     TextView optionA, optionB, optionC, optionD, perk1, perk2;
     boolean perk_one_isclickable=true, perk_one_isCliked=false, perk_two_isClicked =false, perk_two_isclickable=true;
     boolean optionA_isClickable=true, optionB_isClickable=true, optionC_isClickable=true, optionD_isClickable=true;
-    TextView question, questionNumber, secondsText, score, scoreText, timerText;
+    TextView question, questionNumber, secondsText, score, scoreText, timerText, changeInScore;
     Button quitGame;
     boolean isDialogOpen=false;
     Handler timer = new Handler();
@@ -54,6 +59,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     double secondsPassed = 0.0;
     double timeForEachQues[] = new double[7], totalTimeTaken;
     double beginVar = 0.0, endVar;  int tempVar=0; //these two variables are only necessary for method calculateTimeForEachQues()
+    int sumScoreInitial=0, sumScoreFinal=0; // these two variables are only necessary for method displayScore()
 
     @Override
     protected void onResume() {
@@ -121,6 +127,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         scoreText = (TextView)findViewById(R.id.scoreText);
         quitGame = (Button)findViewById(R.id.quitGame);
         quitGame.setOnClickListener(this);
+        changeInScore = (TextView)findViewById(R.id.difference);
 
         Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
         Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
@@ -137,16 +144,18 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         score.setTypeface(ourLightFont);
         timerText.setTypeface(ourBoldFont);
         scoreText.setTypeface(ourBoldFont);
+        changeInScore.setTypeface(ourLightFont);
 
 
         jsonString = getIntent().getStringExtra("jsonobj");
         obj=new Gson().fromJson(jsonString , QuestionsApi.class);
         q_and_a= obj.getQuestionlist();
 
-        scoreArray[7]=0;
-        scoreArray[8]=0;
-        qadetails[7]=9;
-        qadetails[8]=10;
+        for(int x=0; x<7; x++)
+        {
+            scoreArray[x]=0;
+            qadetails[x]=0;
+        }
         //setting the first question and options beforehand
         setQuestionsAndOptions(0);
 
@@ -176,11 +185,21 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                 break;
             case R.id.perk1:
                 if(perk_one_isclickable)
+                {
                     perk_one(i);
+                    calculateScore(i, "Perk Clicked");
+                    calculateQnoForPerks(i, "Perk One");
+                    setDisabledBackground(perk1);
+                }
                 break;
             case R.id.perk2:
                 if(perk_two_isclickable)
+                {
                     perk_two(i);
+                    calculateScore(i, "Perk Clicked");
+                    calculateQnoForPerks(i, "Perk Two");
+                    setDisabledBackground(perk2);
+                }
                 break;
             case R.id.quitGame:
                 quitGameDialogMethod();
@@ -245,18 +264,9 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             if (ans.equals(q_and_a.get(k).getAnswer()))
             {
                 //whatever animation to be applied if answer is correct
-                scoreArray[i]+=20;
-                if(timeForEachQues[i]>3)
-                {
-                    Long L=Math.round(scoreArray[i]-((timeForEachQues[i]-3)*0.6));
-                    scoreArray[i]=Integer.valueOf(L.intValue());
-                }
-                if(scoreArray[i]<3)
-                {
-                    scoreArray[i]=3;
-                }
+                calculateScore(i, "Correct Answer");
+                checkForCorrectAnswer(i, "Correct Answer");
 
-                qadetails[k]=1;
                 if(ans=="A")
                 {
                     optionA.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
@@ -309,20 +319,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if(changedqno!=10)
-                            {
-                                int temp=qadetails[changedqno];
-                                qadetails[changedqno]=qadetails[7];
-                                qadetails[7]=temp;
-                                int t=scoreArray[changedqno];
-                                scoreArray[changedqno]=-2;
-                                scoreArray[7]=t;
-                            }
-                            if(qadetails[8]!=10)
-                            {
-                                scoreArray[qadetails[8]]-=2;
-                            }
-                            finalscore= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6]+scoreArray[7]+scoreArray[8];
+                            finalscore= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6];
                             if(finalscore<0)
                                 finalscore=0;
                             Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
@@ -335,8 +332,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                             i.putExtra("topic_name",top);
                             i.putExtra("topic_url",url);
                             System.out.println("the final score is :"+finalscore);
-                            System.out.println("the q and a details are:"+qadetails[0]+qadetails[1]+qadetails[2]+qadetails[3]+qadetails[4]+qadetails[5]+qadetails[6]+qadetails[7]+qadetails[8]);
-                            System.out.println("the score Array is :"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" "+scoreArray[7]+" "+scoreArray[8]);
+                            System.out.println("the qadetails array is:"+qadetails[0]+" "+qadetails[1]+" "+qadetails[2]+" "+qadetails[3]+" "+qadetails[4]+" "+qadetails[5]+" "+qadetails[6]+" ");
+                            System.out.println("the score Array is :"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" ");
                             System.out.println("the timer array is :" +timeForEachQues[0]+" "+timeForEachQues[1]+" "+timeForEachQues[2]+" "+timeForEachQues[3]+" "+timeForEachQues[4]+" "+timeForEachQues[5]+" "+timeForEachQues[6]+" ");
                             startActivity(i);
                         }
@@ -346,7 +343,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             else
             {
                 //whatever animation to be applied if animation is wrong
-                qadetails[k]=0;
+                checkForCorrectAnswer(i, "Wrong Answer");
+
                 if (ans == "A") {
                     optionA.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
                 } else if (ans == "B") {
@@ -399,20 +397,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if(changedqno!=10)
-                            {
-                                int temp=qadetails[changedqno];
-                                qadetails[changedqno]=qadetails[7];
-                                qadetails[7]=temp;
-                                int t=scoreArray[changedqno];
-                                scoreArray[changedqno]=-2;
-                                scoreArray[7]=t;
-                            }
-                            if(qadetails[8]!=10)
-                            {
-                                scoreArray[qadetails[8]]-=2;
-                            }
-                            finalscore= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6]+scoreArray[7]+scoreArray[8];
+
+                            finalscore= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6];
                             if(finalscore<0)
                                     finalscore=0;
                             Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
@@ -425,8 +411,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                             i.putExtra("topic_name",top);
                             i.putExtra("topic_url",url);
                             System.out.println("the final score is :"+finalscore);
-                            System.out.println("the q and a details are:"+qadetails[0]+qadetails[1]+qadetails[2]+qadetails[3]+qadetails[4]+qadetails[5]+qadetails[6]+qadetails[7]+qadetails[8]);
-                            System.out.println("the score Array is :"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" "+scoreArray[7]+" "+scoreArray[8]);
+                            System.out.println("the qadetails array is:"+qadetails[0]+" "+qadetails[1]+" "+qadetails[2]+" "+qadetails[3]+" "+qadetails[4]+" "+qadetails[5]+" "+qadetails[6]+" ");
+                            System.out.println("the score Array is :"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" ");
                             System.out.println("the timer array is :" +timeForEachQues[0]+" "+timeForEachQues[1]+" "+timeForEachQues[2]+" "+timeForEachQues[3]+" "+timeForEachQues[4]+" "+timeForEachQues[5]+" "+timeForEachQues[6]+" ");
                             startActivity(i);
                         }
@@ -440,8 +426,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         //logic for perk one, i.e. perk 50-50
         perk_one_isclickable=false;
         perk_one_isCliked=true;
-        qadetails[8]=k;
-        setDisabledBackground(perk1);
         char check='o';
         int p=2,a;
         String s;
@@ -490,7 +474,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     public void perk_two(int k)
     {
         //logic for perk two,i.e. change question
-        changedqno=k;
         set_visibility_after_perk_one();
         question.setText(q_and_a.get(7).getQuestion());
         optionA.setText(q_and_a.get(7).getA());
@@ -499,7 +482,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         optionD.setText(q_and_a.get(7).getD());
         perk_two_isClicked =true;
         perk_two_isclickable=false;
-        setDisabledBackground(perk2);
+
     }
 
     public void shrinkAnimation(TextView textView, int miliSec, float from, float to)
@@ -642,12 +625,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
-    public void calculateScore(int currentQuesNum, String onAction)
-    {
-        //currentQuesNum values lies between 0 to maxQuestion-1. it tells the current question number user is playing.
-        //onAction tells at what action this function is being called. It values can be "Perk Clicked", "Correct Answer", "Wrong Answer" (if negative marks are to be calulated)
-    }
-
     public void quitGameDialogMethod()
     {
         TextView alertMessage, positiveButton, negativeButton;
@@ -657,12 +634,13 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         quitDialog.setContentView(R.layout.alert_dialog_simple_positive_negative_buttons);
         quitDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));  //to make background of dialog transparent, hence allowing curved borders to be visible
         quitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE); //to make dialog not focussible
+        quitDialog.setCanceledOnTouchOutside(false);
 
         alertMessage = quitDialog.findViewById(R.id.alertMessage);
         positiveButton = quitDialog.findViewById(R.id.positiveButton);
         negativeButton = quitDialog.findViewById(R.id.negativeButton);
 
-        alertMessage.setText("Are you sure you want to quit the game? All the progress of your current game will be lost!");
+        alertMessage.setText("Are you sure you want to quit the game? All the progress of your current game will be lost.");
         positiveButton.setText("Keep Playing");
         negativeButton.setText("Quit Game");
 
@@ -706,4 +684,153 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         });
     }
 
+    public void calculateScore(int currentQuesNum, String onAction)
+    {
+        //currentQuesNum values lies between 0 to maxQuestion-1. it tells the current question number user is playing.
+        //onAction tells at what action this function is being called. It values can be "Perk Clicked", "Correct Answer", "Wrong Answer" (if negative marks are to be calulated)
+        switch (onAction)
+        {
+            case "Correct Answer" :
+                scoreArray[currentQuesNum]+=20;
+                if(timeForEachQues[currentQuesNum]>3)
+                {
+                    Long L=Math.round(scoreArray[currentQuesNum]-((timeForEachQues[currentQuesNum]-3)*0.6));
+                    scoreArray[currentQuesNum]=Integer.valueOf(L.intValue());
+                }
+                if(scoreArray[currentQuesNum]<3)
+                {
+                    scoreArray[currentQuesNum]=3;
+                }
+                System.out.println("Score of "+currentQuesNum+ "is :"+scoreArray[currentQuesNum] );
+                displayScore(currentQuesNum);
+                break;
+
+            case "Perk Clicked" :
+                scoreArray[currentQuesNum]-=2;
+                System.out.println("Score of "+currentQuesNum+ "is :"+scoreArray[currentQuesNum] );
+                displayScore(currentQuesNum);
+                break;
+
+            default:
+                System.out.println("Wrong choice");
+                break;
+        }
+
+    }
+
+    public void checkForCorrectAnswer(int currentQuesNum, String onAction)
+    {
+        //currentQuesNum values lies between 0 to maxQuestion-1. it tells the current question number user is playing.
+        //onAction tells at what action this function is being called. It values can be "Correct Answer", "Wrong Answer" (if negative marks are to be calulated)
+        switch (onAction)
+        {
+            case "Correct Answer" :
+                qadetails[currentQuesNum]=1;
+                System.out.println("qadetails of "+currentQuesNum+ "is :"+qadetails[currentQuesNum] );
+                break;
+
+            case "Wrong Answer" :
+                qadetails[currentQuesNum]=0;
+                System.out.println("qadetails of "+currentQuesNum+ "is :"+qadetails[currentQuesNum] );
+                break;
+
+            default:
+                System.out.println("Wrong choice");
+                break;
+        }
+    }
+
+    public void calculateQnoForPerks(int currentQuesNum, String onAction)
+    {
+        //currentQuesNum values lies between 0 and 1. it tells the current question number user is playing.
+        //onAction tells which perk is used. It's values can be "Perk One" or "Perk Two"
+        switch (onAction)
+        {
+            case "Perk One" :
+                qnoForPerk[0]=currentQuesNum;
+                System.out.println("Perk one is used in the position "+qnoForPerk[0] );
+                break;
+
+            case "Perk Two" :
+                qnoForPerk[1]=currentQuesNum;
+                System.out.println("Perk two is used in the position "+qnoForPerk[1] );
+                break;
+
+            default:
+                System.out.println("Wrong choice");
+                break;
+        }
+    }
+
+    public void displayScore(int currentQuesNo)
+    {
+        sumScoreFinal= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6];
+        animateTextViewValue(sumScoreInitial, sumScoreFinal, 500, score);
+        animateTextViewColor(sumScoreFinal,500,score);
+
+        int diff = sumScoreFinal-sumScoreInitial;
+        if(diff>0) {
+            String s1="+";
+            String s2=String.valueOf(diff);
+            s1=s1.concat(s2);
+            changeInScore.setText(s1);
+            changeInScore.setTextColor(getResources().getColor(R.color.correctAnswer));
+        }
+        else {
+            changeInScore.setText(String.valueOf(diff));
+            changeInScore.setTextColor(getResources().getColor(R.color.wrongAnswer));
+        }
+        changeInScore.setVisibility(View.VISIBLE);
+        YoYo.with(Techniques.FadeOutRight).duration(1500).playOn(changeInScore);
+        sumScoreInitial=sumScoreFinal;
+
+        if(currentQuesNo>6 && sumScoreFinal<0) {
+            animateTextViewValue(sumScoreFinal,0,500, score);
+            animateTextViewColor(sumScoreFinal,500,score);
+        }
+    }
+
+    public void animateTextViewValue(int initialValue, int finalValue, int duration, final TextView textView)
+    {
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(initialValue,finalValue);
+        valueAnimator.setDuration(duration);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                textView.setText(valueAnimator.getAnimatedValue().toString());
+            }
+        });
+        valueAnimator.start();
+    }
+
+    public void animateTextViewColor(int value, int duration, final TextView textView)
+    {
+        int[] colors = getResources().getIntArray(R.array.scoreColor);
+        int colorFrom = score.getCurrentTextColor();
+        int colorTo = colors[0];
+
+        if(value<=20)
+            colorTo = colors[0];
+        else if (value>20 && value<=40)
+            colorTo = colors[1];
+        else if (value>40 && value<=60)
+            colorTo = colors[1];
+        else if (value>60 && value<=80)
+            colorTo = colors[1];
+        else if (value>80 && value<=100)
+            colorTo = colors[1];
+        else if (value>100 && value<=120)
+            colorTo = colors[1];
+        else if (value>120 && value<=140)
+            colorTo = colors[1];
+
+        ValueAnimator valueAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                textView.setTextColor((Integer)animator.getAnimatedValue());
+            }
+        });
+        valueAnimator.start();
+    }
 }

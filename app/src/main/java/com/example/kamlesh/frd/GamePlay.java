@@ -692,9 +692,9 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         {
             case "Correct Answer" :
                 scoreArray[currentQuesNum]+=20;
-                if(timeForEachQues[currentQuesNum]>3)
+                if(timeForEachQues[currentQuesNum]>5)
                 {
-                    Long L=Math.round(scoreArray[currentQuesNum]-((timeForEachQues[currentQuesNum]-3)*0.6));
+                    Long L=Math.round(scoreArray[currentQuesNum]-((timeForEachQues[currentQuesNum]-5)*0.6));
                     scoreArray[currentQuesNum]=Integer.valueOf(L.intValue());
                 }
                 if(scoreArray[currentQuesNum]<3)

@@ -766,7 +766,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     {
         sumScoreFinal= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6];
         animateTextViewValue(sumScoreInitial, sumScoreFinal, 500, score);
-        animateTextViewColor(sumScoreFinal,500,score);
 
         int diff = sumScoreFinal-sumScoreInitial;
         if(diff>0) {
@@ -786,7 +785,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
         if(currentQuesNo>6 && sumScoreFinal<0) {
             animateTextViewValue(sumScoreFinal,0,500, score);
-            animateTextViewColor(sumScoreFinal,500,score);
         }
     }
 
@@ -801,6 +799,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             }
         });
         valueAnimator.start();
+        animateTextViewColor(finalValue,duration,textView);
     }
 
     public void animateTextViewColor(int value, int duration, final TextView textView)
@@ -809,20 +808,34 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         int colorFrom = score.getCurrentTextColor();
         int colorTo = colors[0];
 
-        if(value<=20)
+        if(value<=10)
             colorTo = colors[0];
-        else if (value>20 && value<=40)
+        else if (value>10 && value<=20)
             colorTo = colors[1];
-        else if (value>40 && value<=60)
-            colorTo = colors[1];
-        else if (value>60 && value<=80)
-            colorTo = colors[1];
-        else if (value>80 && value<=100)
-            colorTo = colors[1];
-        else if (value>100 && value<=120)
-            colorTo = colors[1];
-        else if (value>120 && value<=140)
-            colorTo = colors[1];
+        else if (value>20 && value<=30)
+            colorTo = colors[2];
+        else if (value>30 && value<=40)
+            colorTo = colors[3];
+        else if (value>40 && value<=50)
+            colorTo = colors[4];
+        else if (value>50 && value<=60)
+            colorTo = colors[5];
+        else if (value>60 && value<=70)
+            colorTo = colors[6];
+        else if (value>70 && value<=80)
+            colorTo = colors[7];
+        else if (value>80 && value<=90)
+            colorTo = colors[8];
+        else if (value>90 && value<=100)
+            colorTo = colors[9];
+        else if (value>100 && value<=110)
+            colorTo = colors[10];
+        else if (value>110 && value<=120)
+            colorTo = colors[11];
+        else if (value>120 && value<=130)
+            colorTo = colors[12];
+        else if (value>130 && value<=140)
+            colorTo = colors[13];
 
         ValueAnimator valueAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

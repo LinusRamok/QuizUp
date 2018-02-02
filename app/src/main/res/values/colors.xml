@@ -19,11 +19,18 @@
     <color name="guestColor">#F8CF26</color>
     <array name="scoreColor">
         <item>#f44336</item>
-        <item>#ff5722</item>
-        <item>#fb8c00</item>
+        <item>#f6562d</item>
+        <item>#f86824</item>
+        <item>#fa7b18</item>
+        <item>#fb8e12</item>
+        <item>#fda009</item>
         <item>#ffb300</item>
-        <item>#66bb6a</item>
-        <item>#009668</item>
+        <item>#dbb223</item>
+        <item>#b7b046</item>
+        <item>#93af69</item>
+        <item>#6fad8b</item>
+        <item>#4bacae</item>
+        <item>#27aad1</item>
         <item>#03A9F4</item>
     </array>
 </resources>

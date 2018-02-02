@@ -1,7 +1,9 @@
 package com.example.kamlesh.frd;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.kamlesh.frd.Models.Topic;
@@ -25,8 +28,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.net.UnknownHostException;
 
 public class topic_page extends AppCompatActivity {
     Topic topic;
@@ -44,7 +49,11 @@ public class topic_page extends AppCompatActivity {
         int ui= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
         dv.setSystemUiVisibility(ui);
     }
-
+    public boolean isConnected() throws InterruptedException, IOException
+    {
+        String command = "ping -c 1 google.com";
+        return (Runtime.getRuntime().exec (command).waitFor() == 0);
+    }
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -109,14 +118,22 @@ public class topic_page extends AppCompatActivity {
         totalQues.setTypeface(ourLightFont);
 
         p = (ProgressBar)findViewById(R.id.progressBar2);
+           playButton.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   try {
+                       topic_page.getcontentfornextactivity g = new topic_page.getcontentfornextactivity();
+                       g.execute();
+                   }
+                   catch (Exception e)
+                   {
+                       Toast.makeText(topic_page.this, "not connected to internet", Toast.LENGTH_SHORT).show();
+                   }
 
-        playButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                topic_page.getcontentfornextactivity g= new topic_page.getcontentfornextactivity();
-                g.execute();
-            }
-        });
+               }
+           });
+
+
 
 
     }
@@ -130,12 +147,18 @@ public class topic_page extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             p.setVisibility(View.GONE);
-            Intent i=new Intent(topic_page.this,GamePlay.class);
-            //intent topic name
-            i.putExtra("topic_name", Topic_name);
-            i.putExtra("topic_url", topic.url);
-            i.putExtra("jsonobj",respass.toString());
-            startActivity(i);
+           try {
+               Intent i = new Intent(topic_page.this, GamePlay.class);
+               //intent topic name
+               i.putExtra("topic_name", Topic_name);
+               i.putExtra("topic_url", topic.url);
+               i.putExtra("jsonobj", respass.toString());
+               startActivity(i);
+           }
+           catch (Exception e)
+           {
+               Toast.makeText(topic_page.this, "not connected to internet", Toast.LENGTH_SHORT).show();
+           }
         }
 
         @Override
@@ -162,8 +185,10 @@ public class topic_page extends AppCompatActivity {
                 JSONObject response = getJSONObjectFromURL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID="+PID+"&Topic="+TopicKey); // calls method to get JSON object
                 respass=response;
             } catch (IOException e) {
+                System.out.println("error 1");
                 e.printStackTrace();
             } catch (JSONException e) {
+                System.out.println("error 2");
                 e.printStackTrace();
             }
 

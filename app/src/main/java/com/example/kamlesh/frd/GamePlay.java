@@ -150,7 +150,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         jsonString = getIntent().getStringExtra("jsonobj");
         obj=new Gson().fromJson(jsonString , QuestionsApi.class);
         q_and_a= obj.getQuestionlist();
-
+        qnoForPerk[0]=9;
+        qnoForPerk[1]=9;
         for(int x=0; x<7; x++)
         {
             scoreArray[x]=0;
@@ -328,6 +329,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                             i.putExtra("TimerValues",timeForEachQues);
                             i.putExtra("scoreArray",scoreArray);
                             i.putExtra("Score",finalscore);
+                            i.putExtra("perkvalues",qnoForPerk);
                             //intent Topic name/
                             i.putExtra("topic_name",top);
                             i.putExtra("topic_url",url);
@@ -407,6 +409,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                             i.putExtra("TimerValues",timeForEachQues);
                             i.putExtra("scoreArray",scoreArray);
                             i.putExtra("Score",finalscore);
+                            i.putExtra("perkvalues",qnoForPerk);
                             //Intent Topic name
                             i.putExtra("topic_name",top);
                             i.putExtra("topic_url",url);

@@ -58,7 +58,7 @@ public class ScorePageActivity extends AppCompatActivity {
     String Topic_name;
     String topic_url;
     JSONObject respass=null;
-    int finalscore;
+    int finalscore,qnoforperk[]=new int[2];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +68,7 @@ public class ScorePageActivity extends AppCompatActivity {
         scoreArray=getIntent().getIntArrayExtra("scoreArray");
         questionsAndAnswers=getIntent().getStringExtra("QuestionAndAnswers");
         finalscore=getIntent().getIntExtra("Score",0);
+        qnoforperk=getIntent().getIntArrayExtra("perkvalues");
         ImageView topic_logo =findViewById(R.id.topic_logo);
 
         //setting topic name in textview
@@ -91,7 +92,7 @@ public class ScorePageActivity extends AppCompatActivity {
         System.out.println("score Array"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]);
         System.out.println("Score issssssssssssssssssssssssssssss :"+finalscore);
         int q=ans[0]+ans[1]+ans[2]+ans[3]+ans[4]+ans[5]+ans[6];
-        int s=q-9;
+        int s=q;
         System.out.println(s);
         float ca=(float)s;
         float caa=(ca/7)*100;

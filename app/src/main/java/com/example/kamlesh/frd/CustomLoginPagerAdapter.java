@@ -2,10 +2,6 @@ package com.example.kamlesh.frd;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +49,7 @@ public class CustomLoginPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
+        View itemView = mLayoutInflater.inflate(R.layout.pager_item_login_page, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
         TextView textView = (TextView) itemView.findViewById(R.id.textView);

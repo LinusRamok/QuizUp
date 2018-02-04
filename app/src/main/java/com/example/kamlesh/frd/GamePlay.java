@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -60,6 +62,8 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     double timeForEachQues[] = new double[7], totalTimeTaken;
     double beginVar = 0.0, endVar;  int tempVar=0; //these two variables are only necessary for method calculateTimeForEachQues()
     int sumScoreInitial=0, sumScoreFinal=0; // these two variables are only necessary for method displayScore()
+    Button dots[] = new Button[7];
+    View lines[] = new View[6];
 
     @Override
     protected void onResume() {
@@ -129,6 +133,19 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         quitGame.setOnClickListener(this);
         changeInScore = (TextView)findViewById(R.id.difference);
 
+        for(int y=0; y<7; y++)
+        {
+            String buttonID = "dot" + y;
+            int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+            dots[y] = ((Button) findViewById(resID));
+        }
+        for(int y=0; y<6; y++)
+        {
+            String viewID = "line" + y;
+            int resID = getResources().getIdentifier(viewID, "id", getPackageName());
+            lines[y] = ((View) findViewById(resID));
+        }
+
         Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
         Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
 
@@ -159,7 +176,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         }
         //setting the first question and options beforehand
         setQuestionsAndOptions(0);
-
     }
 
     @Override
@@ -191,6 +207,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     calculateScore(i, "Perk Clicked");
                     calculateQnoForPerks(i, "Perk One");
                     setDisabledBackground(perk1);
+                    dotsAndLinesSetup("Perk Clicked");
                 }
                 break;
             case R.id.perk2:
@@ -200,6 +217,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     calculateScore(i, "Perk Clicked");
                     calculateQnoForPerks(i, "Perk Two");
                     setDisabledBackground(perk2);
+                    dotsAndLinesSetup("Perk Clicked");
                 }
                 break;
             case R.id.quitGame:
@@ -260,12 +278,12 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             calculateTimeForEachQues(currentStoppedTime);
         }
 
-
         if(k<7)
             if (ans.equals(q_and_a.get(k).getAnswer()))
             {
                 //whatever animation to be applied if answer is correct
                 calculateScore(i, "Correct Answer");
+                dotsAndLinesSetup("Correct Answer");
                 checkForCorrectAnswer(i, "Correct Answer");
 
                 if(ans=="A")
@@ -346,6 +364,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             {
                 //whatever animation to be applied if animation is wrong
                 checkForCorrectAnswer(i, "Wrong Answer");
+                dotsAndLinesSetup("Wrong Answer");
 
                 if (ans == "A") {
                     optionA.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
@@ -630,25 +649,28 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
     public void quitGameDialogMethod()
     {
-        TextView alertMessage, positiveButton, negativeButton;
+        TextView boxTitle, alertMessage, positiveButton, negativeButton;
 
         LayoutInflater factory = LayoutInflater.from(this);
         final Dialog quitDialog = new Dialog(this);
-        quitDialog.setContentView(R.layout.alert_dialog_simple_positive_negative_buttons);
+        quitDialog.setContentView(R.layout.alertdialog_yes_no);
         quitDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));  //to make background of dialog transparent, hence allowing curved borders to be visible
         quitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE); //to make dialog not focussible
         quitDialog.setCanceledOnTouchOutside(false);
 
+        boxTitle = quitDialog.findViewById(R.id.boxTitle);
         alertMessage = quitDialog.findViewById(R.id.alertMessage);
         positiveButton = quitDialog.findViewById(R.id.positiveButton);
         negativeButton = quitDialog.findViewById(R.id.negativeButton);
 
+        boxTitle.setText("Quit");
         alertMessage.setText("Are you sure you want to quit the game? All the progress of your current game will be lost.");
         positiveButton.setText("Keep Playing");
         negativeButton.setText("Quit Game");
 
         Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
         Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
+        boxTitle.setTypeface(ourBoldFont);
         alertMessage.setTypeface(ourLightFont);
         positiveButton.setTypeface(ourBoldFont);
         negativeButton.setTypeface(ourBoldFont);
@@ -702,7 +724,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                 }
                 if(scoreArray[currentQuesNum]<3)
                 {
-                    scoreArray[currentQuesNum]=3;
+                    scoreArray[currentQuesNum]=5;
                 }
                 System.out.println("Score of "+currentQuesNum+ "is :"+scoreArray[currentQuesNum] );
                 displayScore(currentQuesNum);
@@ -848,5 +870,92 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             }
         });
         valueAnimator.start();
+    }
+
+    public void dotsAndLinesSetup(String str)
+    {
+        /*if(i==qnoForPerk[0] || i==qnoForPerk[1]) {  //if dots are focussed and a perk is used
+            dots[i].setBackground(getResources().getDrawable(R.drawable.dots_focussed_perk));
+        }
+        else if(qadetails[i]==0 && (i==qnoForPerk[0] || i==qnoForPerk[1])) {    //if wrong answer is clicked on a using a perk
+            dots[i].setBackground(getResources().getDrawable(R.drawable.dots_wrong_perk));
+        }
+
+        else if(qadetails[i]==1 && (i==qnoForPerk[0] || i==qnoForPerk[1])) {    //if correct answer is clicked on a using a perk
+            dots[i].setBackground(getResources().getDrawable(R.drawable.dots_correct_perk));
+        }
+        else if(qadetails[i]==0 && !(i==qnoForPerk[0] || i==qnoForPerk[1])) {   //if wrong answer is clicked without using a perk
+            dots[i].setBackground(getResources().getDrawable(R.drawable.dots_wrong_background));
+        }
+        else if(qadetails[i]==1 && !(i==qnoForPerk[0] || i==qnoForPerk[1])) {   //if wrong answer is clicked without using a perk
+            dots[i].setBackground(getResources().getDrawable(R.drawable.dots_correct_background));
+        }
+
+        if(i<6) {
+            lines[i].setVisibility(View.VISIBLE);
+            YoYo.with(Techniques.FadeOut).duration(1500).playOn(lines[i]);
+            dots[i+1].setBackground(getResources().getDrawable(R.drawable.dots_focussed_background));
+        }*/
+
+        switch (str)
+        {
+            case "Perk Clicked":
+                buttonDrawableTransition(dots[i], getResources().getDrawable(R.drawable.dots_focussed_perk));
+                break;
+            case "Correct Answer":
+                if(i==qnoForPerk[0] || i==qnoForPerk[1]){
+                    buttonDrawableTransition(dots[i], getResources().getDrawable(R.drawable.dots_correct_perk));
+                }
+                else {
+                    buttonDrawableTransition(dots[i], getResources().getDrawable(R.drawable.dots_correct_background));
+                }
+                if(i<6) {
+                    lines[i].setVisibility(View.VISIBLE);
+                    YoYo.with(Techniques.FadeIn).duration(1500).playOn(lines[i]);
+                    final int z=i+1;
+                    Handler handler =new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            buttonDrawableTransition(dots[z], getResources().getDrawable(R.drawable.dots_focussed_background));
+                        }
+                    },1500);
+                }
+                break;
+            case "Wrong Answer":
+                if(i==qnoForPerk[0] || i==qnoForPerk[1]){
+                    buttonDrawableTransition(dots[i], getResources().getDrawable(R.drawable.dots_wrong_perk));
+                }
+                else {
+                    buttonDrawableTransition(dots[i], getResources().getDrawable(R.drawable.dots_wrong_background));
+                }
+                if(i<6) {
+                    lines[i].setVisibility(View.VISIBLE);
+                    YoYo.with(Techniques.FadeIn).duration(1500).playOn(lines[i]);
+                    final int z=i+1;
+                    Handler handler =new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            buttonDrawableTransition(dots[z], getResources().getDrawable(R.drawable.dots_focussed_background));
+                        }
+                    },1500);
+                }
+                break;
+            default:
+                System.out.println("Wrong choice");
+        }
+    }
+
+    public void buttonDrawableTransition(Button button, Drawable drawable)
+    {
+        Drawable backgrounds[]=new Drawable[2];
+        backgrounds[0] = button.getBackground();
+        backgrounds[1] = drawable;
+
+        TransitionDrawable transitionDrawable = new TransitionDrawable(backgrounds);
+        button.setBackground(transitionDrawable);
+        transitionDrawable.setCrossFadeEnabled(true);
+        transitionDrawable.startTransition(250);
     }
 }

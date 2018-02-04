@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <layer-list>
+            <item>
+                <!--This is the border of background-->
+                <shape android:shape="oval">
+                    <size android:height="25dp"
+                        android:width="25dp"/>
+                    <solid android:color="@color/correctAnswer" />
+                </shape>
+            </item>
+
+            <item
+                android:bottom="3dp"
+                android:left="3dp"
+                android:right="3dp"
+                android:top="3dp">
+                <!--This is the background color-->
+                <shape android:shape="oval">
+                    <size android:height="25dp"
+                        android:width="25dp"/>
+                    <stroke
+                        android:width="2dp"
+                        android:color="@color/windowBackground" />
+                    <solid android:color="@color/perkColor" />
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+</selector>

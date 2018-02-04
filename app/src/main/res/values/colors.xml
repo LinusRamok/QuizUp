@@ -18,19 +18,19 @@
     <color name="googleColor">#ffffff</color>
     <color name="guestColor">#F8CF26</color>
     <array name="scoreColor">
+        <item>#f92672</item>
+        <item>#F73554</item>
         <item>#f44336</item>
-        <item>#f6562d</item>
-        <item>#f86824</item>
-        <item>#fa7b18</item>
-        <item>#fb8e12</item>
-        <item>#fda009</item>
+        <item>#FA7B1B</item>
         <item>#ffb300</item>
-        <item>#dbb223</item>
-        <item>#b7b046</item>
-        <item>#93af69</item>
-        <item>#6fad8b</item>
-        <item>#4bacae</item>
-        <item>#27aad1</item>
+        <item>#fda009</item>
+        <item>#AAC427</item>
+        <item>#55D54F</item>
+        <item>#00E676</item>
+        <item>#01D2A0</item>
         <item>#03A9F4</item>
+        <item>#1099F8</item>
+        <item>#2979FF</item>
+        <item>#2962ff </item>
     </array>
 </resources>

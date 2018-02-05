@@ -122,13 +122,15 @@ public class topic_page extends AppCompatActivity {
                @Override
                public void onClick(View view) {
                    try {
-                       topic_page.getcontentfornextactivity g = new topic_page.getcontentfornextactivity();
-                       g.execute();
+                       if (isConnected()) {
+                           topic_page.getcontentfornextactivity g = new topic_page.getcontentfornextactivity();
+                           g.execute();
+                       } else
+                           Toast.makeText(topic_page.this, "Not connected to internet", Toast.LENGTH_SHORT).show();
                    }
                    catch (Exception e)
-                   {
-                       Toast.makeText(topic_page.this, "not connected to internet", Toast.LENGTH_SHORT).show();
-                   }
+                   {}
+
 
                }
            });
@@ -157,7 +159,7 @@ public class topic_page extends AppCompatActivity {
            }
            catch (Exception e)
            {
-               Toast.makeText(topic_page.this, "not connected to internet", Toast.LENGTH_SHORT).show();
+               Toast.makeText(topic_page.this, "Someting went wrong... please try again", Toast.LENGTH_SHORT).show();
            }
         }
 

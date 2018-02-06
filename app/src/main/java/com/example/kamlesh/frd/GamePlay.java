@@ -278,6 +278,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             calculateTimeForEachQues(currentStoppedTime);
         }
 
+
         if(k<7)
             if (ans.equals(q_and_a.get(k).getAnswer()))
             {
@@ -486,13 +487,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             }
         }
     }
-    public void shrinkAllOptions()
-    {
-        shrinkAnimation(optionA,250,1f,0);
-        shrinkAnimation(optionB,250,1f,0);
-        shrinkAnimation(optionC,250,1f,0);
-        shrinkAnimation(optionD,250,1f,0);
-    }
+
     public void perk_two(int k)
     {
         //logic for perk two,i.e. change question
@@ -874,29 +869,6 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
     public void dotsAndLinesSetup(String str)
     {
-        /*if(i==qnoForPerk[0] || i==qnoForPerk[1]) {  //if dots are focussed and a perk is used
-            dots[i].setBackground(getResources().getDrawable(R.drawable.dots_focussed_perk));
-        }
-        else if(qadetails[i]==0 && (i==qnoForPerk[0] || i==qnoForPerk[1])) {    //if wrong answer is clicked on a using a perk
-            dots[i].setBackground(getResources().getDrawable(R.drawable.dots_wrong_perk));
-        }
-
-        else if(qadetails[i]==1 && (i==qnoForPerk[0] || i==qnoForPerk[1])) {    //if correct answer is clicked on a using a perk
-            dots[i].setBackground(getResources().getDrawable(R.drawable.dots_correct_perk));
-        }
-        else if(qadetails[i]==0 && !(i==qnoForPerk[0] || i==qnoForPerk[1])) {   //if wrong answer is clicked without using a perk
-            dots[i].setBackground(getResources().getDrawable(R.drawable.dots_wrong_background));
-        }
-        else if(qadetails[i]==1 && !(i==qnoForPerk[0] || i==qnoForPerk[1])) {   //if wrong answer is clicked without using a perk
-            dots[i].setBackground(getResources().getDrawable(R.drawable.dots_correct_background));
-        }
-
-        if(i<6) {
-            lines[i].setVisibility(View.VISIBLE);
-            YoYo.with(Techniques.FadeOut).duration(1500).playOn(lines[i]);
-            dots[i+1].setBackground(getResources().getDrawable(R.drawable.dots_focussed_background));
-        }*/
-
         switch (str)
         {
             case "Perk Clicked":
@@ -945,6 +917,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
             default:
                 System.out.println("Wrong choice");
         }
+
     }
 
     public void buttonDrawableTransition(Button button, Drawable drawable)

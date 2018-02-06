@@ -7,7 +7,7 @@
                 android:width="20dp"/>
             <stroke
                 android:width="@dimen/gameButtonBackgroundStroke"
-                android:color="@color/colorPrimary" />
+                android:color="@color/dotsGeneralColor" />
             <solid android:color="@color/windowBackground" />
         </shape>
 

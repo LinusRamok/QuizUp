@@ -33,4 +33,5 @@
         <item>#2979FF</item>
         <item>#2962ff </item>
     </array>
+    <color name="dotsGeneralColor">#55ffffff</color>
 </resources>

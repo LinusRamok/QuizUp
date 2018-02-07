@@ -4,8 +4,12 @@
     <string name="fb_login_protocol_scheme">fb383259588784872</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="welcome_text">Welcome to Let\'s Quiz!</string>
-    <string name="login_text_one">\n \n This is the best place for you if you want to learn, and play together at the same time.</string>
+
+    <string name="login_text_one">This is the best place for you if you want to learn, and play together at the same time.</string>
     <string name="login_text_two">Various topics to choose from and a global ranking algorithm to compete with others.</string>
     <string name="login_text_three">You can continue with Google and Facebook. You can even play as a guest.</string>
+    <string name="welcome_text_one">Welcome to Let\'s Quiz!</string>
+    <string name="welcome_text_two">Multiple Topics!</string>
+    <string name="welcome_text_three">Choose your way to Login</string>
+
 </resources>

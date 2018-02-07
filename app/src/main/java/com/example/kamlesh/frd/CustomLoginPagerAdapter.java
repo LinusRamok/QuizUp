@@ -29,6 +29,12 @@ public class CustomLoginPagerAdapter extends PagerAdapter {
             R.string.login_text_three
     };
 
+    int[] welcomeTextArray = {
+            R.string.welcome_text_one,
+            R.string.welcome_text_two,
+            R.string.welcome_text_three
+    };
+
     Context mContext;
     LayoutInflater mLayoutInflater;
 
@@ -62,11 +68,7 @@ public class CustomLoginPagerAdapter extends PagerAdapter {
 
         imageView.setImageResource(loginImagesArray[position]);
         textView.setText(loginTextsArray[position]);
-
-        if (position == 0)
-            welcomeText.setVisibility(View.VISIBLE);
-        else
-            welcomeText.setVisibility(View.INVISIBLE);
+        welcomeText.setText(welcomeTextArray[position]);
 
         container.addView(itemView);
 

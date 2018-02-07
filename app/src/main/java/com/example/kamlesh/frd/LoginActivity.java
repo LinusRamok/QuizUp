@@ -104,9 +104,10 @@ public class LoginActivity extends AppCompatActivity {
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
-        viewPager.setPageTransformer(false, new CustomLoginFadeAnimation());
+        viewPager.setPageTransformer(false, new CustomLoginPageTransformer());
         viewPager.setAdapter(new CustomLoginPagerAdapter(this));
         indicator.setViewPager(viewPager);
+        viewPager.setPageMargin(12);
         viewPager.setOffscreenPageLimit(2);
 
         facebookLogin = (LinearLayout) findViewById(R.id.facebookLogin);

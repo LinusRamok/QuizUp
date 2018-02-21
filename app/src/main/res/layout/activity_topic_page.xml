@@ -4,30 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.kamlesh.frd.topic_page">
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/topic_image"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_alignParentStart="true"
-        app:civ_border_color="@color/colorPrimary"
-        android:layout_margin="10dp"
-        app:civ_border_width="2dp" />
+    tools:context="com.example.kamlesh.frd.TopicPage">
 
     <TextView
         android:id="@+id/topic_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/topic_image"
-        android:layout_toEndOf="@+id/topic_image"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/generalSmallMargin"
         android:gravity="center"
         android:inputType="textMultiLine"
         android:text="topic name"
         android:textAllCaps="true"
-        android:textSize="24dp" />
+        android:textSize="27dp" />
+
+    <View
+        android:id="@+id/seperator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/gradient_alertbox_title"
+        android:layout_below="@id/topic_name"
+        android:layout_marginBottom="10dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/seperator"
+        android:layout_above="@id/playButton"
+        android:layout_margin="10dp"
+        android:gravity="center">
+
+        <devlight.io.library.ArcProgressStackView
+            android:id="@+id/apsv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:apsv_rounded="true"
+            app:apsv_shadowed="false"
+            app:apsv_animated="true"
+            app:apsv_leveled="true"
+            app:apsv_typeface="fonts/primelight.otf"
+            app:apsv_text_color="@color/textColorPrimary"
+            app:apsv_animation_duration="500"
+            android:textDirection="inherit"
+            app:apsv_interpolator="@android:anim/linear_interpolator"
+            app:apsv_draw_width="75%"
+            app:apsv_model_offset="0dp"
+            app:apsv_model_bg_enabled="true"
+            app:apsv_start_angle="270"
+            app:apsv_sweep_angle="270"
+            app:apsv_indicator_orientation="horizontal" />
+
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/progressBar2"
@@ -38,84 +65,43 @@
         android:layout_centerVertical="true"
         android:visibility="gone"/>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/playButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
         android:background="@drawable/play_button_background"
         android:gravity="center"
-        android:text="Play"
-        android:textAllCaps="true"
-        android:textSize="45dp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/topic_name"
-        android:layout_toEndOf="@+id/topic_image"
         android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:id="@+id/linearLayout">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <ImageView
+            android:id="@+id/topic_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_vertical"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"/>
 
         <TextView
+            android:id="@+id/playText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Accuracy: "
-            android:id="@+id/txt"
-            android:textSize="17dp"/>
-
-        <TextView
-            android:id="@+id/accuracy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="m percent"
-            android:textSize="17dp"/>
+            android:gravity="center"
+            android:textSize="@dimen/largeTextSize"
+            android:text="play"
+            android:textAllCaps="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
-        android:layout_toEndOf="@+id/topic_image"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Questions completed: "
-            android:textSize="17dp"
-            android:id="@+id/txt1"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="a"
-            android:textSize="17dp"
-            android:id="@+id/quesCompleted"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="/"
-            android:textSize="17dp"
-            android:id="@+id/txt2"/>
-
-        <TextView
-            android:id="@+id/totalQues"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="n"
-            android:textSize="17dp" />
-    </LinearLayout>
-
 
 </RelativeLayout>

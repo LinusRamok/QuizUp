@@ -10,7 +10,7 @@
     <dimen name="gameButtonBackgroundStroke">1dp</dimen>
     <dimen name="playButtonBackgroundPadding">5dp</dimen>
     <dimen name="playButtonBackgroundRadius">200dp</dimen>
-    <dimen name="playButtonBackgroundStroke">2dp</dimen>
+    <dimen name="playButtonBackgroundStroke">1dp</dimen>
     <dimen name="searchButtonBackgroundPadding">5dp</dimen>
     <dimen name="searchButtonBackgroundRadius">100dp</dimen>
     <dimen name="searchButtonBackgroundStroke">1dp</dimen>

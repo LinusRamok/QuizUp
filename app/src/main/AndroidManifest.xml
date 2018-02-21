@@ -43,7 +43,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".topic_page"
+        <activity android:name=".TopicPage"
             android:label="Topic page"></activity>
         <activity android:name=".GamePlay" />
         <activity android:name=".RankingPageActivity">

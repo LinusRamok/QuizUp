@@ -17,6 +17,7 @@
     <color name="facebookColor">#385c8e</color>
     <color name="googleColor">#ffffff</color>
     <color name="guestColor">#F8CF26</color>
+    <color name="playButton">#00E676</color>
     <array name="scoreColor">
         <item>#f92672</item>
         <item>#F73554</item>
@@ -32,6 +33,18 @@
         <item>#1099F8</item>
         <item>#2979FF</item>
         <item>#2962ff </item>
+    </array>
+    <array name="progressBgColor">
+        <item>#2e3d5afe</item>
+        <item>#2ee91e63</item>
+        <item>#2e009668</item>
+        <item>#2ebc565d</item>
+    </array>
+    <array name="progressColor">
+        <item>#3d5afe</item>
+        <item>#e91e63</item>
+        <item>@color/correctAnswer</item>
+        <item>@color/wrongAnswer</item>
     </array>
     <color name="dotsGeneralColor">#55ffffff</color>
 </resources>

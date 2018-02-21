@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +21,6 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 class topic_adapter extends RecyclerView.Adapter<topic_adapter.MyViewHolder> {
@@ -72,7 +70,7 @@ class topic_adapter extends RecyclerView.Adapter<topic_adapter.MyViewHolder> {
                 System.out.println(topiclist.get(position).name);
                 System.out.println(topiclist.get(position).url);
                 System.out.println(topiclist.get(position).description);
-                Intent intent = new Intent(mContext,topic_page.class);
+                Intent intent = new Intent(mContext,TopicPage.class);
                 intent.putExtra("topic_details", new Gson().toJson(topiclist.get(position)));
                 mContext.startActivity(intent);
 

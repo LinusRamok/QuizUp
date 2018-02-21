@@ -10,7 +10,7 @@
                 android:right="@dimen/playButtonBackgroundPadding"
                 android:bottom="@dimen/playButtonBackgroundPadding" />
             <corners android:radius="@dimen/playButtonBackgroundRadius" />
-            <solid android:color="@color/colorAccent" />
+            <solid android:color="@color/playButton" />
         </shape>
     </item>
 
@@ -23,7 +23,7 @@
                 android:right="@dimen/playButtonBackgroundPadding"
                 android:bottom="@dimen/playButtonBackgroundPadding" />
             <corners android:radius="@dimen/playButtonBackgroundRadius" />
-            <solid android:color="@color/colorAccent" />
+            <solid android:color="@color/playButton" />
         </shape>
     </item>
 
@@ -37,7 +37,7 @@
             <corners android:radius="@dimen/playButtonBackgroundRadius" />
             <stroke
                 android:width="@dimen/playButtonBackgroundStroke"
-                android:color="@color/colorAccent" />
+                android:color="@color/playButton" />
             <solid android:color="@color/windowBackground" />
         </shape>
     </item>

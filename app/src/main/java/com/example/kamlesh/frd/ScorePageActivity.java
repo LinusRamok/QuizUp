@@ -7,13 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -37,9 +35,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -123,7 +118,7 @@ public class ScorePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //    Toast.makeText(ScorePageActivity.this, "replay", Toast.LENGTH_SHORT).show();
-                Intent intent1=new Intent(getApplicationContext(),topic_page.class);
+                Intent intent1=new Intent(getApplicationContext(),TopicPage.class);
                 Topic topicdetails =new Topic(Topic_name,topic_url,"");
                 intent1.putExtra("topic_details",new Gson().toJson(topicdetails));
                 startActivity(intent1);
@@ -337,7 +332,7 @@ public class ScorePageActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent1=new Intent(getApplicationContext(),topic_page.class);
+        Intent intent1=new Intent(getApplicationContext(),TopicPage.class);
         Topic topicdetails =new Topic(Topic_name,topic_url,"");
         intent1.putExtra("topic_details",new Gson().toJson(topicdetails));
         startActivity(intent1);

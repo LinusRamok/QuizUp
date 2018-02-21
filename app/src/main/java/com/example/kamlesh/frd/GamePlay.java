@@ -646,11 +646,10 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     {
         TextView boxTitle, alertMessage, positiveButton, negativeButton;
 
-        LayoutInflater factory = LayoutInflater.from(this);
         final Dialog quitDialog = new Dialog(this);
         quitDialog.setContentView(R.layout.alertdialog_yes_no);
         quitDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));  //to make background of dialog transparent, hence allowing curved borders to be visible
-        quitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE); //to make dialog not focussible
+        quitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE); //to make dialog not focussible, so that immersive mode can persist
         quitDialog.setCanceledOnTouchOutside(false);
 
         boxTitle = quitDialog.findViewById(R.id.boxTitle);

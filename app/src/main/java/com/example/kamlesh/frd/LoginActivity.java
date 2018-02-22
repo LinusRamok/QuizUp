@@ -47,10 +47,9 @@ import java.util.Set;
 import me.relex.circleindicator.CircleIndicator;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements UrlUpdateChecker.OnUrlUpdateNeededListener {
 
     LinearLayout facebookLogin, googleLogin, guestLogin;
-
     public FirebaseAuth mAuth;
     public CallbackManager mCallbackManager;
     FirebaseAuth.AuthStateListener mAuthListener;
@@ -58,7 +57,12 @@ public class LoginActivity extends AppCompatActivity {
     static GoogleApiClient mGoogleSignInClient;
     SharedPreferences prefs;
     ProgressDialog dialog;
-
+    static String URLprefix;
+    @Override
+    public void onUpdateNeeded(String updateUrl) {
+        URLprefix=updateUrl;
+        System.out.println("url update"+URLprefix);
+    }
 
     @Override
     protected void onStart() {
@@ -101,7 +105,6 @@ public class LoginActivity extends AppCompatActivity {
         dv.setSystemUiVisibility(ui);
 
         setContentView(R.layout.activity_login);
-
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
         viewPager.setPageTransformer(false, new CustomLoginPageTransformer());
@@ -109,6 +112,8 @@ public class LoginActivity extends AppCompatActivity {
         indicator.setViewPager(viewPager);
         viewPager.setPageMargin(12);
         viewPager.setOffscreenPageLimit(2);
+
+        UrlUpdateChecker.with(this).onUrlUpdateNeeded(this).check();
 
         facebookLogin = (LinearLayout) findViewById(R.id.facebookLogin);
         googleLogin = (LinearLayout) findViewById(R.id.googleLogin);

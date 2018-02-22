@@ -300,7 +300,17 @@ public class ScorePageActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Questionlist[] list = new Gson().fromJson(String.valueOf(array), Questionlist[].class);
-        lists.setAdapter(new QuestionlistAdapter(getApplicationContext(), list,ans));
+        System.out.println("answers array"+ans[0]+ans[1]+ans[2]+ans[3]+ans[4]+ans[5]+ans[6]);
+        int k[]=new int[8];
+        for(int i=0;i<7;i++)
+            k[i]=ans[i];
+        if(qnoforperk[1]!=9)
+        {
+        int temp=k[qnoforperk[1]];
+        k[qnoforperk[1]]=2;
+        k[7]=temp;
+        }
+        lists.setAdapter(new QuestionlistAdapter(getApplicationContext(), list,k));
 
         findViewById(R.id.q_a).setVisibility(View.GONE);
         final CustomToggleButton toggle = (CustomToggleButton) findViewById(R.id.toggle);

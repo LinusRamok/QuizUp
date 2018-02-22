@@ -38,14 +38,17 @@ public class QuestionlistAdapter extends RecyclerView.Adapter<QuestionlistAdapte
         final Questionlist top5=data[position];
         int aee=ans[position];
 
-        if (aee==1||aee==0) {
+        if (aee==1||aee==0||aee==2) {
             if (aee==1){
 //                holder.color.setBackground( context.getResources().getDrawable(R.drawable.correct_answer_background));
                 holder.color.setCardBackgroundColor(Color.parseColor("#C8E6C9"));
             }
-            else {
+            else if(aee==0){
                 //holder.color.setBackground( context.getResources().getDrawable(R.drawable.wrong_answer_background));
                 holder.color.setCardBackgroundColor(Color.parseColor("#FFCDD2"));
+            }
+            else{
+                holder.color.setCardBackgroundColor(Color.parseColor("#FFFF8D"));
             }
             holder.col.setText(String.valueOf(aee));
             holder.quest.setText("Q:"+top5.getQuestion());
@@ -55,15 +58,15 @@ public class QuestionlistAdapter extends RecyclerView.Adapter<QuestionlistAdapte
                     break;
                 }
                 case "B": {
-                    holder.answer.setText("A: "+top5.getB());
+                    holder.answer.setText("B: "+top5.getB());
                     break;
                 }
                 case "C": {
-                    holder.answer.setText("A: "+top5.getC());
+                    holder.answer.setText("C: "+top5.getC());
                     break;
                 }
                 default:
-                    holder.answer.setText("A: "+top5.getD());
+                    holder.answer.setText("D: "+top5.getD());
             }
         }
     }

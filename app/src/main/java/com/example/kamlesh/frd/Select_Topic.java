@@ -193,7 +193,6 @@ public class Select_Topic extends AppCompatActivity implements ForceUpdateChecke
                             }
                         }).create();
         dialog.show();
-
     }
     private void redirectStore(String updateUrl) {
         final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));

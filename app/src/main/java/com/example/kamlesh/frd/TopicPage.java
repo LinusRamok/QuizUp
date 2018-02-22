@@ -27,6 +27,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,7 +55,7 @@ public class TopicPage extends AppCompatActivity {
     ProgressBar p;
     String Topic_name;
     JSONObject respass=null;
-    Integer count = 0;
+//    Integer count = 0;
 
     @Override
     protected void onResume() {
@@ -190,6 +195,7 @@ public class TopicPage extends AppCompatActivity {
             });
 
             progressBar.setProgress(0);
+
         }
 
         @Override
@@ -215,15 +221,16 @@ public class TopicPage extends AppCompatActivity {
 
         @Override
         protected void onProgressUpdate(Integer... values) {
+            System.out.println("value of progress :"+values[0]);
             progressBar.setProgress(values[0]);
         }
 
         @Override
         protected String doInBackground(Integer... params) {
-            for (count = 0; count <= params[0]; count++) {
-                    publishProgress(count);
-                    System.out.println("count = "+count);
-            }
+//            for (count = 0; count <= params[0]; count++) {
+//                    publishProgress(count);
+//                    System.out.println("count = "+count);
+//            }
 
             String TopicKey = null;
             try {
@@ -233,55 +240,127 @@ public class TopicPage extends AppCompatActivity {
                 e.printStackTrace();
                 return e.toString();
             }
+
+
+
             try {
                 String PID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                JSONObject response = getJSONObjectFromURL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID="+PID+"&Topic="+TopicKey); // calls method to get JSON object
-                respass=response;
-            } catch (IOException e) {
-                System.out.println("error 1");
+                String url ="https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID="+PID+"&Topic="+TopicKey;
+
+                System.out.println("heare is the url :\n"+url);
+
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet(url);
+
+
+                HttpResponse response = null;
+
+                try {
+                    response = client.execute(request);
+
+                    final long lengthOfFile=2000;
+
+                    Header[] headers = response.getAllHeaders();
+                    for (Header header : headers) {
+                        System.out.println(header.getName() + " : " + header.getValue() + " ");
+                    }
+
+                    System.out.println("length of file :"+lengthOfFile);
+
+
+                    BufferedReader rd =new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+
+//                    String line = "";
+//                    while ((line = rd.readLine()) != null) {
+//                        result += line;
+//                        System.out.println(line);
+//                    }
+
+
+
+
+
+                    StringBuilder sb = new StringBuilder();
+                    long total=0;
+                    int count=-1;
+                    String line=null;
+                    while ((line = rd.readLine()) != null) {
+                        total += line.length();
+                        publishProgress((int)((total*100)/lengthOfFile));
+                        System.out.println("value of total :"+total);
+                        sb.append(line+"\n");
+                    }
+
+
+
+                    respass =new JSONObject(sb.toString());
+                    return "Task Completed.";
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("error : " + e.toString());
+                    return e.toString();
+                }
+            }catch (Exception e){
                 e.printStackTrace();
-            } catch (JSONException e) {
-                System.out.println("error 2");
-                e.printStackTrace();
+                return e.toString();
             }
-            return "Task Completed.";
-        }
-    }
-    public static JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
 
-        HttpURLConnection urlConnection = null;
-
-        URL url = new URL(urlString);
-
-        urlConnection = (HttpURLConnection) url.openConnection();
-
-        urlConnection.setRequestMethod("GET");
-        urlConnection.setReadTimeout(10000 /* milliseconds */);
-        urlConnection.setConnectTimeout(15000 /* milliseconds */);
-
-        urlConnection.setDoOutput(true);
-
-        urlConnection.connect();
-
-        BufferedReader br=new BufferedReader(new InputStreamReader(url.openStream()));
-
-        char[] buffer = new char[1024];
-
-        String jsonString = new String();
-
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            sb.append(line+"\n");
-        }
-        br.close();
-
-        jsonString = sb.toString();
-
-        System.out.println("JSON: " + jsonString);
-        urlConnection.disconnect();
-
-        return new JSONObject(jsonString);
+//            try {
+//
+//             //   JSONObject response = getJSONObjectFromURL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID="+PID+"&Topic="+TopicKey); // calls method to get JSON object
+//                HttpURLConnection urlConnection = null;
+//
+//                URL url = new URL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID="+PID+"&Topic="+TopicKey);
+//
+//                urlConnection = (HttpURLConnection) url.openConnection();
+//
+//                urlConnection.setRequestMethod("GET");
+//                urlConnection.setReadTimeout(10000 /* milliseconds */);
+//                urlConnection.setConnectTimeout(15000 /* milliseconds */);
+//                urlConnection.setRequestProperty("Accept-Encoding", "identity");
+//
+//
+//                urlConnection.connect();
+//
+//                InputStreamReader br=new InputStreamReader(url.openStream());
+//                int lengthOfFile=urlConnection.getContentLength();
+//                System.out.println("length of content :"+lengthOfFile);
+//                char[] buffer = new char[1024];
+//
+//                String jsonString = new String();
+//
+//                StringBuilder sb = new StringBuilder();
+//               // String line;
+//                int total=0;
+//                int count=-1;
+//                while ((count = br.read(buffer)) != -1) {
+//                    total += count;
+//                    System.out.println("value of total :"+total);
+//                    // publishing the progress....
+//                    // After this onProgressUpdate will be called
+//                    publishProgress((int)((total*100)/lengthOfFile));
+//                    sb.append(new String(buffer)).append("\n");
+//                }
+//                br.close();
+//
+//                jsonString = sb.toString();
+//
+//                System.out.println("JSON: " + jsonString);
+//                urlConnection.disconnect();
+//
+//
+//                respass=new JSONObject(jsonString);
+//            } catch (IOException e) {
+//                System.out.println("error 1");
+//                e.printStackTrace();
+//            } catch (JSONException e) {
+//                System.out.println("error 2");
+//                e.printStackTrace();
+//            }
+//            return "Task Completed.";
+       }
     }
 
 }

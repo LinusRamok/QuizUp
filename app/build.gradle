@@ -59,6 +59,8 @@ dependencies {
     //AndroidViewAnimations
     compile 'devlight.io:arcprogressstackview:1.0.4'
     //ArcProgressStackView, link: https://github.com/Devlight/ArcProgressStackView
+    compile 'com.daimajia.numberprogressbar:library:1.4@aar'
+    //AndroidNumberProgress, link: https://github.com/daimajia/NumberProgressBar
 
 }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/option_background_disabled">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/alertdialog_bg_play">
 
     <TextView
         android:id="@+id/boxTitle"
@@ -23,84 +23,28 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/boxTitle"
-        android:background="@drawable/gradient_alertbox_title"
+        android:background="@drawable/gradient_title_play"
         android:padding="10dp"/>
 
-    <TextView
-        android:id="@+id/dyk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/boxTitle"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="@dimen/mediumTextSize"
-        android:text="Did You Know?"
-        android:padding="5dp"/>
-
-    <TextView
-        android:id="@+id/fact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fact"
-        android:textSize="@dimen/mediumTextSize"
-        android:textColor="@color/textColorSecondary"
-        android:layout_below="@id/dyk"
-        android:gravity="center"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:id="@+id/cont"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fact"
-        android:background="@drawable/alert_positive_background"
-        android:text="Tap to Continue"
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="@dimen/largeTextSize"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:visibility="invisible"/>
-
-    <ProgressBar
+    <com.daimajia.numberprogressbar.NumberProgressBar
         android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/fact"
-        android:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/cancel"
+        style="@style/NumberProgressBar_Default"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/cont"
-        android:background="@drawable/alert_negative_background"
-        android:gravity="center"
-        android:text="Cancel"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="@dimen/largeTextSize"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/boxTitle"
+        android:gravity="center"
+        app:progress_max="100"
+        app:progress_current="1"
+        app:progress_reached_color="@color/colorPrimary"
+        app:progress_text_color="@color/colorPrimary"
+        app:progress_unreached_color="@color/textColorPrimary"
+        app:progress_text_size="@dimen/smallTextSize"/>
+
 
 </RelativeLayout>

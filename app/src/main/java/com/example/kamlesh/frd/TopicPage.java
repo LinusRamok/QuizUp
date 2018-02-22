@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.example.kamlesh.frd.Models.Topic;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
@@ -48,6 +50,7 @@ public class TopicPage extends AppCompatActivity {
     ProgressBar p;
     String Topic_name;
     JSONObject respass=null;
+    Integer count = 0;
 
     @Override
     protected void onResume() {
@@ -124,7 +127,7 @@ public class TopicPage extends AppCompatActivity {
                    try {
                        if (isConnected()) {
                            TopicPage.getcontentfornextactivity g = new TopicPage.getcontentfornextactivity();
-                           g.execute();
+                           g.execute(100);
                        } else
                            Toast.makeText(TopicPage.this, "Not connected to internet", Toast.LENGTH_SHORT).show();
                    }
@@ -152,8 +155,9 @@ public class TopicPage extends AppCompatActivity {
     public class getcontentfornextactivity extends AsyncTask<Integer ,Integer,String> {
 
         Dialog loadingDialog = new Dialog(TopicPage.this);
-        TextView boxTitle, dyk, fact, cont, cancel;
-        ProgressBar progressBar;
+        TextView boxTitle;
+        NumberProgressBar progressBar;
+        Boolean isDialogOpened = false;
 
         @Override
         protected void onPreExecute() {
@@ -164,108 +168,71 @@ public class TopicPage extends AppCompatActivity {
             loadingDialog.setCanceledOnTouchOutside(false);
 
             boxTitle = loadingDialog.findViewById(R.id.boxTitle);
-            dyk = loadingDialog.findViewById(R.id.dyk);
-            fact = loadingDialog.findViewById(R.id.fact);
-            cont = loadingDialog.findViewById(R.id.cont);
-            cancel = loadingDialog.findViewById(R.id.cancel);
             progressBar = loadingDialog.findViewById(R.id.progressBar);
 
             boxTitle.setText("Loading");
-            Random random = new Random();
-            int n = random.nextInt(5);
-            switch (n)
-            {
-                case 0:
-                    fact.setText("You can use a Lifeline only once in a game");
-                    break;
-                case 1:
-                    fact.setText("Want to know more details about the question? You can search about the question you just solved in Google from 'Review Questions' section");
-                    break;
-                case 2:
-                    fact.setText("You have two lifelines, but use them wisely, as they might cost you some points");
-                    break;
-                case 3:
-                    fact.setText("Wish to have some new feature in this game? Well don't worry, you can always talk to the developers.");
-                    break;
-                case 4:
-                    fact.setText("It was never about how much you know, it is about how much you can learn.");
-                    break;
-            }
+
             Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
             Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
             boxTitle.setTypeface(ourBoldFont);
-            dyk.setTypeface(ourBoldFont);
-            fact.setTypeface(ourLightFont);
-            cont.setTypeface(ourLightFont);
-            cancel.setTypeface(ourLightFont);
 
+            isDialogOpened = true;
             loadingDialog.show();
             loadingDialog.getWindow().getDecorView().setSystemUiVisibility(TopicPage.this.getWindow().getDecorView().getSystemUiVisibility());
             loadingDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE); //clear not focussible flags
-
-            cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    loadingDialog.dismiss();
-                }
-            });
 
             loadingDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialogInterface) {
                     loadingDialog.dismiss();
+                    isDialogOpened = false;
                 }
             });
 
-            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(0);
         }
 
         @Override
         protected void onPostExecute(String s) {
-            progressBar.setVisibility(View.GONE);
-            cont.setVisibility(View.VISIBLE);
-            cont.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    try {
-                        loadingDialog.dismiss();
-                        Intent i = new Intent(TopicPage.this, GamePlay.class);
-                        //intent topic name
-                        i.putExtra("topic_name", Topic_name);
-                        i.putExtra("topic_url", topic.url);
-                        i.putExtra("jsonobj", respass.toString());
-                        startActivity(i);
-                    }
-                    catch (Exception e)
-                    {
-                        Toast.makeText(TopicPage.this, "Someting went wrong... please try again", Toast.LENGTH_SHORT).show();
-                    }
+            if(isDialogOpened == true)
+            {
+                try {
+                    loadingDialog.dismiss();
+                    isDialogOpened = false;
+                    Intent i = new Intent(TopicPage.this, GamePlay.class);
+                    //intent topic name
+                    i.putExtra("topic_name", Topic_name);
+                    i.putExtra("topic_url", topic.url);
+                    i.putExtra("jsonobj", respass.toString());
+                    startActivity(i);
                 }
-            });
-
+                catch (Exception e)
+                {
+                    Toast.makeText(TopicPage.this, "Someting went wrong... please try again", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
-
+            progressBar.setProgress(values[0]);
         }
 
         @Override
         protected String doInBackground(Integer... params) {
-
+            for (count = 0; count <= params[0]; count++) {
+                    publishProgress(count);
+                    System.out.println("count = "+count);
+            }
 
             String TopicKey = null;
             try {
-
                TopicKey = URLEncoder.encode(Topic_name, "UTF-8").replaceAll("\\+", "%20");
                 System.out.println("here is encoded key :" + TopicKey);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
                 return e.toString();
             }
-
-
-
             try {
                 String PID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 JSONObject response = getJSONObjectFromURL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID="+PID+"&Topic="+TopicKey); // calls method to get JSON object
@@ -277,7 +244,6 @@ public class TopicPage extends AppCompatActivity {
                 System.out.println("error 2");
                 e.printStackTrace();
             }
-
             return "Task Completed.";
         }
     }

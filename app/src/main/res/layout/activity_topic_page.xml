@@ -22,7 +22,7 @@
         android:id="@+id/seperator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/gradient_alertbox_title"
+        android:background="@drawable/gradient_title"
         android:layout_below="@id/topic_name"
         android:layout_marginBottom="10dp" />
 

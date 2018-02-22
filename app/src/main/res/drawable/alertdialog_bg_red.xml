@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_enabled="true">
+        <shape android:shape="rectangle">
+            <padding android:left="@dimen/gameButtonBackgroundPadding"
+                android:top="@dimen/gameButtonBackgroundPadding"
+                android:right="@dimen/gameButtonBackgroundPadding"
+                android:bottom="@dimen/gameButtonBackgroundPadding" />
+            <corners android:radius="@dimen/gameButtonBackgroundRadius" />
+            <stroke
+                android:width="@dimen/gameButtonBackgroundStroke"
+                android:color="@color/wrongAnswer" />
+            <solid android:color="@color/windowBackground" />
+        </shape>
+
+    </item>
+
+</selector>

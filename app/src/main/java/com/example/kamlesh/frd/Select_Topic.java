@@ -6,16 +6,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 
 import com.example.kamlesh.frd.Models.Topic;
@@ -24,7 +27,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -40,34 +42,11 @@ public class Select_Topic extends AppCompatActivity implements ForceUpdateChecke
 
     SharedPreferences pref=null;
 
-    android.widget.SearchView searchView;
+    SearchView searchView;
+    EditText searchEditText;
+    ImageView searchIcon, closeIcon;
 
     ArrayList<Topic> topics = new ArrayList<>();
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        View dv=getWindow().getDecorView();
-        int ui= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-        dv.setSystemUiVisibility(ui);
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            View decorView= getWindow().getDecorView();
-            decorView.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        }
-    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,16 +55,33 @@ public class Select_Topic extends AppCompatActivity implements ForceUpdateChecke
 
         database = FirebaseDatabase.getInstance();
 
-        View dv=getWindow().getDecorView();
+        /*View dv=getWindow().getDecorView();
         int ui= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-        dv.setSystemUiVisibility(ui);
-        setContentView(R.layout.activity_select_topic);
+        dv.setSystemUiVisibility(ui);*/
 
+        setContentView(R.layout.activity_select_topic);
         listView1 = (RecyclerView) findViewById(R.id.listview);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),3);
         listView1.setLayoutManager(gridLayoutManager);
 
+        Drawable icon1 = getResources().getDrawable(R.drawable.ic_search);
+        Drawable icon2 = getResources().getDrawable(R.drawable.ic_cancel);
+        Drawable mWrappedDrawable1 = icon1.mutate();
+        Drawable mWrappedDrawable2 = icon2.mutate();
+        mWrappedDrawable1 = DrawableCompat.wrap(mWrappedDrawable1);
+        mWrappedDrawable2 = DrawableCompat.wrap(mWrappedDrawable2);
+        DrawableCompat.setTint(mWrappedDrawable1, getResources().getColor(R.color.colorPrimary));
+        DrawableCompat.setTint(mWrappedDrawable2, getResources().getColor(R.color.colorPrimary));
+
         searchView= findViewById(R.id.search);
+        searchEditText = (EditText)searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(getResources().getColor(R.color.textColorPrimary));
+        searchEditText.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+        searchIcon = (ImageView)searchView.findViewById(android.support.v7.appcompat.R.id.search_button);
+        searchIcon.setImageDrawable(mWrappedDrawable1);
+        closeIcon = (ImageView)searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        closeIcon.setImageDrawable(mWrappedDrawable2);
+
 
         Button settings = findViewById(R.id.settings);
         settings.setOnClickListener(new View.OnClickListener() {
@@ -162,7 +158,6 @@ public class Select_Topic extends AppCompatActivity implements ForceUpdateChecke
 
 
  //               searchView.setIconified(false);
-        searchView.setQueryHint("Search Topic....");
 
 
     }

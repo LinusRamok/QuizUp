@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context="com.quiz.up.GamePlay">
 
 
@@ -183,7 +184,6 @@
     </RelativeLayout>
 
     <View
-        android:id="@+id/gradientSeparatorAbove"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/gradient_separate_gameplay"
@@ -285,8 +285,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/gradient_separate_gameplay"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@id/optionsLayout" />
+        android:layout_above="@id/perkLayout" />
 
     <LinearLayout
         android:id="@+id/perkLayout"
@@ -294,8 +293,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:padding="@dimen/generalLayoutPadding"
-        android:layout_margin="@dimen/generalSmallMargin">
+        android:background="@color/windowBackground"
+        android:padding="@dimen/generalLayoutPadding">
 
         <TextView
             android:id="@+id/perk1"

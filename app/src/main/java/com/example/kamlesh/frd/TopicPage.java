@@ -55,6 +55,10 @@ public class TopicPage extends AppCompatActivity {
     ProgressBar p;
     String Topic_name;
     JSONObject respass=null;
+    Dialog loadingDialog;
+    TextView boxTitle;
+    NumberProgressBar progressBar;
+    Boolean isDialogOpened = false;
 //    Integer count = 0;
 
     @Override
@@ -98,8 +102,8 @@ public class TopicPage extends AppCompatActivity {
         TextView topic_name =findViewById(R.id.topic_name);
         ImageView topic_image =findViewById(R.id.topic_image);
 
-        Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
-        Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
+        final Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
+        final Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
 
 
 
@@ -131,8 +135,34 @@ public class TopicPage extends AppCompatActivity {
                public void onClick(View view) {
                    try {
                        if (isConnected()) {
+
                            TopicPage.getcontentfornextactivity g = new TopicPage.getcontentfornextactivity();
                            g.execute(100);
+
+                           loadingDialog = new Dialog(TopicPage.this);
+                           loadingDialog.setContentView(R.layout.alertdialog_loading);
+                           loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));  //to make background of dialog transparent, hence allowing curved borders to be visible
+                           loadingDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE); //to make dialog not focussible, so that immersive mode can persist
+                           loadingDialog.setCanceledOnTouchOutside(false);
+
+                           boxTitle = loadingDialog.findViewById(R.id.boxTitle);
+                           progressBar = loadingDialog.findViewById(R.id.progressBar);
+
+                           boxTitle.setText("Loading");
+                           boxTitle.setTypeface(ourBoldFont);
+
+                           isDialogOpened = true;
+                           loadingDialog.show();
+                           loadingDialog.getWindow().getDecorView().setSystemUiVisibility(TopicPage.this.getWindow().getDecorView().getSystemUiVisibility());
+                           loadingDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE); //clear not focussible flags
+
+                           loadingDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                               @Override
+                               public void onCancel(DialogInterface dialogInterface) {
+                                   loadingDialog.dismiss();
+                                   isDialogOpened = false;
+                               }
+                           });
                        } else
                            Toast.makeText(TopicPage.this, "Not connected to internet", Toast.LENGTH_SHORT).show();
                    }
@@ -159,42 +189,8 @@ public class TopicPage extends AppCompatActivity {
     }
     public class getcontentfornextactivity extends AsyncTask<Integer ,Integer,String> {
 
-        Dialog loadingDialog = new Dialog(TopicPage.this);
-        TextView boxTitle;
-        NumberProgressBar progressBar;
-        Boolean isDialogOpened = false;
-
         @Override
         protected void onPreExecute() {
-
-            loadingDialog.setContentView(R.layout.alertdialog_loading);
-            loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));  //to make background of dialog transparent, hence allowing curved borders to be visible
-            loadingDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE); //to make dialog not focussible, so that immersive mode can persist
-            loadingDialog.setCanceledOnTouchOutside(false);
-
-            boxTitle = loadingDialog.findViewById(R.id.boxTitle);
-            progressBar = loadingDialog.findViewById(R.id.progressBar);
-
-            boxTitle.setText("Loading");
-
-            Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
-            Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
-            boxTitle.setTypeface(ourBoldFont);
-
-            isDialogOpened = true;
-            loadingDialog.show();
-            loadingDialog.getWindow().getDecorView().setSystemUiVisibility(TopicPage.this.getWindow().getDecorView().getSystemUiVisibility());
-            loadingDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE); //clear not focussible flags
-
-            loadingDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialogInterface) {
-                    loadingDialog.dismiss();
-                    isDialogOpened = false;
-                }
-            });
-
-            progressBar.setProgress(0);
 
         }
 

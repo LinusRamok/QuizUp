@@ -23,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/boxTitle"
-        android:background="@drawable/gradient_title_play"
+        android:background="@drawable/gradient_title"
+        android:backgroundTint="@color/playButton"
         android:padding="10dp"/>
 
     <com.daimajia.numberprogressbar.NumberProgressBar

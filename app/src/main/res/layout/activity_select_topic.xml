@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,29 +8,24 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
-
-    <android.support.v7.widget.SearchView
-        android:id="@+id/search"
-        android:labelFor="@id/search"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="2dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+    <TextView
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:searchIcon="@drawable/ic_search"
-        app:closeIcon="@drawable/ic_cancel"
-        app:queryHint="Search Topic"
-        android:clickable="true"
-        android:iconifiedByDefault="true"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/generalSmallMargin"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:text="Choose a Topic"
+        android:textAllCaps="true"
+        android:textSize="27dp" />
 
     <View
-        android:id="@+id/gradientSeparator"
+        android:id="@+id/seperator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/gradient_separate_gameplay"
-        android:layout_below="@id/search" />
+        android:background="@drawable/gradient_title"
+        android:layout_below="@id/header" />
 
     <Button
         android:id="@+id/settings"
@@ -41,11 +38,45 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listview"
-        android:padding="5dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/gradientSeparator"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@id/gradientSeparator"
+        android:layout_below="@id/seperator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" />
+
+    <View
+        android:id="@+id/gradientSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/gradient_separate_gameplay"
+        android:layout_above="@id/search" />
+
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/search"
+        android:labelFor="@id/search"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        />
+        app:searchIcon="@drawable/ic_search"
+        app:closeIcon="@drawable/ic_cancel"
+        app:queryHint="Search Topic"
+        app:searchHintIcon="@null"
+        android:clickable="true"
+        android:iconifiedByDefault="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"/>
+
+
 </RelativeLayout>

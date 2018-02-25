@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.example.kamlesh.frd.Models.Topic;
@@ -28,6 +30,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -36,7 +40,7 @@ public class Select_Topic extends AppCompatActivity implements ForceUpdateChecke
 
     topic_adapter Adapter;
     FirebaseDatabase database;
-    RecyclerView listView1;
+    RecyclerView recyclerView;
     SQLiteDatabase db;
     DatabaseReference myRef;
 
@@ -44,6 +48,7 @@ public class Select_Topic extends AppCompatActivity implements ForceUpdateChecke
 
     SearchView searchView;
     EditText searchEditText;
+    TextView header;
     ImageView searchIcon, closeIcon;
 
     ArrayList<Topic> topics = new ArrayList<>();
@@ -60,9 +65,29 @@ public class Select_Topic extends AppCompatActivity implements ForceUpdateChecke
         dv.setSystemUiVisibility(ui);*/
 
         setContentView(R.layout.activity_select_topic);
-        listView1 = (RecyclerView) findViewById(R.id.listview);
+
+        final Typeface ourBoldFont = Typeface.createFromAsset(getAssets(), "fonts/primebold.otf");
+        final Typeface ourLightFont = Typeface.createFromAsset(getAssets(), "fonts/primelight.otf");
+
+        header = (TextView)findViewById(R.id.header);
+        header.setTypeface(ourBoldFont);
+
+        recyclerView = (RecyclerView) findViewById(R.id.listview);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),3);
-        listView1.setLayoutManager(gridLayoutManager);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View view,int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if ( bottom < oldBottom) {
+                    recyclerView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
+                        }
+                    }, 100);
+                }
+            }
+        });
 
         Drawable icon1 = getResources().getDrawable(R.drawable.ic_search);
         Drawable icon2 = getResources().getDrawable(R.drawable.ic_cancel);
@@ -70,13 +95,14 @@ public class Select_Topic extends AppCompatActivity implements ForceUpdateChecke
         Drawable mWrappedDrawable2 = icon2.mutate();
         mWrappedDrawable1 = DrawableCompat.wrap(mWrappedDrawable1);
         mWrappedDrawable2 = DrawableCompat.wrap(mWrappedDrawable2);
-        DrawableCompat.setTint(mWrappedDrawable1, getResources().getColor(R.color.colorPrimary));
-        DrawableCompat.setTint(mWrappedDrawable2, getResources().getColor(R.color.colorPrimary));
+        DrawableCompat.setTint(mWrappedDrawable1, getResources().getColor(R.color.colorAccent));
+        DrawableCompat.setTint(mWrappedDrawable2, getResources().getColor(R.color.wrongAnswer));
 
         searchView= findViewById(R.id.search);
         searchEditText = (EditText)searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(getResources().getColor(R.color.textColorPrimary));
-        searchEditText.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+        searchEditText.setHintTextColor(getResources().getColor(R.color.colorAccentFaded));
+        searchEditText.setTypeface(ourLightFont);
         searchIcon = (ImageView)searchView.findViewById(android.support.v7.appcompat.R.id.search_button);
         searchIcon.setImageDrawable(mWrappedDrawable1);
         closeIcon = (ImageView)searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
@@ -119,7 +145,7 @@ public class Select_Topic extends AppCompatActivity implements ForceUpdateChecke
 
 
                 Adapter = new topic_adapter(Select_Topic.this,topics);
-                listView1.setAdapter(Adapter);
+                recyclerView.setAdapter(Adapter);
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {

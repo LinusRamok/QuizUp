@@ -110,21 +110,19 @@
         android:id="@+id/upperLayout"
         android:background="@color/windowBackground">
 
-
         <Button
             android:id="@+id/quitGame"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text=""
+            android:layout_alignParentStart="true"
             android:background="@drawable/ic_quit" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:orientation="vertical">
 
             <TextView

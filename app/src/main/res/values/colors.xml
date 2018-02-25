@@ -18,8 +18,9 @@
     <color name="googleColor">#ffffff</color>
     <color name="guestColor">#F8CF26</color>
     <color name="playButton">#00E676</color>
+    <color name="colorAccentFaded">#77f92672</color>
     <array name="scoreColor">
-        <item>#f92672</item>
+        <item>#ff0000</item>
         <item>#F73554</item>
         <item>#f44336</item>
         <item>#FA7B1B</item>

@@ -50,7 +50,7 @@ public class RankingPageActivity extends AppCompatActivity {
         rankinglistss = (RecyclerView) findViewById(R.id.recycler);
         rankinglistss.setLayoutManager(new LinearLayoutManager(this));
             StartSmartAnimation.startAnimation(findViewById(R.id.recycler) , AnimationType.SlideInUp , 2000 , 0 , true );
-        String Topic_name=getIntent().getStringExtra("topicName");
+        String Topic_name=getIntent().getStringExtra("topicname");
 
 
 //volley.......................................................

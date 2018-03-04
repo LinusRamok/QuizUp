@@ -20,7 +20,7 @@ public class CustomLoginPageTransformer implements ViewPager.PageTransformer {
         final float MIN_SCALE = 0.85f;
         final float MIN_ALPHA = 0.5f;
         ImageView dummyImageView = view.findViewById(R.id.imageView);
-        TextView dummyTextView = view.findViewById(R.id.textView);
+        TextView dummyTextView = view.findViewById(R.id.textView0);
         TextView welcomeText = view.findViewById(R.id.welcomeText);
 
 

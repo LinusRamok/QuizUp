@@ -62,7 +62,9 @@ dependencies {
     //ArcProgressStackView, link: https://github.com/Devlight/ArcProgressStackView
     compile 'com.daimajia.numberprogressbar:library:1.4@aar'
     //AndroidNumberProgress, link: https://github.com/daimajia/NumberProgressBar
-
+    compile 'com.github.lzyzsd:circleprogress:1.2.1'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    //MPAndroidChart, link: https://github.com/PhilJay/MPAndroidChart
 }
 
 apply plugin: 'com.google.gms.google-services'

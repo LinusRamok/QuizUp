@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.kamlesh.frd">
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".MyApp"
@@ -14,10 +15,12 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label">
         <activity android:name=".Select_Topic" />
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".LoginActivity"
             android:label="Select Any Topic">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,13 +46,13 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".TopicPage"
-            android:label="Topic page"></activity>
+        <activity
+            android:name=".TopicPage"
+            android:label="Topic page" />
         <activity android:name=".GamePlay" />
-        <activity android:name=".RankingPageActivity">
-
-        </activity>
-        <activity android:name=".ScorePageActivity"></activity>
+        <activity android:name=".RankingPageActivity"></activity>
+        <activity android:name=".ScorePageActivity" />
+        <activity android:name=".AfterGame"></activity>
     </application>
 
 </manifest>

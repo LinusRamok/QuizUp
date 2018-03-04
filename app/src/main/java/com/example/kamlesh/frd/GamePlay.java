@@ -176,6 +176,11 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         }
         //setting the first question and options beforehand
         setQuestionsAndOptions(0);
+        //setting color for 0 score
+        int[] colorArray = getResources().getIntArray(R.array.scoreColor);
+        int colorIt = colorArray[0];
+        score.setTextColor(colorIt);
+
     }
 
     @Override
@@ -335,6 +340,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                 }
                 else
                 {
+                    calculateTimeForEachQues(Double.parseDouble(secondsText.getText().toString()));
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -342,13 +348,14 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                             finalscore= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6];
                             if(finalscore<0)
                                 finalscore=0;
-                            Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
+                            Intent i=new Intent(GamePlay.this,AfterGame.class);
                             i.putExtra("QuestionAndAnswers",jsonString);
                             i.putExtra("userAnswers",qadetails);
                             i.putExtra("TimerValues",timeForEachQues);
                             i.putExtra("scoreArray",scoreArray);
                             i.putExtra("Score",finalscore);
                             i.putExtra("perkvalues",qnoForPerk);
+                            i.putExtra("totalTime", totalTimeTaken);
                             //intent Topic name/
                             i.putExtra("topic_name",top);
                             i.putExtra("topic_url",url);
@@ -420,16 +427,18 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                         @Override
                         public void run() {
 
+                            calculateTimeForEachQues(Double.parseDouble(secondsText.getText().toString()));
                             finalscore= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6];
                             if(finalscore<0)
                                     finalscore=0;
-                            Intent i=new Intent(GamePlay.this,ScorePageActivity.class);
+                            Intent i=new Intent(GamePlay.this,AfterGame.class);
                             i.putExtra("QuestionAndAnswers",jsonString);
                             i.putExtra("userAnswers",qadetails);
                             i.putExtra("TimerValues",timeForEachQues);
                             i.putExtra("scoreArray",scoreArray);
                             i.putExtra("Score",finalscore);
                             i.putExtra("perkvalues",qnoForPerk);
+                            i.putExtra("totalTime", totalTimeTaken);
                             //Intent Topic name
                             i.putExtra("topic_name",top);
                             i.putExtra("topic_url",url);

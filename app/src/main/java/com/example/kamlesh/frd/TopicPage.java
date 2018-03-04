@@ -272,11 +272,6 @@ public class TopicPage extends AppCompatActivity {
 //                        result += line;
 //                        System.out.println(line);
 //                    }
-
-
-
-
-
                     StringBuilder sb = new StringBuilder();
                     long total=0;
                     int count=-1;

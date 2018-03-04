@@ -10,4 +10,11 @@
         <attr name="cpb_subtitleColor" format="string"/>
         <attr name="cpb_strokeWidth" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomVerticalViewPager" >
+        <attr name="swipe_orientation" format="enum" >
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+    </declare-styleable>
 </resources>

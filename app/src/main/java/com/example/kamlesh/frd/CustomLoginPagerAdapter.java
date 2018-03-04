@@ -58,7 +58,7 @@ public class CustomLoginPagerAdapter extends PagerAdapter {
         View itemView = mLayoutInflater.inflate(R.layout.pager_item_login_page, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-        TextView textView = (TextView) itemView.findViewById(R.id.textView);
+        TextView textView = (TextView) itemView.findViewById(R.id.textView0);
         TextView welcomeText = (TextView) itemView.findViewById(R.id.welcomeText);
 
         Typeface ourLightFont = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/primelight.otf");

@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.kamlesh.frd.FragmentGameAnalysis"
+    android:background="@color/colorPrimaryDark">
+
+    <LinearLayout
+        android:id="@+id/previousPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/view_score_txt"
+        android:gravity="center"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Score Page"
+        android:textSize="@dimen/mediumTextSize"
+        android:textAllCaps="true"
+        android:gravity="center"
+        android:layout_marginRight="10dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_arrow_up"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/previousPage"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/textView12"
+                android:layout_toEndOf="@id/textView10"
+                android:layout_toStartOf="@id/textView11"/>
+            <com.example.kamlesh.frd.ScorePagePOJO.CustomVerticalTextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_alignParentStart="true"
+                android:text="Score"
+                android:gravity="bottom"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:textSize="14dp"
+                android:textColor="@color/colorPrimary"/>
+            <com.example.kamlesh.frd.ScorePagePOJO.CustomVerticalTextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_alignParentEnd="true"
+                android:gravity="top"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:text="Time(in sec)"
+                android:textSize="14dp"
+                android:textColor="@color/colorAccent"/>
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_alignParentBottom="true"
+                android:rotation="0"
+                android:textSize="14dp"
+                android:text="Question Number"
+                android:textColor="@color/textColorSecondary"
+                android:alpha="0.8"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

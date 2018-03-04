@@ -84,10 +84,11 @@ public class ScorePageActivity extends AppCompatActivity {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+
         System.out.println("score Array"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]);
         System.out.println("Score issssssssssssssssssssssssssssss :"+finalscore);
-        int q=ans[0]+ans[1]+ans[2]+ans[3]+ans[4]+ans[5]+ans[6];
-        int s=q;
+
+        int s=ans[0]+ans[1]+ans[2]+ans[3]+ans[4]+ans[5]+ans[6];;
         System.out.println(s);
         float ca=(float)s;
         float caa=(ca/7)*100;
@@ -108,7 +109,7 @@ public class ScorePageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //    Toast.makeText(ScorePageActivity.this, "Ranking Button clicked", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(getApplicationContext(),RankingPageActivity.class);
-                intent.putExtra("topicName",Topic_name);
+                intent.putExtra("topicname",Topic_name);
                 startActivity(intent);
             }
         });
@@ -139,7 +140,7 @@ public class ScorePageActivity extends AppCompatActivity {
                 finish();
             }
         });
-        //change topic
+        //quit
         LinearLayout quit=(LinearLayout)findViewById(R.id.quit);
         quit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +157,7 @@ public class ScorePageActivity extends AppCompatActivity {
         });
 
 //volley.......................................................
+
 //putting entered value into URL
         String PID= FirebaseAuth.getInstance().getCurrentUser().getUid();
         String TopicKey = null;
@@ -165,7 +167,6 @@ public class ScorePageActivity extends AppCompatActivity {
             System.out.println("here is encoded key :" + TopicKey);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-
         }
 
 
@@ -185,7 +186,7 @@ public class ScorePageActivity extends AppCompatActivity {
                     circular_progress.setVisibility(View.VISIBLE);
                     ProgressBar progressBar=findViewById(R.id.p_b);
                     progressBar.setVisibility(View.GONE);
-//Accuracy
+                    //Accuracy
                     String a1 = data.getMessage().getAccuracy();
                     float result = Float.parseFloat(a1);
                     int intresult = (int) result;
@@ -335,8 +336,6 @@ public class ScorePageActivity extends AppCompatActivity {
                 }
             }
         });
-
-
 
     }
 

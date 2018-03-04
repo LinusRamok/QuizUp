@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
+        android:id="@+id/textView0"
         android:padding="5dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="120dp"
@@ -36,7 +36,7 @@
         android:id="@+id/welcomeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/textView"
+        android:layout_above="@id/textView0"
         android:padding="5dp"
         android:gravity="center"
         android:layout_marginBottom="30dp"

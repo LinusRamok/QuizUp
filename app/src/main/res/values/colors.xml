@@ -19,6 +19,11 @@
     <color name="guestColor">#F8CF26</color>
     <color name="playButton">#00E676</color>
     <color name="colorAccentFaded">#77f92672</color>
+    <color name="progressColor1">#3d5afe</color>
+    <color name="progressColor2">#e91e63</color>
+    <color name="progressColor3">@color/correctAnswer</color>
+    <color name="progressColor4">#ff0000</color>
+    <color name="currentGameStats">#fca831</color>
     <array name="scoreColor">
         <item>#ff0000</item>
         <item>#F73554</item>
@@ -42,10 +47,10 @@
         <item>#2ebc565d</item>
     </array>
     <array name="progressColor">
-        <item>#3d5afe</item>
-        <item>#e91e63</item>
-        <item>@color/correctAnswer</item>
-        <item>@color/wrongAnswer</item>
+        <item>@color/progressColor1</item>
+        <item>@color/progressColor2</item>
+        <item>@color/progressColor3</item>
+        <item>@color/progressColor4</item>
     </array>
     <color name="dotsGeneralColor">#55ffffff</color>
 </resources>

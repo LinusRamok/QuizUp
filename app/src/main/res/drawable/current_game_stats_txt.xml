@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_enabled="true">
+        <layer-list>
+            <item>
+                <!--This is the border of background-->
+                <shape android:shape="rectangle">
+                    <corners android:topLeftRadius="@dimen/gameButtonBackgroundRadius"
+                        android:topRightRadius="@dimen/gameButtonBackgroundRadius"/>
+                    <stroke
+                        android:width="@dimen/gameButtonBackgroundStroke"
+                        android:color="@color/textColorSecondary" />
+                    <solid android:color="@color/textColorSecondary" />
+                </shape>
+            </item>
+
+            <item
+                android:top="@dimen/gameButtonBackgroundStroke"
+                android:left="@dimen/gameButtonBackgroundStroke"
+                android:right="@dimen/gameButtonBackgroundStroke">
+                <!--This is the background color-->
+                <shape android:shape="rectangle">
+                    <padding android:left="@dimen/gameButtonBackgroundPadding"
+                        android:top="@dimen/gameButtonBackgroundPadding"
+                        android:right="@dimen/gameButtonBackgroundPadding"
+                        android:bottom="@dimen/gameButtonBackgroundPadding" />
+                    <corners android:topLeftRadius="@dimen/gameButtonBackgroundRadius"
+                        android:topRightRadius="@dimen/gameButtonBackgroundRadius"/>
+                    <stroke
+                        android:width="@dimen/gameButtonBackgroundStroke"
+                        android:color="@color/windowBackground" />
+                    <solid android:color="@color/windowBackground" />
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+
+</selector>

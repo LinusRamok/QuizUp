@@ -3,6 +3,8 @@ package com.example.kamlesh.frd;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -55,13 +57,19 @@ public class LoginActivity extends AppCompatActivity implements UrlUpdateChecker
     FirebaseAuth.AuthStateListener mAuthListener;
     final static int RC_SIGN_IN = 2;
     static GoogleApiClient mGoogleSignInClient;
-    SharedPreferences prefs;
+    SharedPreferences prefs,prefs2;
     ProgressDialog dialog;
-    static String URLprefix;
+    static String URLprefix="skjhhjunil";
+//     SQLiteDatabase db;
     @Override
     public void onUpdateNeeded(String updateUrl) {
         URLprefix=updateUrl;
         System.out.println("url update"+URLprefix);
+//        Toast.makeText(this, "url update"+URLprefix, Toast.LENGTH_SHORT).show();
+//        db=openOrCreateDatabase("Url",MODE_PRIVATE,null);
+//        String m0="update urltable set urlvalue = '"+updateUrl+"' where sno ='1'";
+//        db.execSQL(m0);
+
     }
 
     @Override
@@ -112,7 +120,7 @@ public class LoginActivity extends AppCompatActivity implements UrlUpdateChecker
         indicator.setViewPager(viewPager);
         viewPager.setPageMargin(12);
         viewPager.setOffscreenPageLimit(2);
-
+//        db=openOrCreateDatabase("Url",MODE_PRIVATE,null);
         UrlUpdateChecker.with(this).onUrlUpdateNeeded(this).check();
 
         facebookLogin = (LinearLayout) findViewById(R.id.facebookLogin);
@@ -120,9 +128,25 @@ public class LoginActivity extends AppCompatActivity implements UrlUpdateChecker
         guestLogin = (LinearLayout) findViewById(R.id.guestLogin);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
+        prefs2 =getSharedPreferences("com.example.kamlesh.frd;", MODE_PRIVATE);
         dialog = new ProgressDialog(LoginActivity.this);
 
+        if (prefs2.getBoolean("firstrun",true))
+        {
+            URLprefix="https://quizgame-backend.appspot.com/_ah/api/myapi/v1/";
+//            String tm="create table if not exists urltable(sno varchar(2),urlvalue varchar(80))";
+//            db.execSQL(tm);
+//
+//            String mo="insert into urltable values('1','https://quizgame-backend.appspot.com/_ah/api/myapi/v1/')";
+//            db.execSQL(mo);
+//
+//            prefs.edit().putBoolean("firstrun", false).apply();
+        }
+//        String m1="select * from urltable";
+//        Cursor c=db.rawQuery(m1,null);
+//        c.moveToNext();
+//        URLprefix=c.getString(1);
+//        Toast.makeText(this, "url value "+URLprefix, Toast.LENGTH_SHORT).show();
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -162,7 +186,7 @@ public class LoginActivity extends AppCompatActivity implements UrlUpdateChecker
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                         }
-                        String regPlayer = "https://quizgame-backend.appspot.com/_ah/api/myapi/v1/RegPlayer?PID=" + user.getUid() + "&Name=" + DispName + "&pic_url=" + user.getPhotoUrl();
+                        String regPlayer = URLprefix+"RegPlayer?PID=" + user.getUid() + "&Name=" + DispName + "&pic_url=" + user.getPhotoUrl();
 
 
                         RegisterPlayerAsync reg = new RegisterPlayerAsync();

@@ -52,7 +52,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
     //10 is for that 50-50perk is not used otherwise qadetails[8] shows the no. of que in which this perk was used
     TextView optionA, optionB, optionC, optionD, perk1, perk2;
     boolean perk_one_isclickable=true, perk_one_isCliked=false, perk_two_isClicked =false, perk_two_isclickable=true;
-    boolean optionA_isClickable=true, optionB_isClickable=true, optionC_isClickable=true, optionD_isClickable=true;
+    boolean optionA_isClickable=true, optionB_isClickable=true, optionC_isClickable=true, optionD_isClickable=true,perk_two_pass=false;
     TextView question, questionNumber, secondsText, score, scoreText, timerText, changeInScore;
     Button quitGame;
     boolean isDialogOpen=false;
@@ -167,6 +167,14 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         jsonString = getIntent().getStringExtra("jsonobj");
         obj=new Gson().fromJson(jsonString , QuestionsApi.class);
         q_and_a= obj.getQuestionlist();
+
+        //linus ramok k debugging k liye hai niche ka for loop... usme ungli na kare...
+
+        for(int p=0;p<8;p++)
+        {
+            System.out.println("Answer "+p+" :"+q_and_a.get(p).getAnswer());
+        }
+
         qnoForPerk[0]=9;
         qnoForPerk[1]=9;
         for(int x=0; x<7; x++)
@@ -190,19 +198,27 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
         switch (tv.getId()) {
             case R.id.optionA:
-                if (optionA_isClickable)
+                if (perk_two_pass && optionA_isClickable )
+                    optionsAfterClickedMethod("A",7);
+                else if (optionA_isClickable)
                     optionsAfterClickedMethod("A",i);
                 break;
             case R.id.optionB:
-                if (optionB_isClickable)
+                if (perk_two_pass && optionB_isClickable)
+                    optionsAfterClickedMethod("B",7);
+                else if (optionB_isClickable)
                     optionsAfterClickedMethod("B",i);
                 break;
             case R.id.optionC:
-                if (optionC_isClickable)
+                if (perk_two_pass && optionC_isClickable)
+                    optionsAfterClickedMethod("C",7);
+                else if (optionC_isClickable)
                     optionsAfterClickedMethod("C",i);
                 break;
             case R.id.optionD:
-                if (optionD_isClickable)
+                if (perk_two_pass && optionD_isClickable)
+                    optionsAfterClickedMethod("D",7);
+                else if (optionD_isClickable)
                     optionsAfterClickedMethod("D",i);
                 break;
             case R.id.perk1:
@@ -275,101 +291,44 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
     }
 
-    public void optionsAfterClickedMethod(final String ans, final int k)
-    {
+    public void optionsAfterClickedMethod(final String ans, final int k) {
         stopTimer();
-        if(isTimerStarted==false && secondsPassed != 0.0) {
+        if (isTimerStarted == false && secondsPassed != 0.0) {
             double currentStoppedTime = Double.parseDouble(secondsText.getText().toString());
             calculateTimeForEachQues(currentStoppedTime);
         }
 
 
-        if(k<7)
-            if (ans.equals(q_and_a.get(k).getAnswer()))
-            {
+        if (k < 7) {
+            if (ans.equals(q_and_a.get(k).getAnswer())) {
                 //whatever animation to be applied if answer is correct
                 calculateScore(i, "Correct Answer");
                 dotsAndLinesSetup("Correct Answer");
                 checkForCorrectAnswer(i, "Correct Answer");
 
-                if(ans=="A")
-                {
+                if (ans == "A") {
                     optionA.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
-                }
-                else if(ans=="B")
-                {
+                } else if (ans == "B") {
                     optionB.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
-                }
-                else if(ans=="C")
-                {
+                } else if (ans == "C") {
                     optionC.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
-                }
-                else if(ans=="D")
-                {
+                } else if (ans == "D") {
                     optionD.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
                 }
                 setAllOptionsClickable(false);
 
-                if(!perk_one_isCliked)
-                {
-                    perk_one_isclickable=false;
+                if (!perk_one_isCliked) {
+                    perk_one_isclickable = false;
                 }
-                if(!perk_two_isClicked)
-                {
-                    perk_two_isclickable=false;
+                if (!perk_two_isClicked) {
+                    perk_two_isclickable = false;
                 }
-                if ((++i)<7) {
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            setQuestionsAndOptions(i);
-                            optionA.setBackground(getResources().getDrawable(R.drawable.option_background));
-                            optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
-                            optionC.setBackground(getResources().getDrawable(R.drawable.option_background));
-                            optionD.setBackground(getResources().getDrawable(R.drawable.option_background));
-                            setAllOptionsClickable(true);
-                            if (!perk_one_isCliked) {
-                                perk_one_isclickable = true;
-                            }
-                            if (!perk_two_isClicked) {
-                                perk_two_isclickable = true;
-                            }
-                        }
-                    }, 1500);
+                if ((++i) < 7) {
+                    nextQuestionhandler();
+                } else {
+                    GamePlayTOAfterGameIntentHandler();
                 }
-                else
-                {
-                    calculateTimeForEachQues(Double.parseDouble(secondsText.getText().toString()));
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            finalscore= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6];
-                            if(finalscore<0)
-                                finalscore=0;
-                            Intent i=new Intent(GamePlay.this,AfterGame.class);
-                            i.putExtra("QuestionAndAnswers",jsonString);
-                            i.putExtra("userAnswers",qadetails);
-                            i.putExtra("TimerValues",timeForEachQues);
-                            i.putExtra("scoreArray",scoreArray);
-                            i.putExtra("Score",finalscore);
-                            i.putExtra("perkvalues",qnoForPerk);
-                            i.putExtra("totalTime", totalTimeTaken);
-                            //intent Topic name/
-                            i.putExtra("topic_name",top);
-                            i.putExtra("topic_url",url);
-                            System.out.println("the final score is :"+finalscore);
-                            System.out.println("the qadetails array is:"+qadetails[0]+" "+qadetails[1]+" "+qadetails[2]+" "+qadetails[3]+" "+qadetails[4]+" "+qadetails[5]+" "+qadetails[6]+" ");
-                            System.out.println("the score Array is :"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" ");
-                            System.out.println("the timer array is :" +timeForEachQues[0]+" "+timeForEachQues[1]+" "+timeForEachQues[2]+" "+timeForEachQues[3]+" "+timeForEachQues[4]+" "+timeForEachQues[5]+" "+timeForEachQues[6]+" ");
-                            startActivity(i);
-                        }
-                    }, 1500);
-                }}
-
-            else
-            {
+            } else {
                 //whatever animation to be applied if animation is wrong
                 checkForCorrectAnswer(i, "Wrong Answer");
                 dotsAndLinesSetup("Wrong Answer");
@@ -402,55 +361,132 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
                     perk_two_isclickable = false;
                 }
                 if ((++i) < 7) {
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            setQuestionsAndOptions(i);
-                            optionA.setBackground(getResources().getDrawable(R.drawable.option_background));
-                            optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
-                            optionC.setBackground(getResources().getDrawable(R.drawable.option_background));
-                            optionD.setBackground(getResources().getDrawable(R.drawable.option_background));
-                            setAllOptionsClickable(true);
-                            if (!perk_one_isCliked) {
-                                perk_one_isclickable = true;
-                            }
-                            if (!perk_two_isClicked) {
-                                perk_two_isclickable = true;
-                            }
-                        }
-                    }, 1500);
-                } else
-                {
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            calculateTimeForEachQues(Double.parseDouble(secondsText.getText().toString()));
-                            finalscore= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6];
-                            if(finalscore<0)
-                                    finalscore=0;
-                            Intent i=new Intent(GamePlay.this,AfterGame.class);
-                            i.putExtra("QuestionAndAnswers",jsonString);
-                            i.putExtra("userAnswers",qadetails);
-                            i.putExtra("TimerValues",timeForEachQues);
-                            i.putExtra("scoreArray",scoreArray);
-                            i.putExtra("Score",finalscore);
-                            i.putExtra("perkvalues",qnoForPerk);
-                            i.putExtra("totalTime", totalTimeTaken);
-                            //Intent Topic name
-                            i.putExtra("topic_name",top);
-                            i.putExtra("topic_url",url);
-                            System.out.println("the final score is :"+finalscore);
-                            System.out.println("the qadetails array is:"+qadetails[0]+" "+qadetails[1]+" "+qadetails[2]+" "+qadetails[3]+" "+qadetails[4]+" "+qadetails[5]+" "+qadetails[6]+" ");
-                            System.out.println("the score Array is :"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" ");
-                            System.out.println("the timer array is :" +timeForEachQues[0]+" "+timeForEachQues[1]+" "+timeForEachQues[2]+" "+timeForEachQues[3]+" "+timeForEachQues[4]+" "+timeForEachQues[5]+" "+timeForEachQues[6]+" ");
-                            startActivity(i);
-                        }
-                    }, 1500);
+                    nextQuestionhandler();
+                } else {
+                    GamePlayTOAfterGameIntentHandler();
                 }
             }
+        } else if (k == 7) {
+            perk_two_pass=false;
+            if (ans.equals(q_and_a.get(k).getAnswer())) {
+                //whatever animation to be applied if answer is correct
+                calculateScore(i, "Correct Answer");
+                dotsAndLinesSetup("Correct Answer");
+                checkForCorrectAnswer(i, "Correct Answer");
+
+                if (ans == "A") {
+                    optionA.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+                } else if (ans == "B") {
+                    optionB.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+                } else if (ans == "C") {
+                    optionC.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+                } else if (ans == "D") {
+                    optionD.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+                }
+                setAllOptionsClickable(false);
+
+                if (!perk_one_isCliked) {
+                    perk_one_isclickable = false;
+                }
+                if (!perk_two_isClicked) {
+                    perk_two_isclickable = false;
+                }
+                if ((++i) < 7) {
+                    nextQuestionhandler();
+                } else {
+                    GamePlayTOAfterGameIntentHandler();
+                }
+            } else {
+                //whatever animation to be applied if animation is wrong
+                checkForCorrectAnswer(i, "Wrong Answer");
+                dotsAndLinesSetup("Wrong Answer");
+
+                if (ans == "A") {
+                    optionA.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
+                } else if (ans == "B") {
+                    optionB.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
+                } else if (ans == "C") {
+                    optionC.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
+                } else if (ans == "D") {
+                    optionD.setBackground(getResources().getDrawable(R.drawable.wrong_answer_background));
+                }
+
+
+                if (q_and_a.get(k).getAnswer().contains("A")) {
+                    optionA.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+                } else if (q_and_a.get(k).getAnswer().contains("B")) {
+                    optionB.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+                } else if (q_and_a.get(k).getAnswer().contains("C")) {
+                    optionC.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+                } else if (q_and_a.get(k).getAnswer().contains("D")) {
+                    optionD.setBackground(getResources().getDrawable(R.drawable.correct_answer_background));
+                }
+                setAllOptionsClickable(false);
+                if (!perk_one_isCliked) {
+                    perk_one_isclickable = false;
+                }
+                if (!perk_two_isClicked) {
+                    perk_two_isclickable = false;
+                }
+                if ((++i) < 7) {
+                    nextQuestionhandler();
+                } else {
+                    GamePlayTOAfterGameIntentHandler();
+                }
+            }
+        }
+    }
+    public void nextQuestionhandler()
+    {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setQuestionsAndOptions(i);
+                optionA.setBackground(getResources().getDrawable(R.drawable.option_background));
+                optionB.setBackground(getResources().getDrawable(R.drawable.option_background));
+                optionC.setBackground(getResources().getDrawable(R.drawable.option_background));
+                optionD.setBackground(getResources().getDrawable(R.drawable.option_background));
+                setAllOptionsClickable(true);
+                if (!perk_one_isCliked) {
+                    perk_one_isclickable = true;
+                }
+                if (!perk_two_isClicked) {
+                    perk_two_isclickable = true;
+                }
+            }
+        }, 1500);
+    }
+
+    public void GamePlayTOAfterGameIntentHandler()
+    {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                calculateTimeForEachQues(Double.parseDouble(secondsText.getText().toString()));
+                finalscore= scoreArray[0]+scoreArray[1]+scoreArray[2]+scoreArray[3]+scoreArray[4]+scoreArray[5]+scoreArray[6];
+                if(finalscore<0)
+                    finalscore=0;
+                Intent i=new Intent(GamePlay.this,AfterGame.class);
+                i.putExtra("QuestionAndAnswers",jsonString);
+                i.putExtra("userAnswers",qadetails);
+                i.putExtra("TimerValues",timeForEachQues);
+                i.putExtra("scoreArray",scoreArray);
+                i.putExtra("Score",finalscore);
+                i.putExtra("perkvalues",qnoForPerk);
+                i.putExtra("totalTime", totalTimeTaken);
+                //Intent Topic name
+                i.putExtra("topic_name",top);
+                i.putExtra("topic_url",url);
+                System.out.println("the final score is :"+finalscore);
+                System.out.println("the qadetails array is:"+qadetails[0]+" "+qadetails[1]+" "+qadetails[2]+" "+qadetails[3]+" "+qadetails[4]+" "+qadetails[5]+" "+qadetails[6]+" ");
+                System.out.println("the score Array is :"+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]+" ");
+                System.out.println("the timer array is :" +timeForEachQues[0]+" "+timeForEachQues[1]+" "+timeForEachQues[2]+" "+timeForEachQues[3]+" "+timeForEachQues[4]+" "+timeForEachQues[5]+" "+timeForEachQues[6]+" ");
+                startActivity(i);
+            }
+        }, 1500);
     }
 
     public void perk_one(int k)
@@ -508,6 +544,7 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
         optionD.setText(q_and_a.get(7).getD());
         perk_two_isClicked =true;
         perk_two_isclickable=false;
+        perk_two_pass=true;
 
     }
 

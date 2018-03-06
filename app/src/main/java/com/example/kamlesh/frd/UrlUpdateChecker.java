@@ -2,6 +2,7 @@ package com.example.kamlesh.frd;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,7 +18,6 @@ public class UrlUpdateChecker {
 
     public static final String URL_UPDATE_REQUIRED = "url_update_required";
     public static final String UPDATED_URL = "updated_url";
-
     private UrlUpdateChecker.OnUrlUpdateNeededListener onUrlUpdateNeededListener;
     private Context context;
 
@@ -34,14 +34,14 @@ public class UrlUpdateChecker {
         this.context = context;
         this.onUrlUpdateNeededListener = onUrlUpdateNeededListener;
     }
-
     public void check() {
         final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
         System.out.println("function url");
+
         if (remoteConfig.getBoolean(URL_UPDATE_REQUIRED)) {
             String updateUrl = remoteConfig.getString(UPDATED_URL);
-            System.out.println("url"+updateUrl);
-            onUrlUpdateNeededListener.onUpdateNeeded(updateUrl);
+            System.out.println("url" + updateUrl);
+                onUrlUpdateNeededListener.onUpdateNeeded(updateUrl);
         }
     }
     

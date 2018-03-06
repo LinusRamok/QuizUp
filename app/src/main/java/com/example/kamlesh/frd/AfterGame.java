@@ -147,6 +147,18 @@ public class AfterGame extends AppCompatActivity {
         vpPager.setCurrentItem(item, smoothScroll);
     }
 
+    public float[] getTimerArray(){
+        float []timeArray = new float[7];
+        for(int i=0;i<7;i++) {
+            timeArray[i]=(float)TimeForEachQues[i];
+        }
+        return timeArray;
+    }
+
+    public int[] getScoreArray() {
+        return scoreArray;
+    }
+
     @Override
     public void onBackPressed() {
         if (vpPager.getCurrentItem() == 0) {

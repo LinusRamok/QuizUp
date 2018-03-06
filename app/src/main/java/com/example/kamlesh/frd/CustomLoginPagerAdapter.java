@@ -77,6 +77,6 @@ public class CustomLoginPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((LinearLayout) object);
+        container.removeView((RelativeLayout) object);
     }
 }

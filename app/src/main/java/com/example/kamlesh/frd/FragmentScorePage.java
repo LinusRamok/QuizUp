@@ -178,7 +178,6 @@ public class FragmentScorePage extends Fragment {
                 homeIntent.addCategory( Intent.CATEGORY_HOME );
                 homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(homeIntent);
-                getActivity().finish();
             }
         });
 

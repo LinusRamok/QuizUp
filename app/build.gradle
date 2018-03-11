@@ -65,6 +65,8 @@ dependencies {
     compile 'com.github.lzyzsd:circleprogress:1.2.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     //MPAndroidChart, link: https://github.com/PhilJay/MPAndroidChart
+    compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+    //SmartTabLayout, link: https://github.com/ogaclejapan/SmartTabLayout
 
 }
 

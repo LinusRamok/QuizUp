@@ -88,6 +88,7 @@ public class AfterGame extends AppCompatActivity {
         bundle1.putIntArray("scoreArray",scoreArray);
         bundle1.putFloatArray("timeArray", timeArray);
         bundle1.putFloat("totalTime", totalTimeF);
+        bundle1.putIntArray("userAnswers",ans);
 
         //setting up vertical view pager
         vpPager = (CustomVerticalViewPager) findViewById(R.id.vpPager);
@@ -147,18 +148,6 @@ public class AfterGame extends AppCompatActivity {
         vpPager.setCurrentItem(item, smoothScroll);
     }
 
-    public float[] getTimerArray(){
-        float []timeArray = new float[7];
-        for(int i=0;i<7;i++) {
-            timeArray[i]=(float)TimeForEachQues[i];
-        }
-        return timeArray;
-    }
-
-    public int[] getScoreArray() {
-        return scoreArray;
-    }
-
     @Override
     public void onBackPressed() {
         if (vpPager.getCurrentItem() == 0) {
@@ -172,4 +161,6 @@ public class AfterGame extends AppCompatActivity {
             setCurrentitem((vpPager.getCurrentItem()-1), true);
         }
     }
+
+
 }

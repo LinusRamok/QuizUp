@@ -24,6 +24,10 @@
     <color name="progressColor3">@color/correctAnswer</color>
     <color name="progressColor4">#ff0000</color>
     <color name="currentGameStats">#fca831</color>
+    <color name="dotsGeneralColor">#55ffffff</color>
+    <color name="chartScoreColor">@color/colorPrimary</color>
+    <color name="chartTimeColor">@color/colorAccent</color>
+
     <array name="scoreColor">
         <item>#ff0000</item>
         <item>#F73554</item>
@@ -52,5 +56,4 @@
         <item>@color/progressColor3</item>
         <item>@color/progressColor4</item>
     </array>
-    <color name="dotsGeneralColor">#55ffffff</color>
 </resources>

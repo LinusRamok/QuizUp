@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@color/colorPrimaryDark">
+
+    <LinearLayout
+        android:id="@+id/aboveLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:background="@drawable/game_analysis_st"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score : "
+                android:textColor="@color/textColorPrimary"
+                android:textSize="@dimen/smallTextSize"
+                android:textAllCaps="true"/>
+            <TextView
+                android:id="@+id/currentScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/mediumTextSize"
+                android:textColor="@color/textColorPrimary"
+                android:text="0"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time : "
+                android:textSize="@dimen/smallTextSize"
+                android:textColor="@color/textColorPrimary"
+                android:textAllCaps="true"/>
+            <TextView
+                android:id="@+id/currentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/mediumTextSize"
+                android:textColor="@color/textColorPrimary"
+                android:text="0"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/midLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/aboveLayout">
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:background="@color/textColorPrimary"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="70dp"/>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:background="@color/textColorPrimary"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="70dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/midLayout"
+        android:background="@drawable/game_analysis_qna"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="8dp">
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/smallTextSize"
+            android:text="Question : "
+            android:textAllCaps="true"
+            android:textColor="@color/textColorSecondary"
+            android:layout_alignParentTop="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Correct Option : "
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="@dimen/smallTextSize"
+                    android:textAllCaps="true"/>
+                <TextView
+                    android:id="@+id/correctOption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/mediumTextSize"
+                    android:textColor="@color/textColorPrimary" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/smallTextSize"
+                android:text="Answer : "
+                android:textAllCaps="true"
+                android:textColor="@color/textColorSecondary"
+                android:layout_alignParentTop="true"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

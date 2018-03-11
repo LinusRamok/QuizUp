@@ -286,7 +286,9 @@ public class ScorePageActivity extends AppCompatActivity {
         lists = (RecyclerView) findViewById(R.id.recycler1);
         lists.setLayoutManager(new LinearLayoutManager(this));
         StartSmartAnimation.startAnimation( findViewById(R.id.recycler1) , AnimationType.SlideInUp,5000, 00 ,true );
-//listview questions and answers
+
+
+        //listview questions and answers
 
         System.out.println("DATA................."+questionsAndAnswers);
 

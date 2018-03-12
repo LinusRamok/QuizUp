@@ -1,32 +1,18 @@
+
 package com.example.kamlesh.frd.Models;
 
-/**
- * Created by linus on 06-01-2018.
- */
-
 import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class QuestionsApi {
 
+    @SerializedName("topic")
+    @Expose
     private String topic;
+    @SerializedName("questionlist")
+    @Expose
     private List<Questionlist> questionlist = null;
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public QuestionsApi() {
-    }
-
-    /**
-     *
-     * @param topic
-     * @param questionlist
-     */
-    public QuestionsApi(String topic, List<Questionlist> questionlist) {
-        super();
-        this.topic = topic;
-        this.questionlist = questionlist;
-    }
 
     public String getTopic() {
         return topic;

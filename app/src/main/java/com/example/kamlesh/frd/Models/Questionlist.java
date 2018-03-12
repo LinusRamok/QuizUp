@@ -1,36 +1,32 @@
+
 package com.example.kamlesh.frd.Models;
 
-/**
- * Created by linus on 06-01-2018.
- */
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-
-        
 public class Questionlist {
 
+    @SerializedName("QID")
+    @Expose
     private String qID;
+    @SerializedName("question")
+    @Expose
     private String question;
+    @SerializedName("a")
+    @Expose
     private String a;
+    @SerializedName("b")
+    @Expose
     private String b;
+    @SerializedName("c")
+    @Expose
     private String c;
+    @SerializedName("d")
+    @Expose
     private String d;
+    @SerializedName("answer")
+    @Expose
     private String answer;
-
-        
-    public Questionlist() {
-    }
-
-         
-    public Questionlist(String qID, String question, String a, String b, String c, String d, String answer) {
-        super();
-        this.qID = qID;
-        this.question = question;
-        this.a = a;
-        this.b = b;
-        this.c = c;
-        this.d = d;
-        this.answer = answer;
-    }
 
     public String getQID() {
         return qID;

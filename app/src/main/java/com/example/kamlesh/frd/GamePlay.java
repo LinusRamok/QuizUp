@@ -13,7 +13,6 @@ import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -170,11 +169,12 @@ public class GamePlay extends AppCompatActivity implements View.OnClickListener 
 
         //linus ramok k debugging k liye hai niche ka for loop... usme ungli na kare...
 
+        System.out.println("json data "+jsonString);
         for(int p=0;p<8;p++)
         {
             System.out.println("Answer "+p+" :"+q_and_a.get(p).getAnswer());
+            System.out.println(q_and_a.get(p).getQID());
         }
-
         qnoForPerk[0]=9;
         qnoForPerk[1]=9;
         for(int x=0; x<7; x++)

@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements UrlUpdateChecker
     SharedPreferences prefs,prefs2;
     ProgressDialog dialog;
     static String URLprefix="skjhhjunil";
+
 //     SQLiteDatabase db;
     @Override
     public void onUpdateNeeded(String updateUrl) {

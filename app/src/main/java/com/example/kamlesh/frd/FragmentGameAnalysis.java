@@ -43,10 +43,8 @@ public class FragmentGameAnalysis extends Fragment {
 
     private int page;
     LineChart chartScore, chartTime;
-    RadioGroup toggle;
-    RadioButton toggleScore, toggleTime;
     TextView textView9, textView10, textView11, textView12, graphType;
-    ViewPager viewPager;
+    ViewPager viewPager, graphViewPager;
     LinearLayout previousPage;
     int []scoreArray = new int[7];
     int []userAnswers = new int[7];
@@ -75,27 +73,17 @@ public class FragmentGameAnalysis extends Fragment {
 
     // Inflate the view for the fragment based on layout XML
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_game_analysis, container, false);
-        toggle = (RadioGroup)view.findViewById(R.id.toggle);
-        toggleScore = (RadioButton) view.findViewById(R.id.toggleScore);
-        toggleTime = (RadioButton)view.findViewById(R.id.toggleTime);
-        chartScore = (LineChart)view.findViewById(R.id.chartScore);
-        chartTime = (LineChart)view.findViewById(R.id.chartTime);
         textView9 = (TextView)view.findViewById(R.id.textView9);
-        textView10 = (TextView)view.findViewById(R.id.textView10);
-        textView11 = (TextView)view.findViewById(R.id.textView11);
-        textView12 = (TextView)view.findViewById(R.id.textView12);
-        graphType = (TextView)view.findViewById(R.id.textGraphType);
         viewPager = (ViewPager)view.findViewById(R.id.viewPager);
+        graphViewPager = (ViewPager)view.findViewById(R.id.graphViewPager);
         previousPage = (LinearLayout)view.findViewById(R.id.previousPage);
+        graphType = (TextView)view.findViewById(R.id.textGraphType);
 
         Typeface ourBoldFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/primebold.otf");
         Typeface ourLightFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/primelight.otf");
         textView9.setTypeface(ourLightFont);
-        textView10.setTypeface(ourLightFont);
-        textView11.setTypeface(ourLightFont);
-        textView12.setTypeface(ourLightFont);
         graphType.setTypeface(ourBoldFont);
 
         previousPage.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +98,7 @@ public class FragmentGameAnalysis extends Fragment {
         int x = location[0];
         int y = location[1];*/
 
-        viewPager.setAdapter(new MyPagerAdapter(getActivity().getApplicationContext(),scoreArray,timeArray));
+        viewPager.setAdapter(new ReviewQuestionsPagerAdapter(getActivity().getApplicationContext(),scoreArray,timeArray));
         viewPager.setPageMargin(12);
         final SmartTabLayout viewPagerTab = (SmartTabLayout) view.findViewById(R.id.viewpagertab);
         if (userAnswers[0] == 1)
@@ -134,114 +122,28 @@ public class FragmentGameAnalysis extends Fragment {
         });
         viewPagerTab.setViewPager(viewPager);
 
-        setDataForScore();
-        Legend legend1 = chartScore.getLegend();
-        legend1.setForm(Legend.LegendForm.LINE);
-        setDataForTime();
-        Legend legend2 = chartTime.getLegend();
-        legend2.setForm(Legend.LegendForm.LINE);
-
-        chartScore.setTouchEnabled(true);
-        chartScore.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-        chartScore.setDrawBorders(false);
-        chartScore.setBorderColor(getResources().getColor(R.color.textColorSecondary));
-        chartScore.setBorderWidth(1f);
-        chartScore.setPinchZoom(false);
-        chartScore.setDoubleTapToZoomEnabled(false);
-        chartScore.setScaleEnabled(false);
-        chartScore.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        chartScore.setDrawGridBackground(false);
-        chartScore.getXAxis().setDrawGridLines(false);
-        chartScore.getAxisLeft().setDrawGridLines(false);
-        chartScore.getAxisRight().setDrawGridLines(false);
-        chartScore.getAxisRight().setEnabled(false);
-        chartScore.getDescription().setEnabled(false);
-        //chartScore.getDescription().setText("Question-Score Graph");
-        //chartScore.getDescription().setTextColor(getResources().getColor(R.color.colorPrimary));
-        //chartScore.getDescription().setPosition(x+2,y+2);
-        chartScore.getData().setHighlightEnabled(true);
-        chartScore.getLegend().setEnabled(false);
-        chartScore.setHighlightPerDragEnabled(true);
-        chartScore.setHighlightPerTapEnabled(true);
-
-        chartTime.setTouchEnabled(true);
-        chartTime.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-        chartTime.setDrawBorders(false);
-        chartTime.setBorderColor(getResources().getColor(R.color.textColorSecondary));
-        chartTime.setBorderWidth(1f);
-        chartTime.setPinchZoom(false);
-        chartTime.setDoubleTapToZoomEnabled(false);
-        chartTime.setScaleEnabled(false);
-        chartTime.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        chartTime.setDrawGridBackground(false);
-        chartTime.getXAxis().setDrawGridLines(false);
-        chartTime.getAxisLeft().setDrawGridLines(false);
-        chartTime.getAxisRight().setDrawGridLines(false);
-        chartTime.getAxisRight().setEnabled(false);
-        chartTime.getDescription().setEnabled(false);
-        //chartTime.getDescription().setText("Question-Score Graph");
-        //chartTime.getDescription().setTextColor(getResources().getColor(R.color.colorPrimary));
-        //chartTime.getDescription().setPosition(x+2,y+2);
-        chartTime.getData().setHighlightEnabled(true);
-        chartTime.getLegend().setEnabled(false);
-        chartTime.setHighlightPerDragEnabled(true);
-        chartTime.setHighlightPerTapEnabled(true);
-
-        YAxis yAxisScore = chartScore.getAxisLeft();
-        yAxisScore.setEnabled(true);
-        yAxisScore.setAxisMinimum(0);
-        yAxisScore.setAxisMaximum(140);
-        yAxisScore.setGranularity(20);
-        yAxisScore.setTextColor(getResources().getColor(R.color.textColorPrimary));
-        yAxisScore.setTypeface(ourLightFont);
-
-        YAxis yAxisTime = chartTime.getAxisLeft();
-        yAxisTime.setEnabled(true);
-        yAxisTime.setAxisMinimum(0);
-        yAxisTime.setAxisMaximum(totalTime+5);
-        yAxisTime.setGranularity((totalTime+5)/7);
-        yAxisTime.setTextColor(getResources().getColor(R.color.textColorPrimary));
-        yAxisTime.setValueFormatter(new YAxisTimeValueFormater());
-        yAxisTime.setTypeface(ourLightFont);
-
-        XAxis xAxisScore = chartScore.getXAxis();
-        xAxisScore.setEnabled(true);
-        xAxisScore.setAxisMinimum(0.7f);
-        xAxisScore.setAxisMaximum(7.3f);
-        xAxisScore.setTextColor(getResources().getColor(R.color.textColorPrimary));
-        xAxisScore.setTypeface(ourLightFont);
-
-        XAxis xAxisTime = chartTime.getXAxis();
-        xAxisTime.setEnabled(true);
-        xAxisTime.setAxisMinimum(0.7f);
-        xAxisTime.setAxisMaximum(7.3f);
-        xAxisTime.setTextColor(getResources().getColor(R.color.textColorPrimary));
-        xAxisTime.setTypeface(ourLightFont);
+        graphViewPager.setAdapter(new GraphPagerAdapter(getActivity().getApplicationContext()));
+        graphViewPager.setPageMargin(12);
+        final SmartTabLayout viewPagerTab1 = (SmartTabLayout) view.findViewById(R.id.viewpagertab1);
+        graphViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0)
+                    viewPagerTab1.setSelectedIndicatorColors(getResources().getColor(R.color.chartScoreColor));
+                else if (position == 1)
+                    viewPagerTab1.setSelectedIndicatorColors(getResources().getColor(R.color.chartTimeColor));
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+        viewPagerTab1.setViewPager(graphViewPager);
 
         System.out.println("scoreArray = "+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]);
         System.out.println("timeArray = "+timeArray[0]+" "+timeArray[1]+" "+timeArray[2]+" "+timeArray[3]+" "+timeArray[4]+" "+timeArray[5]+" "+timeArray[6]);
-
-        toggle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                if(checkedId == toggleScore.getId()) {
-                    chartScore.setVisibility(View.VISIBLE);
-                    chartTime.setVisibility(View.GONE);
-                    textView10.setVisibility(View.VISIBLE);
-                    textView11.setVisibility(View.GONE);
-                    toggleScore.setBackground(getResources().getDrawable(R.drawable.toggle_score_selector));
-                    toggleTime.setBackground(getResources().getDrawable(R.drawable.toggle_score_selector));
-                }
-                else if (checkedId == toggleTime.getId()) {
-                    chartTime.setVisibility(View.VISIBLE);
-                    chartScore.setVisibility(View.GONE);
-                    textView11.setVisibility(View.VISIBLE);
-                    textView10.setVisibility(View.GONE);
-                    toggleScore.setBackground(getResources().getDrawable(R.drawable.toggle_time_selector));
-                    toggleTime.setBackground(getResources().getDrawable(R.drawable.toggle_time_selector));
-                }
-            }
-        });
 
         return view;
     }
@@ -366,7 +268,7 @@ public class FragmentGameAnalysis extends Fragment {
         }
     }
 
-    public class MyPagerAdapter extends PagerAdapter {
+    public class ReviewQuestionsPagerAdapter extends PagerAdapter {
 
         Context mContext;
         LayoutInflater mLayoutInflater;
@@ -382,7 +284,7 @@ public class FragmentGameAnalysis extends Fragment {
                 "7",
         };
 
-        public MyPagerAdapter(Context context, int[] score, float[] time) {
+        public ReviewQuestionsPagerAdapter(Context context, int[] score, float[] time) {
             mContext = context;
             mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mScore = score;
@@ -391,7 +293,7 @@ public class FragmentGameAnalysis extends Fragment {
 
         @Override
         public int getCount() {
-            return 7;
+            return pageTitle.length;
         }
 
         @Override
@@ -442,6 +344,160 @@ public class FragmentGameAnalysis extends Fragment {
                 linearLayout1.setBackground(mWrappedDrawable2);
             }
 
+            container.addView(itemView);
+
+            return itemView;
+        }
+
+        @Override
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+            container.removeView((RelativeLayout) object);
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return pageTitle[position];
+        }
+    }
+
+    public class GraphPagerAdapter extends PagerAdapter {
+
+        Context mContext;
+        LayoutInflater mLayoutInflater;
+        String[] pageTitle = {
+                "Score",
+                "Time",
+        };
+
+        public GraphPagerAdapter(Context context) {
+            mContext = context;
+            mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getCount() {
+            return pageTitle.length;
+        }
+
+        @Override
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+            return view == ((RelativeLayout) object);
+        }
+
+        @NonNull
+        @Override
+        public Object instantiateItem(@NonNull ViewGroup container, int position) {
+            View itemView = mLayoutInflater.inflate(R.layout.pager_item_graph, container, false);
+            chartScore = (LineChart)itemView.findViewById(R.id.chartScore);
+            chartTime = (LineChart)itemView.findViewById(R.id.chartTime);
+            textView10 = (TextView)itemView.findViewById(R.id.textView10);
+            textView11 = (TextView)itemView.findViewById(R.id.textView11);
+            textView12 = (TextView)itemView.findViewById(R.id.textView12);
+
+
+            Typeface ourLightFont = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/primelight.otf");
+            Typeface ourBoldFont = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/primebold.otf");
+            textView10.setTypeface(ourLightFont);
+            textView11.setTypeface(ourLightFont);
+            textView12.setTypeface(ourLightFont);
+
+            setDataForScore();
+            Legend legend1 = chartScore.getLegend();
+            legend1.setForm(Legend.LegendForm.LINE);
+            setDataForTime();
+            Legend legend2 = chartTime.getLegend();
+            legend2.setForm(Legend.LegendForm.LINE);
+
+            chartScore.setTouchEnabled(true);
+            chartScore.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            chartScore.setDrawBorders(false);
+            chartScore.setBorderColor(getResources().getColor(R.color.textColorSecondary));
+            chartScore.setBorderWidth(1f);
+            chartScore.setPinchZoom(false);
+            chartScore.setDoubleTapToZoomEnabled(false);
+            chartScore.setScaleEnabled(false);
+            chartScore.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+            chartScore.setDrawGridBackground(false);
+            chartScore.getXAxis().setDrawGridLines(false);
+            chartScore.getAxisLeft().setDrawGridLines(false);
+            chartScore.getAxisRight().setDrawGridLines(false);
+            chartScore.getAxisRight().setEnabled(false);
+            chartScore.getDescription().setEnabled(false);
+            //chartScore.getDescription().setText("Question-Score Graph");
+            //chartScore.getDescription().setTextColor(getResources().getColor(R.color.colorPrimary));
+            //chartScore.getDescription().setPosition(x+2,y+2);
+            chartScore.getData().setHighlightEnabled(true);
+            chartScore.getLegend().setEnabled(false);
+            chartScore.setHighlightPerDragEnabled(true);
+            chartScore.setHighlightPerTapEnabled(true);
+
+            chartTime.setTouchEnabled(true);
+            chartTime.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            chartTime.setDrawBorders(false);
+            chartTime.setBorderColor(getResources().getColor(R.color.textColorSecondary));
+            chartTime.setBorderWidth(1f);
+            chartTime.setPinchZoom(false);
+            chartTime.setDoubleTapToZoomEnabled(false);
+            chartTime.setScaleEnabled(false);
+            chartTime.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+            chartTime.setDrawGridBackground(false);
+            chartTime.getXAxis().setDrawGridLines(false);
+            chartTime.getAxisLeft().setDrawGridLines(false);
+            chartTime.getAxisRight().setDrawGridLines(false);
+            chartTime.getAxisRight().setEnabled(false);
+            chartTime.getDescription().setEnabled(false);
+            //chartTime.getDescription().setText("Question-Score Graph");
+            //chartTime.getDescription().setTextColor(getResources().getColor(R.color.colorPrimary));
+            //chartTime.getDescription().setPosition(x+2,y+2);
+            chartTime.getData().setHighlightEnabled(true);
+            chartTime.getLegend().setEnabled(false);
+            chartTime.setHighlightPerDragEnabled(true);
+            chartTime.setHighlightPerTapEnabled(true);
+
+            YAxis yAxisScore = chartScore.getAxisLeft();
+            yAxisScore.setEnabled(true);
+            yAxisScore.setAxisMinimum(0);
+            yAxisScore.setAxisMaximum(140);
+            yAxisScore.setGranularity(20);
+            yAxisScore.setTextColor(getResources().getColor(R.color.textColorPrimary));
+            yAxisScore.setTypeface(ourLightFont);
+
+            YAxis yAxisTime = chartTime.getAxisLeft();
+            yAxisTime.setEnabled(true);
+            yAxisTime.setAxisMinimum(0);
+            yAxisTime.setAxisMaximum(totalTime+5);
+            yAxisTime.setGranularity((totalTime+5)/7);
+            yAxisTime.setTextColor(getResources().getColor(R.color.textColorPrimary));
+            yAxisTime.setValueFormatter(new YAxisTimeValueFormater());
+            yAxisTime.setTypeface(ourLightFont);
+
+            XAxis xAxisScore = chartScore.getXAxis();
+            xAxisScore.setEnabled(true);
+            xAxisScore.setAxisMinimum(0.7f);
+            xAxisScore.setAxisMaximum(7.3f);
+            xAxisScore.setTextColor(getResources().getColor(R.color.textColorPrimary));
+            xAxisScore.setTypeface(ourLightFont);
+
+            XAxis xAxisTime = chartTime.getXAxis();
+            xAxisTime.setEnabled(true);
+            xAxisTime.setAxisMinimum(0.7f);
+            xAxisTime.setAxisMaximum(7.3f);
+            xAxisTime.setTextColor(getResources().getColor(R.color.textColorPrimary));
+            xAxisTime.setTypeface(ourLightFont);
+
+            if (position == 0) {
+                chartScore.setVisibility(View.VISIBLE);
+                chartTime.setVisibility(View.GONE);
+                textView10.setVisibility(View.VISIBLE);
+                textView11.setVisibility(View.GONE);
+            }
+            else if (position == 1){
+                chartTime.setVisibility(View.VISIBLE);
+                chartScore.setVisibility(View.GONE);
+                textView11.setVisibility(View.VISIBLE);
+                textView10.setVisibility(View.GONE);
+            }
             container.addView(itemView);
 
             return itemView;

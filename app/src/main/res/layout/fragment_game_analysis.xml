@@ -41,115 +41,66 @@
         android:layout_below="@id/previousPage"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
-            android:layout_margin="10dp">
-            <TextView
-                android:id="@+id/textGraphType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Graph Type :"
-                android:textSize="15dp"
-                android:textColor="@color/textColorSecondary"
-                android:layout_marginRight="10dp"/>
-
-            <RadioGroup
-                android:id="@+id/toggle"
-                android:checkedButton="@id/toggleScore"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <RadioButton
-                    android:id="@+id/toggleScore"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Score"
-                    android:textAllCaps="true"
-                    android:textSize="@dimen/smallTextSize"
-                    android:textColor="@color/textColorPrimary"
-                    android:background="@drawable/toggle_score_selector"
-                    android:button="@null"
-                    android:gravity="center" />
-                <RadioButton
-                    android:id="@+id/toggleTime"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Time"
-                    android:textAllCaps="true"
-                    android:textSize="@dimen/smallTextSize"
-                    android:textColor="@color/textColorPrimary"
-                    android:background="@drawable/toggle_score_selector"
-                    android:button="@null"
-                    android:gravity="center" />
-            </RadioGroup>
-        </LinearLayout>
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_marginBottom="5dp">
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chartScore"
+            <LinearLayout
+                android:id="@+id/typeLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible"
-                android:layout_above="@id/textView12"
-                android:layout_toEndOf="@id/textView10"/>
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:layout_margin="10dp">
+                <TextView
+                    android:id="@+id/textGraphType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Graph Type :"
+                    android:textSize="15dp"
+                    android:textColor="@color/textColorSecondary"
+                    android:layout_marginRight="10dp"/>
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chartTime"
+                <com.ogaclejapan.smarttablayout.SmartTabLayout
+                    android:id="@+id/viewpagertab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    app:stl_indicatorAlwaysInCenter="false"
+                    app:stl_indicatorWithoutPadding="false"
+                    app:stl_indicatorInFront="false"
+                    app:stl_indicatorInterpolation="smart"
+                    app:stl_indicatorGravity="center"
+                    app:stl_indicatorColor="@color/chartScoreColor"
+                    app:stl_indicatorThickness="20dp"
+                    app:stl_indicatorCornerRadius="@dimen/activity_vertical_margin"
+                    app:stl_indicatorWidth="auto"
+                    app:stl_overlineColor="#ff000000"
+                    app:stl_overlineThickness="5dp"
+                    app:stl_underlineColor="#ff000000"
+                    app:stl_underlineThickness="5dp"
+                    app:stl_dividerColor="#00000000"
+                    app:stl_dividerThickness="5dp"
+                    app:stl_defaultTabBackground="?attr/selectableItemBackground"
+                    app:stl_defaultTabTextAllCaps="false"
+                    app:stl_defaultTabTextColor="@color/tab_text"
+                    app:stl_defaultTabTextSize="@dimen/mediumTextSize"
+                    app:stl_defaultTabTextHorizontalPadding="16dp"
+                    app:stl_defaultTabTextMinWidth="0dp"
+                    app:stl_distributeEvenly="true"
+                    app:stl_clickable="true"
+                    app:stl_titleOffset="24dp"
+                    app:stl_drawDecorationAfterTab="false" />
+            </LinearLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/graphViewPager"
+                android:layout_below="@id/typeLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                android:layout_above="@id/textView12"
-                android:layout_toEndOf="@id/textView11"/>
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_alignParentBottom="true"
-                android:textSize="14dp"
-                android:text="Question Number"
-                android:textColor="@color/textColorSecondary"
-                android:alpha="0.8"/>
-
-            <com.example.kamlesh.frd.ScorePagePOJO.CustomVerticalTextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_alignParentStart="true"
-                android:text="Score"
-                android:gravity="bottom"
-                android:textSize="14dp"
-                android:textColor="@color/chartScoreColor"
-                android:visibility="visible"/>
-
-            <com.example.kamlesh.frd.ScorePagePOJO.CustomVerticalTextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_alignParentStart="true"
-                android:text="Time (in sec)"
-                android:gravity="bottom"
-                android:textSize="14dp"
-                android:textColor="@color/chartTimeColor"
-                android:visibility="gone"/>
-
+                android:layout_height="match_parent">
+            </android.support.v4.view.ViewPager>
         </RelativeLayout>
 
 

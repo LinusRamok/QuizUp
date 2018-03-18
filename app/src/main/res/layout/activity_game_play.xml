@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:text="0.0"
                 android:layout_below="@id/timerText"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/timeColor"
                 android:textSize="@dimen/mediumTextSize"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"/>

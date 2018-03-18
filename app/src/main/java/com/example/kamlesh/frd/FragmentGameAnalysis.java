@@ -11,6 +11,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.kamlesh.frd.Models.Questionlist;
+import com.example.kamlesh.frd.ScorePagePOJO.CustomVerticalTextView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -30,7 +36,12 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.google.gson.Gson;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -40,12 +51,16 @@ import java.util.List;
 public class FragmentGameAnalysis extends Fragment {
 
     private int page;
+    String QuestionAndAnswers;
+    JSONObject object= null;
+    JSONArray array=null;
     LineChart chartScore, chartTime;
     TextView textView9, textView10, textView11, textView12, graphType;
-    ViewPager viewPager, graphViewPager;
+    ViewPager reviewQuesViewPager, graphViewPager;
     LinearLayout previousPage;
     int []scoreArray = new int[7];
     int []userAnswers = new int[7];
+    int []qnoforperk = new int[2];
     float []timeArray = new float[7];
     float totalTime;
 
@@ -67,6 +82,8 @@ public class FragmentGameAnalysis extends Fragment {
         totalTime = getArguments().getFloat("totalTime");
         timeArray = getArguments().getFloatArray("timeArray");
         userAnswers = getArguments().getIntArray("userAnswers");
+        qnoforperk = getArguments().getIntArray("qnoforperk");
+        QuestionAndAnswers = getArguments().getString("QuestionAndAnswers");
     }
 
     // Inflate the view for the fragment based on layout XML
@@ -74,7 +91,7 @@ public class FragmentGameAnalysis extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_game_analysis, container, false);
         textView9 = (TextView)view.findViewById(R.id.textView9);
-        viewPager = (ViewPager)view.findViewById(R.id.viewPager);
+        reviewQuesViewPager = (ViewPager)view.findViewById(R.id.viewPager);
         graphViewPager = (ViewPager)view.findViewById(R.id.graphViewPager);
         previousPage = (LinearLayout)view.findViewById(R.id.previousPage);
         graphType = (TextView)view.findViewById(R.id.textGraphType);
@@ -91,21 +108,37 @@ public class FragmentGameAnalysis extends Fragment {
             }
         });
 
-        /*int []location = new int[2];
-        chartScore.getLocationOnScreen(location);
-        int x = location[0];
-        int y = location[1];*/
-
-        viewPager.setAdapter(new ReviewQuestionsPagerAdapter(getActivity().getApplicationContext(),scoreArray,timeArray));
-        viewPager.setPageMargin(12);
-        final SmartTabLayout graphTabs = (SmartTabLayout) view.findViewById(R.id.viewpagertab);
-        final LinearLayout lytabs = (LinearLayout) graphTabs.getChildAt(0);
-
+        //setting questions and answers to adapter
+        System.out.println("DATA................."+QuestionAndAnswers);
+        try {
+            object = new JSONObject(QuestionAndAnswers);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            array=object.getJSONArray("questionlist");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Questionlist[] list = new Gson().fromJson(String.valueOf(array), Questionlist[].class);
+        int k[]=new int[8];
+        for(int i=0;i<7;i++)
+            k[i]=userAnswers[i];
+        if(qnoforperk[1]!=9)
+        {
+            int temp=k[qnoforperk[1]];
+            k[qnoforperk[1]]=2;
+            k[7]=temp;
+        }
+        reviewQuesViewPager.setAdapter(new ReviewQuestionsPagerAdapter(getActivity().getApplicationContext(),scoreArray,timeArray, list, k));
+        reviewQuesViewPager.setPageMargin(12);
+        final SmartTabLayout reviewQuesTabs = (SmartTabLayout) view.findViewById(R.id.viewpagertab);
+        final LinearLayout lytabs = (LinearLayout) reviewQuesTabs.getChildAt(0);
         if (userAnswers[0] == 1)
-            graphTabs.setSelectedIndicatorColors(getResources().getColor(R.color.correctAnswer));
+            reviewQuesTabs.setSelectedIndicatorColors(getResources().getColor(R.color.correctAnswer));
         else
-            graphTabs.setSelectedIndicatorColors(getResources().getColor(R.color.wrongAnswer));
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            reviewQuesTabs.setSelectedIndicatorColors(getResources().getColor(R.color.wrongAnswer));
+        reviewQuesViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
@@ -113,22 +146,22 @@ public class FragmentGameAnalysis extends Fragment {
             public void onPageSelected(int position) {
                 changeTabFont(lytabs, position);
                 if (userAnswers[position] == 1)
-                    graphTabs.setSelectedIndicatorColors(getResources().getColor(R.color.correctAnswer));
+                    reviewQuesTabs.setSelectedIndicatorColors(getResources().getColor(R.color.correctAnswer));
                 else
-                    graphTabs.setSelectedIndicatorColors(getResources().getColor(R.color.wrongAnswer));
+                    reviewQuesTabs.setSelectedIndicatorColors(getResources().getColor(R.color.wrongAnswer));
             }
             @Override
             public void onPageScrollStateChanged(int state) {
             }
         });
-        graphTabs.setViewPager(viewPager);
+        reviewQuesTabs.setViewPager(reviewQuesViewPager);
         System.out.println("getChildCount for graph = "+lytabs.getChildCount());
         changeTabFont(lytabs, 0);
 
         graphViewPager.setAdapter(new GraphPagerAdapter(getActivity().getApplicationContext()));
         graphViewPager.setPageMargin(12);
-        final SmartTabLayout revieqQuestTabs = (SmartTabLayout) view.findViewById(R.id.viewpagertab1);
-        final LinearLayout lytabs1 = (LinearLayout) revieqQuestTabs.getChildAt(0);
+        final SmartTabLayout graphTabs = (SmartTabLayout) view.findViewById(R.id.viewpagertab1);
+        final LinearLayout lytabs1 = (LinearLayout) graphTabs.getChildAt(0);
 
         graphViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -138,15 +171,15 @@ public class FragmentGameAnalysis extends Fragment {
             public void onPageSelected(int position) {
                 changeTabFont(lytabs1, position);
                 if (position == 0)
-                    revieqQuestTabs.setSelectedIndicatorColors(getResources().getColor(R.color.chartScoreColor));
+                    graphTabs.setSelectedIndicatorColors(getResources().getColor(R.color.chartScoreColor));
                 else if (position == 1)
-                    revieqQuestTabs.setSelectedIndicatorColors(getResources().getColor(R.color.chartTimeColor));
+                    graphTabs.setSelectedIndicatorColors(getResources().getColor(R.color.chartTimeColor));
             }
             @Override
             public void onPageScrollStateChanged(int state) {
             }
         });
-        revieqQuestTabs.setViewPager(graphViewPager);
+        graphTabs.setViewPager(graphViewPager);
         System.out.println("getChildCount for qlist = "+lytabs1.getChildCount());
         changeTabFont(lytabs1, 0);
 
@@ -308,6 +341,8 @@ public class FragmentGameAnalysis extends Fragment {
         LayoutInflater mLayoutInflater;
         int [] mScore = new int[7];
         float [] mTime = new float[7];
+        Questionlist[] mData;
+        int[] mAns = new int[7];
         String[] pageTitle = {
                 "1",
                 "2",
@@ -318,11 +353,13 @@ public class FragmentGameAnalysis extends Fragment {
                 "7"
         };
 
-        public ReviewQuestionsPagerAdapter(Context context, int[] score, float[] time) {
+        public ReviewQuestionsPagerAdapter(Context context, int[] score, float[] time, Questionlist[] data, int[] ans) {
             mContext = context;
             mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mScore = score;
             mTime = time;
+            mData = data;
+            mAns = ans;
         }
 
         @Override
@@ -347,6 +384,8 @@ public class FragmentGameAnalysis extends Fragment {
             TextView textView13 = (TextView) itemView.findViewById(R.id.textView13);
             TextView textView14 = (TextView) itemView.findViewById(R.id.textView14);
             TextView textView15 = (TextView) itemView.findViewById(R.id.textView15);
+            CustomVerticalTextView customVerticalTextView = (CustomVerticalTextView) itemView.findViewById(R.id.verticalTextView);
+            CustomVerticalTextView customVerticalTextView1 = (CustomVerticalTextView) itemView.findViewById(R.id.verticalTextView1);
             LinearLayout linearLayout1 = (LinearLayout) itemView.findViewById(R.id.aboveLayout);
 
             Typeface ourLightFont = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/primelight.otf");
@@ -359,16 +398,20 @@ public class FragmentGameAnalysis extends Fragment {
             textView13.setTypeface(ourBoldFont);
             textView14.setTypeface(ourBoldFont);
             textView15.setTypeface(ourBoldFont);
+            customVerticalTextView.setTypeface(ourLightFont);
+            customVerticalTextView1.setTypeface(ourLightFont);
 
             score.setText(String.valueOf(mScore[position]));
             time.setText(String.valueOf(mTime[position]));
 
+            //setting color of above banner which have score and time displayed on it
             if (userAnswers[position] == 1) {
                 Drawable icon1 = getResources().getDrawable(R.drawable.game_analysis_st);
                 Drawable mWrappedDrawable1 = icon1.mutate();
                 mWrappedDrawable1 = DrawableCompat.wrap(mWrappedDrawable1);
                 DrawableCompat.setTint(mWrappedDrawable1, getResources().getColor(R.color.correctAnswer));
                 linearLayout1.setBackground(mWrappedDrawable1);
+                correctOption.setTextColor(getResources().getColor(R.color.correctAnswer));
             }
             else {
                 Drawable icon2 = getResources().getDrawable(R.drawable.game_analysis_st);
@@ -376,10 +419,74 @@ public class FragmentGameAnalysis extends Fragment {
                 mWrappedDrawable2 = DrawableCompat.wrap(mWrappedDrawable2);
                 DrawableCompat.setTint(mWrappedDrawable2, getResources().getColor(R.color.wrongAnswer));
                 linearLayout1.setBackground(mWrappedDrawable2);
+                correctOption.setTextColor(getResources().getColor(R.color.wrongAnswer));
+            }
+            String s1 = "Ques "+(position+1)+": ";
+            String s2 = "Ans: ";
+            SpannableString quesString = new SpannableString(s1);
+            SpannableString ansString = new SpannableString(s2);
+            quesString.setSpan(new RelativeSizeSpan(0.7f),0,5,0);
+            ansString.setSpan(new RelativeSizeSpan(0.7f),0,5,0);
+            quesString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.textColorSecondary)),0,5,0);
+            ansString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.textColorSecondary)),0,5,0);
+
+            final Questionlist questionList=mData[position];
+            if (mAns[position] != 2) {
+                // when question is not skipped
+                question.setText(quesString+questionList.getQuestion());
+                switch (questionList.getAnswer()) {
+                    case "A": {
+                        correctOption.setText("Option A");
+                        answer.setText(ansString + questionList.getA());
+                        break;
+                    }
+                    case "B": {
+                        correctOption.setText("Option B");
+                        answer.setText(ansString + questionList.getB());
+                        break;
+                    }
+                    case "C": {
+                        correctOption.setText("Option C");
+                        answer.setText(ansString + questionList.getC());
+                        break;
+                    }
+                    default:
+                        correctOption.setText("Option D");
+                        answer.setText(ansString + questionList.getD());
+                }
+            }
+            else {
+                //when question is skipped
+                final Questionlist questionList1=mData[7];
+                question.setText(quesString+questionList1.getQuestion());
+                switch (questionList.getAnswer()) {
+                    case "A": {
+                        correctOption.setText("Option A");
+                        answer.setText(ansString + questionList1.getA());
+                        break;
+                    }
+                    case "B": {
+                        correctOption.setText("Option B");
+                        answer.setText(ansString + questionList1.getB());
+                        break;
+                    }
+                    case "C": {
+                        correctOption.setText("Option C");
+                        answer.setText(ansString + questionList1.getC());
+                        break;
+                    }
+                    default:
+                        correctOption.setText("Option D");
+                        answer.setText(ansString + questionList1.getD());
+                }
             }
 
-            container.addView(itemView);
+            if (qnoforperk[0]==position)
+                customVerticalTextView.setVisibility(View.VISIBLE);
+            if (qnoforperk[1]==position)
+                customVerticalTextView1.setVisibility(View.VISIBLE);
 
+            container.addView(itemView);
             return itemView;
         }
 

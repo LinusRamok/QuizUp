@@ -27,6 +27,7 @@
     <color name="dotsGeneralColor">#55ffffff</color>
     <color name="chartScoreColor">@color/colorPrimary</color>
     <color name="chartTimeColor">@color/colorAccent</color>
+    <color name="timeColor">#36D8C9</color>
 
     <array name="scoreColor">
         <item>#ff0000</item>

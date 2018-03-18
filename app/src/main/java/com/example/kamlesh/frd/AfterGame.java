@@ -114,6 +114,8 @@ public class AfterGame extends AppCompatActivity {
         bundle1.putFloatArray("timeArray", timeArray);
         bundle1.putFloat("totalTime", totalTimeF);
         bundle1.putIntArray("userAnswers",ans);
+        bundle1.putString("QuestionAndAnswers",questionsAndAnswers);
+        bundle1.putIntArray("qnoforperk",qnoforperk);
 
         //setting up vertical view pager
         vpPager = (CustomVerticalViewPager) findViewById(R.id.vpPager);

@@ -68,19 +68,19 @@
     <RelativeLayout
         android:id="@+id/midLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="15dp"
         android:layout_below="@id/aboveLayout">
 
         <View
             android:layout_width="2dp"
-            android:layout_height="20dp"
+            android:layout_height="match_parent"
             android:background="@color/textColorPrimary"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="70dp"/>
 
         <View
             android:layout_width="2dp"
-            android:layout_height="20dp"
+            android:layout_height="match_parent"
             android:background="@color/textColorPrimary"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="70dp"/>

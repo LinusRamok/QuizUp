@@ -15,8 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -100,47 +98,57 @@ public class FragmentGameAnalysis extends Fragment {
 
         viewPager.setAdapter(new ReviewQuestionsPagerAdapter(getActivity().getApplicationContext(),scoreArray,timeArray));
         viewPager.setPageMargin(12);
-        final SmartTabLayout viewPagerTab = (SmartTabLayout) view.findViewById(R.id.viewpagertab);
+        final SmartTabLayout graphTabs = (SmartTabLayout) view.findViewById(R.id.viewpagertab);
+        final LinearLayout lytabs = (LinearLayout) graphTabs.getChildAt(0);
+
         if (userAnswers[0] == 1)
-            viewPagerTab.setSelectedIndicatorColors(getResources().getColor(R.color.correctAnswer));
+            graphTabs.setSelectedIndicatorColors(getResources().getColor(R.color.correctAnswer));
         else
-            viewPagerTab.setSelectedIndicatorColors(getResources().getColor(R.color.wrongAnswer));
+            graphTabs.setSelectedIndicatorColors(getResources().getColor(R.color.wrongAnswer));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
             @Override
             public void onPageSelected(int position) {
+                changeTabFont(lytabs, position);
                 if (userAnswers[position] == 1)
-                    viewPagerTab.setSelectedIndicatorColors(getResources().getColor(R.color.correctAnswer));
+                    graphTabs.setSelectedIndicatorColors(getResources().getColor(R.color.correctAnswer));
                 else
-                    viewPagerTab.setSelectedIndicatorColors(getResources().getColor(R.color.wrongAnswer));
+                    graphTabs.setSelectedIndicatorColors(getResources().getColor(R.color.wrongAnswer));
             }
             @Override
             public void onPageScrollStateChanged(int state) {
             }
         });
-        viewPagerTab.setViewPager(viewPager);
+        graphTabs.setViewPager(viewPager);
+        System.out.println("getChildCount for graph = "+lytabs.getChildCount());
+        changeTabFont(lytabs, 0);
 
         graphViewPager.setAdapter(new GraphPagerAdapter(getActivity().getApplicationContext()));
         graphViewPager.setPageMargin(12);
-        final SmartTabLayout viewPagerTab1 = (SmartTabLayout) view.findViewById(R.id.viewpagertab1);
+        final SmartTabLayout revieqQuestTabs = (SmartTabLayout) view.findViewById(R.id.viewpagertab1);
+        final LinearLayout lytabs1 = (LinearLayout) revieqQuestTabs.getChildAt(0);
+
         graphViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
             @Override
             public void onPageSelected(int position) {
+                changeTabFont(lytabs1, position);
                 if (position == 0)
-                    viewPagerTab1.setSelectedIndicatorColors(getResources().getColor(R.color.chartScoreColor));
+                    revieqQuestTabs.setSelectedIndicatorColors(getResources().getColor(R.color.chartScoreColor));
                 else if (position == 1)
-                    viewPagerTab1.setSelectedIndicatorColors(getResources().getColor(R.color.chartTimeColor));
+                    revieqQuestTabs.setSelectedIndicatorColors(getResources().getColor(R.color.chartTimeColor));
             }
             @Override
             public void onPageScrollStateChanged(int state) {
             }
         });
-        viewPagerTab1.setViewPager(graphViewPager);
+        revieqQuestTabs.setViewPager(graphViewPager);
+        System.out.println("getChildCount for qlist = "+lytabs1.getChildCount());
+        changeTabFont(lytabs1, 0);
 
         System.out.println("scoreArray = "+scoreArray[0]+" "+scoreArray[1]+" "+scoreArray[2]+" "+scoreArray[3]+" "+scoreArray[4]+" "+scoreArray[5]+" "+scoreArray[6]);
         System.out.println("timeArray = "+timeArray[0]+" "+timeArray[1]+" "+timeArray[2]+" "+timeArray[3]+" "+timeArray[4]+" "+timeArray[5]+" "+timeArray[6]);
@@ -224,6 +232,32 @@ public class FragmentGameAnalysis extends Fragment {
         chartTime.invalidate();
     }
 
+    //to set typeface of SmartTabLayout
+    public void changeTabFont(LinearLayout ly, int position) {
+        /*Typeface ourBoldFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/primebold.otf");
+        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int j=0; j<tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup)vg.getChildAt(j);
+            int tabChildCount = vg.getChildCount();
+            for (int i=0; i<tabChildCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    ((TextView)tabViewChild).setTypeface(ourBoldFont,Typeface.NORMAL);
+                }
+            }
+        }*/
+        Typeface ourBoldFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/primebold.otf");
+        Typeface ourLightFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/primelight.otf");
+        for (int j = 0; j < ly.getChildCount(); j++) {
+            System.out.println("getChildCount for loop "+j+" = "+ly.getChildCount());
+            TextView tvTabTitle = (TextView) ly.getChildAt(j);
+            tvTabTitle.setTypeface(ourLightFont, Typeface.NORMAL);
+            if (j==position)
+                tvTabTitle.setTypeface(ourBoldFont, Typeface.BOLD);
+        }
+    }
+
     //to format int values
     public class MyGraph1ValueFormatter implements IValueFormatter {
 
@@ -281,7 +315,7 @@ public class FragmentGameAnalysis extends Fragment {
                 "4",
                 "5",
                 "6",
-                "7",
+                "7"
         };
 
         public ReviewQuestionsPagerAdapter(Context context, int[] score, float[] time) {

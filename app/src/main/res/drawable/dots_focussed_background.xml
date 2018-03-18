@@ -22,7 +22,7 @@
                     <stroke
                         android:width="2dp"
                         android:color="@color/windowBackground" />
-                    <solid android:color="@color/colorPrimary" />
+                    <solid android:color="@color/windowBackground" />
                     <size android:height="25dp"
                         android:width="25dp"/>
                 </shape>

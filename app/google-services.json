@@ -1,65 +1,21 @@
 {
   "project_info": {
-    "project_number": "273244295267",
-    "firebase_url": "https://live-train-status-c349e.firebaseio.com",
-    "project_id": "live-train-status-c349e",
-    "storage_bucket": "live-train-status-c349e.appspot.com"
+    "project_number": "458257249404",
+    "firebase_url": "https://quizone-83a4d.firebaseio.com",
+    "project_id": "quizone-83a4d",
+    "storage_bucket": "quizone-83a4d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:273244295267:android:8d2a4a24825164a4",
-        "android_client_info": {
-          "package_name": "com.SahuAppsPvtLtd.myTrainEnquiryApp"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "273244295267-4ct66t0k85oh21mrtnvtc33b5plt63o7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.SahuAppsPvtLtd.myTrainEnquiryApp",
-            "certificate_hash": "6bd1440a611360670f50d464b78187b3b69c68ae"
-          }
-        },
-        {
-          "client_id": "273244295267-n4gtbh17dihd203c1n4rhs2vd630dgs1.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBELDRQWFdrX5JiGbTDzvBk0jJGksjicNc"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "273244295267-n4gtbh17dihd203c1n4rhs2vd630dgs1.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:273244295267:android:34acc1f46d0f3f51",
+        "mobilesdk_app_id": "1:458257249404:android:34acc1f46d0f3f51",
         "android_client_info": {
           "package_name": "com.example.kamlesh.frd"
         }
       },
       "oauth_client": [
         {
-          "client_id": "273244295267-lr6e6fpp2egmiu4h7spjpg3kbktugeee.apps.googleusercontent.com",
+          "client_id": "458257249404-n8e6b2nk3kdlu5ovm7b8kdrd0jv0b5r9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.kamlesh.frd",
@@ -67,21 +23,13 @@
           }
         },
         {
-          "client_id": "273244295267-h6p10kjssqspusglk2naokja2aemdi0d.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.kamlesh.frd",
-            "certificate_hash": "6567d97298eb87b00c458703414cffc27d8fbea9"
-          }
-        },
-        {
-          "client_id": "273244295267-n4gtbh17dihd203c1n4rhs2vd630dgs1.apps.googleusercontent.com",
+          "client_id": "458257249404-4t3oqkmoi3p77d4c2nfhicrlla847jro.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBELDRQWFdrX5JiGbTDzvBk0jJGksjicNc"
+          "current_key": "AIzaSyDd9DPBmWNGKV5DDtX3TYwNpN6-SNx08ko"
         }
       ],
       "services": {
@@ -92,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "273244295267-n4gtbh17dihd203c1n4rhs2vd630dgs1.apps.googleusercontent.com",
+              "client_id": "458257249404-4t3oqkmoi3p77d4c2nfhicrlla847jro.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

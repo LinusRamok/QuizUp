@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Google Play game services IDs.
+Save this file as res/values/games-ids.xml in your project.
+-->
+<resources>
+    <!-- app_id -->
+    <string name="app_id" translatable="false">458257249404</string>
+    <!-- package_name -->
+    <string name="package_name" translatable="false">com.example.kamlesh.frd</string>
+    
+</resources>

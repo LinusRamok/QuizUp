@@ -51,7 +51,6 @@
             android:label="Topic page" />
         <activity android:name=".GamePlay" />
         <activity android:name=".RankingPageActivity" />
-        <activity android:name=".ScorePageActivity" />
         <activity android:name=".AfterGame" />
         <activity android:name=".MultiplayerGameplay"></activity>
     </application>

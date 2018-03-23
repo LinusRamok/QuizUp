@@ -200,7 +200,7 @@ public class FragmentScorePage extends Fragment {
             e.printStackTrace();
         }
 
-        String URL = "https://quizgame-backend.appspot.com/_ah/api/myapi/v1/updateStats?PID="+PID+"&Q_Correct="+s+"&Score="+finalScore+"&Topic="+TopicKey;
+        String URL = LoginActivity.URLprefix+"updateStats?PID="+PID+"&Q_Correct="+s+"&Score="+finalScore+"&Topic="+TopicKey;
         System.out.println("url :"+URL);
 
         //Data Downloader-Volley

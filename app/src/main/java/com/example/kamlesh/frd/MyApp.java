@@ -37,7 +37,7 @@ public class MyApp extends Application {
         remoteConfigDefaults.put(ForceUpdateChecker.KEY_CURRENT_VERSION, "1.0.0");
         remoteConfigDefaults.put(ForceUpdateChecker.KEY_UPDATE_URL, "http://play.google.com/store/apps/details?id=com.SahuAppsPvtLtd.myTrainEnquiryApp");
         remoteConfigDefaults.put(UrlUpdateChecker.URL_UPDATE_REQUIRED,false);
-        remoteConfigDefaults.put(UrlUpdateChecker.UPDATED_URL,"https://quizgame-backend.appspot.com/_ah/api/myapi/v1/");
+        remoteConfigDefaults.put(UrlUpdateChecker.UPDATED_URL,"https://quizone-apis.appspot.com/_ah/api/myapi/v1/");
 
         firebaseRemoteConfig.setDefaults(remoteConfigDefaults);
 

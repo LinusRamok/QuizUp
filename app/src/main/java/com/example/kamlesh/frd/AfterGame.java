@@ -208,7 +208,7 @@ public class AfterGame extends AppCompatActivity {
             }
             try {
                 String PID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                URL url = new URL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?"); // here is your URL path
+                URL url = new URL(LoginActivity.URLprefix+"dnldQuests?"); // here is your URL path
 
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("PID",PID);

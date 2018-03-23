@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity implements UrlUpdateChecker
 
         if (prefs2.getBoolean("firstrun",true))
         {
-            URLprefix="https://quizgame-backend.appspot.com/_ah/api/myapi/v1/";
+            URLprefix="https://quizone-apis.appspot.com/_ah/api/myapi/v1/";
 //            String tm="create table if not exists urltable(sno varchar(2),urlvalue varchar(80))";
 //            db.execSQL(tm);
 //

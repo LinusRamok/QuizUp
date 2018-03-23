@@ -241,7 +241,7 @@ public class TopicPage extends AppCompatActivity {
 
             try {
                 String PID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                String url ="https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID="+PID+"&Topic="+TopicKey;
+                String url =LoginActivity.URLprefix+"dnldQuests?PID="+PID+"&Topic="+TopicKey;
 
                 System.out.println("heare is the url :\n"+url);
 
@@ -300,10 +300,10 @@ public class TopicPage extends AppCompatActivity {
 
 //            try {
 //
-//             //   JSONObject response = getJSONObjectFromURL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID="+PID+"&Topic="+TopicKey); // calls method to get JSON object
+//             //   JSONObject response = getJSONObjectFromURL(LoginActivity.URLprefix+"dnldQuests?PID="+PID+"&Topic="+TopicKey); // calls method to get JSON object
 //                HttpURLConnection urlConnection = null;
 //
-//                URL url = new URL("https://quizgame-backend.appspot.com/_ah/api/myapi/v1/dnldQuests?PID="+PID+"&Topic="+TopicKey);
+//                URL url = new URL(LoginActivity.URLprefix+"dnldQuests?PID="+PID+"&Topic="+TopicKey);
 //
 //                urlConnection = (HttpURLConnection) url.openConnection();
 //

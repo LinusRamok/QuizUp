@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.kamlesh.frd.FragmentGameAnalysis"
+    tools:context="com.alias.quizone.quizone.com.example.alias.FragmentGameAnalysis"
     android:background="@color/colorPrimaryDark">
 
     <LinearLayout

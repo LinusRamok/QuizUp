@@ -93,7 +93,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/midLayout">
 
-        <com.example.kamlesh.frd.ScorePagePOJO.CustomVerticalTextView
+        <com.alias.quizone.ScorePagePOJO.CustomVerticalTextView
             android:id="@+id/verticalTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
             android:textColor="@color/perkColor"
             android:visibility="invisible"/>
 
-        <com.example.kamlesh.frd.ScorePagePOJO.CustomVerticalTextView
+        <com.alias.quizone.ScorePagePOJO.CustomVerticalTextView
             android:id="@+id/verticalTextView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

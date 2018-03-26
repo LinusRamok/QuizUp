@@ -33,7 +33,7 @@
         android:textColor="@color/textColorSecondary"
         android:alpha="0.8"/>
 
-    <com.example.kamlesh.frd.ScorePagePOJO.CustomVerticalTextView
+    <com.alias.quizone.ScorePagePOJO.CustomVerticalTextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
         android:textColor="@color/chartScoreColor"
         android:visibility="visible"/>
 
-    <com.example.kamlesh.frd.ScorePagePOJO.CustomVerticalTextView
+    <com.alias.quizone.ScorePagePOJO.CustomVerticalTextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

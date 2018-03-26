@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "458257249404",
-    "firebase_url": "https://quizone-83a4d.firebaseio.com",
-    "project_id": "quizone-83a4d",
-    "storage_bucket": "quizone-83a4d.appspot.com"
+    "project_number": "128926698929",
+    "firebase_url": "https://quizone-68580.firebaseio.com",
+    "project_id": "quizone-68580",
+    "storage_bucket": "quizone-68580.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:458257249404:android:34acc1f46d0f3f51",
+        "mobilesdk_app_id": "1:128926698929:android:3c2a9d3d83501e84",
         "android_client_info": {
-          "package_name": "com.example.kamlesh.frd"
+          "package_name": "com.alias.quizone"
         }
       },
       "oauth_client": [
         {
-          "client_id": "458257249404-n8e6b2nk3kdlu5ovm7b8kdrd0jv0b5r9.apps.googleusercontent.com",
+          "client_id": "128926698929-ep13mfnrbj0a6lkic0nuerpaaupvjt6r.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.kamlesh.frd",
-            "certificate_hash": "15ec211621432a1f083bd81238d6d603e6526e78"
+            "package_name": "com.alias.quizone",
+            "certificate_hash": "99861681839fdd1e5f43cb664e71358b9d30fabc"
           }
         },
         {
-          "client_id": "458257249404-4t3oqkmoi3p77d4c2nfhicrlla847jro.apps.googleusercontent.com",
+          "client_id": "128926698929-532l8vd1vqk4o8uqlv4ts1d83d6vkhpe.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDd9DPBmWNGKV5DDtX3TYwNpN6-SNx08ko"
+          "current_key": "AIzaSyBEqA5fpF7hSsrwPwrlBbW7Gsp9w-oZADM"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "458257249404-4t3oqkmoi3p77d4c2nfhicrlla847jro.apps.googleusercontent.com",
+              "client_id": "128926698929-532l8vd1vqk4o8uqlv4ts1d83d6vkhpe.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

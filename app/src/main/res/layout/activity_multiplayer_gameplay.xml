@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.kamlesh.frd.MultiplayerGameplay">
+    tools:context="com.alias.quizone.MultiplayerGameplay">
 
 </android.support.constraint.ConstraintLayout>

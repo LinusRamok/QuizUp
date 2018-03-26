@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.kamlesh.frd.AfterGame">
+    tools:context="com.alias.quizone.AfterGame">
 
-    <com.example.kamlesh.frd.ScorePagePOJO.CustomVerticalViewPager
+    <com.alias.quizone.ScorePagePOJO.CustomVerticalViewPager
         android:id="@+id/vpPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:swipe_orientation="vertical">
-    </com.example.kamlesh.frd.ScorePagePOJO.CustomVerticalViewPager>
+    </com.alias.quizone.ScorePagePOJO.CustomVerticalViewPager>
 
 </RelativeLayout>

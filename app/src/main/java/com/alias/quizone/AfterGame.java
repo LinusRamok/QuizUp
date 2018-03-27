@@ -211,16 +211,15 @@ public class AfterGame extends AppCompatActivity {
 
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("PID",PID);
-                postDataParams.put("Qid1",qid[0]);
-                postDataParams.put("Qid2",qid[1]);
-                postDataParams.put("Qid3",qid[2]);
-                postDataParams.put("Qid4",qid[3]);
-                postDataParams.put("Qid5",qid[4]);
-                postDataParams.put("Qid6",qid[5]);
-                postDataParams.put("Qid7",qid[6]);
+                for (int l=0;l<=6;l++)
+                {
+                    String[] value=qid[l].split("-");
+                    int val=Integer.parseInt(value[1]);
+                    postDataParams.put("Qid"+l+1,val);
+                }
 
-//                postDataParams.put("name", "abc");
-//                postDataParams.put("email", "abc@gmail.com");
+                postDataParams.put("Topic",Topic_name);
+
                 System.out.println("params :"+postDataParams.toString());
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000 /* milliseconds */);
@@ -256,6 +255,7 @@ public class AfterGame extends AppCompatActivity {
                     }
 
                     in.close();
+                    System.out.println("response :"+sb.toString());
                     return sb.toString();
 
                 }
@@ -271,7 +271,7 @@ public class AfterGame extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(), result,
+            Toast.makeText(getApplicationContext(),result,
                     Toast.LENGTH_LONG).show();
         }
     }

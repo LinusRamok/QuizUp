@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements UrlUpdateChecker
     static GoogleApiClient mGoogleSignInClient;
     SharedPreferences prefs,prefs2;
     ProgressDialog dialog;
-    static String URLprefix="skjhhjunil";
+    static String URLprefix="https://quizgame-backend.appspot.com/_ah/api/myapi/v1/";
 
 //     SQLiteDatabase db;
     @Override
@@ -73,7 +73,6 @@ public class LoginActivity extends AppCompatActivity implements UrlUpdateChecker
     @Override
     protected void onStart() {
         super.onStart();
-
         mAuth.addAuthStateListener(mAuthListener);
 
     }

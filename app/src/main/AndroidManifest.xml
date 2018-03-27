@@ -9,7 +9,7 @@
         android:name="com.alias.quizone.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="quiz app"
+        android:label="QuiZone"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -17,7 +17,7 @@
         <activity android:name="com.alias.quizone.Select_Topic" />
         <activity
             android:name="com.alias.quizone.LoginActivity"
-            android:label="Select Any Topic">
+            android:label="QuiZone">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

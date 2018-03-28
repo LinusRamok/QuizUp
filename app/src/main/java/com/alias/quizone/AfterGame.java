@@ -207,7 +207,7 @@ public class AfterGame extends AppCompatActivity {
             }
             try {
                 String PID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                URL url = new URL(LoginActivity.URLprefix+"dnldQuests?"); // here is your URL path
+                URL url = new URL(LoginActivity.URLprefix+"uploadStats_Post?"); // here is your URL path
 
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("PID",PID);
@@ -215,7 +215,7 @@ public class AfterGame extends AppCompatActivity {
                 {
                     String[] value=qid[l].split("-");
                     int val=Integer.parseInt(value[1]);
-                    postDataParams.put("Qid"+l+1,val);
+                    postDataParams.put("Qid"+(l+1),val);
                 }
 
                 postDataParams.put("Topic",Topic_name);
@@ -232,7 +232,6 @@ public class AfterGame extends AppCompatActivity {
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"));
                 writer.write(getPostDataString(postDataParams));
-
                 writer.flush();
                 writer.close();
                 os.close();
@@ -255,7 +254,7 @@ public class AfterGame extends AppCompatActivity {
                     }
 
                     in.close();
-                    System.out.println("response :"+sb.toString());
+                    System.out.println("response :"+sb);
                     return sb.toString();
 
                 }
@@ -298,6 +297,7 @@ public class AfterGame extends AppCompatActivity {
             result.append(URLEncoder.encode(value.toString(), "UTF-8"));
 
         }
+        System.out.println("urlllll"+result.toString());
         return result.toString();
     }
 

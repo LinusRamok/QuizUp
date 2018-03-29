@@ -246,11 +246,10 @@ public class AfterGame extends AppCompatActivity {
 
                     StringBuffer sb = new StringBuffer("");
                     String line="";
-
+                    int i=0;
                     while((line = in.readLine()) != null) {
-
+                        System.out.println("Bufferline"+i+line);
                         sb.append(line);
-                        break;
                     }
 
                     in.close();
@@ -270,8 +269,9 @@ public class AfterGame extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(),result,
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(),result,
+//                    Toast.LENGTH_LONG).show();
+            System.out.println(result);
         }
     }
 

@@ -1,7 +1,7 @@
 # QuizUp
 This is a Quiz game where all questions are online updated. The detailed statistics and analysis are shown after each game. It also features a topic-wise online ranking system to compete with friends and around the globe.
 
-# For the video of the QuizUp, go through this link-
+# QuizUp walkthrough video
 https://drive.google.com/file/d/1eiWw28U3ssw9oeoL9_29rHjYMApqlmn_/view?usp=drivesdk
 
 # ScreenShots
